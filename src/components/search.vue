@@ -14,7 +14,7 @@
           <icon class="icon" icon="fas fa-map-marker-alt" />
           <input type="text" class="input city" placeholder="Şehir ya da plaka kodu">
         </div>
-        <button>İş Bul</button>
+        <button class="primary-btn">İş Bul</button>
       </div>
     </div>
     <div class="imgDiv">
@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  name: 'Home',
+  name: 'search',
 }
 </script>
 
@@ -71,7 +71,6 @@ export default {
         display: flex;
         align-items: center;
 
-
         .input {
           border: none;
           padding-left: 12px;
@@ -101,6 +100,7 @@ export default {
         .icon {
           color: $gray;
           font-size: 25px;
+          transform: translateY(-3px);
         }
 
       }
@@ -110,27 +110,6 @@ export default {
         font-size: 25px;
         border-right: 2px #a9a9a971 solid;
         height: 52px;
-      }
-
-      button {
-        padding-block: 10px;
-        padding-inline: 50px;
-        background-color: $primary;
-        color: white;
-        border: none;
-        font-size: 28px;
-        transition: 300ms;
-        
-        // border-radius: $radius;
-        border-top-right-radius: $radius;
-        border-bottom-right-radius: $radius;
-        &:hover {
-          background-color: $primary-hover ;
-        }
-
-        &:active {
-          opacity: 0.8;
-        }
       }
 
     }

@@ -1,52 +1,53 @@
 <template>
   <div class="container">
 
-    <h3>Son eklenen reklamlar</h3>
+    <h2>Son eklenen ilanlar</h2>
 
     <div class="ads">
       <div class="ad" v-for="ad in ads" :key="ad.id">
-        <img :src="ad.img" alt="">
+        <a href="" class="logo">
+          <img :src="ad.img" alt="">
+        </a>
         <div class="adtext">
           <h4>{{ ad.position }}</h4>
           <div class="details">
             <div class="detail">
               <icon icon="fa-solid fa-suitcase" />
               <p>{{ ad.company }}</p>
-            </div>
+            </div>  
             <div class="detail">
               <icon icon="fa-solid fa-money-bill" />
               <p>{{ ad.salary }}{{ ad.salary ? '' : 'Belirtilmedi' }}</p>
             </div>
-            <div class="detail">
+            <!-- <div class="detail">
               <icon icon="fa-solid fa-clock" />
               <p>{{ }}</p>
-            </div>
+            </div> -->
             <div class="detail">
-              <icon icon="fa-solid fa-location" />
+              <icon icon="fas fa-map-marker-alt" />
+
               <p>{{ ad.province }}-{{ ad.district }}</p>
             </div>
 
+
+          </div>
+          <div class="extras">
             <div class="urgent extra" v-if="ad.urgent">
               Acil
             </div>
-
             <div class="time extra">
               {{ ad.type }}
             </div>
-
           </div>
         </div>
       </div>
     </div>
-
-
-
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Home',
+  name: 'HomeAds',
   data() {
     return {
       ads: [
@@ -57,25 +58,47 @@ export default {
           province: 'istanbul',
           district: 'atasehir',
           type: 'tam zamanli',
-          img: 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Boyner_Logo.jpg',
+          img: 'https://t4.ftcdn.net/jpg/03/59/29/07/360_F_359290749_bv1EgfiihMkEluMhEJIFZoA48y30Tgsu.jpg',
           urgent: true,
           salary: '7000 TL',
           tel: '5418862279',
-
         },
         {
           id: '2',
+          position: 'Tavsan Asistanı',
+          company: 'Tavsan Inc',
+          province: 'istanbul',
+          district: 'Tavsantepe',
+          type: 'tam zamanli',
+          img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-25q_2CxnLHzmJULus5FmWh0-uugQ4fnk8w&usqp=CAU',
+          urgent: false,
+          salary: '',
+          tel: '5418862279',
+        },
+        {
+          id: '3',
           position: 'Ataşehir Mağaza Yönetici Asistanı',
           company: 'boyner',
           province: 'istanbul',
           district: 'atasehir',
           type: 'tam zamanli',
-          img: 'https://ais.badische-zeitung.de/piece/0b/03/0e/b3/184749747-h-720.jpg',
+          img: 'https://play-lh.googleusercontent.com/i_8y7fBNjFds0fYb5VDVybgzBI9TC4-54lbd2Mh2kTnm0eTqnVMj_ws2vbP5SAnXw7o',
           urgent: false,
           salary: '',
           tel: '5418862279',
-
-        }
+        },
+        {
+          id: '4',
+          position: 'Ataşehir Mağaza Yönetici Asistanı',
+          company: 'boyner',
+          province: 'istanbul',
+          district: 'atasehir',
+          type: 'tam zamanli',
+          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/H%26M-Logo.svg/2560px-H%26M-Logo.svg.png',
+          urgent: true,
+          salary: '7000 TL',
+          tel: '5418862279',
+        },
       ]
     }
   }
@@ -84,34 +107,43 @@ export default {
 
 <style scoped lang="scss">
 @import '../assets/variables.scss';
-
-h3 {
+h2 {
   text-align: center;
-  margin-block: 55px;
+  margin-bottom: 30px;
 }
 
 .ads {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  gap: 40px;
 
   .ad {
     display: flex;
+    justify-content: space-evenly;
     gap: 20px;
     border: 1px solid $gray;
     width: 46%;
     padding-block: 15px;
     border-radius: $radius;
 
-    img {
-      width: 209px;
+    .logo {
+      width: 20%;
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 100%;
+        object-fit: scale-down;
+      }
     }
 
     .adtext {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
 
-      h4 {
-        margin-inline: auto;
-      }
+
 
       .details {
         color: $gray;
@@ -122,8 +154,13 @@ h3 {
         .detail {
           display: flex;
           gap: 6px;
-
         }
+
+      }
+
+      .extras {
+        display: flex;
+        gap: 12px;
 
         .time {
           background-color: #158BCE;
@@ -136,12 +173,12 @@ h3 {
         }
 
         .extra {
-          padding: 10px;
+          padding-inline: 10px;
+          padding-block: 5px;
           border-radius: $radius;
         }
       }
     }
-
   }
 }
 </style>

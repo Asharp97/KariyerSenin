@@ -15,6 +15,11 @@ import {
   faMoneyBill,
   faClock,
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFacebookF,
+  faInstagram,
+  faTwitter,
+} from "@fortawesome/free-brands-svg-icons";
 
 library.add(
   faPhone,
@@ -22,7 +27,10 @@ library.add(
   faSearch,
   faSuitcase,
   faMoneyBill,
-  faClock
-  );
+  faClock,
+  faInstagram,
+  faTwitter,
+  faFacebookF
+);
 
 createApp(App).component("icon", FontAwesomeIcon).mount("#app");

@@ -31,7 +31,7 @@ export default {
 @import "../assets/variables.scss";
 
 .header {
-  border-bottom: rgba(132, 132, 132, 0.173) 1px solid;
+  border-bottom: $border;
 
 
   .header-content {
