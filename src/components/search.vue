@@ -94,7 +94,6 @@ export default {
             font-size: 20px;
             padding-block: 12px;
           }
-
         }
 
         .icon {
@@ -106,7 +105,6 @@ export default {
       }
 
       .separator {
-        color: $gray;
         font-size: 25px;
         border-right: 2px #a9a9a971 solid;
         height: 52px;

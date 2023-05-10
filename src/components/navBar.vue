@@ -2,16 +2,16 @@
   <div class="header">
     <div class="header-content container">
 
-      <a href="" class=" logo">
+      <router-link to="/" class=" logo">
         <img src="../assets/logo.png">
-      </a>
+      </router-link>
 
       <div class="nav">
-        <a href="">Ana Sayfa</a>
-        <a href=""> İlanlar</a>
-        <a href=""> Fiyatlandırma</a>
-        <a href=""> Hakkımızda</a>
-        <a href=""> İletişim</a>
+        <router-link to="/">Ana Sayfa</router-link>
+        <router-link to="/ads"> İlanlar</router-link>
+        <router-link to="/prices"> Fiyatlandırma</router-link>
+        <router-link to="/about"> Hakkımızda</router-link>
+        <router-link to="/contact"> İletişim</router-link>
       </div>
 
       <a class="phone " href="">
@@ -33,11 +33,10 @@ export default {
 .header {
   border-bottom: $border;
 
-
   .header-content {
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding-block: 10px;
 
     a {
       text-decoration: none;

@@ -1,31 +1,18 @@
 <template >
   <navBar />
-  <main>
-    <search />
-    <homeAds />
-    <startNow />
-    <activeDistricts />
-    <footery />
-  </main>
+  <router-view></router-view>
+  <footery />
 </template>
 
 <script>
 import navBar from './components/navBar.vue';
-import search from './components/search.vue';
-import homeAds from './components/homeAds.vue';
-import startNow from './components/startNow.vue';
-import activeDistricts from './components/activeDistricts.vue';
 import footery from './components/footer.vue';
 
 export default {
   name: 'App',
   components: {
     navBar,
-    search,
-    homeAds,
-    startNow,
-    activeDistricts,
-    footery,
+    footery
   },
 
 }
@@ -35,10 +22,23 @@ export default {
 @import "./assets/variables.scss";
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
+.activate {
+  color: $primary !important;
+  font-weight: 500;
+}
+
+
 main {
   display: flex;
   flex-direction: column;
   gap: 60px;
+}
+
+.gap {
+  display: flex;
+  flex-direction: column;
+  gap: $comperendGap;
+  margin-block: $comperendGap;
 }
 
 * {
@@ -46,7 +46,8 @@ main {
   margin: 0;
 }
 
-a{
+
+a {
   color: inherit;
   text-decoration: none;
 }
