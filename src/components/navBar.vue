@@ -47,10 +47,18 @@ export default {
       display: flex;
       align-items: center;
 
+      // gap: 24px;
       a {
         font-size: 20px;
-
-        padding-inline: 12px
+        border-bottom: 1px transparent solid;
+        padding-block: 20px;
+        padding-inline: 12px;
+        transition: 300ms;
+        &:hover {
+          // border-bottom: 1px black solid;
+          opacity: 0.7;
+          // color: $primary-hover;
+        }
       }
 
     }

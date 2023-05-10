@@ -73,15 +73,20 @@ h4 {
   display: flex;
   flex-direction: column;
   gap: 20px;
+
   .boxes {
     display: flex;
     justify-content: space-between;
+
     .box {
       width: 30%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
       h5 {
         color: $primary;
       }
     }
   }
-}
-</style>
+}</style>

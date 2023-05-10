@@ -24,14 +24,8 @@ export default {
 
 .activate {
   color: $primary !important;
-  font-weight: 500;
-}
-
-
-main {
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
+  // font-weight: 600;
+  // border-bottom: 1px $primary solid !important;
 }
 
 .gap {
@@ -46,7 +40,6 @@ main {
   margin: 0;
 }
 
-
 a {
   color: inherit;
   text-decoration: none;
@@ -58,7 +51,7 @@ a {
 }
 
 #app {
-  font-family: 'Inter', sans-serif;
+  font-family: $font;
 }
 
 .primary-btn {
