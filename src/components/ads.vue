@@ -1,8 +1,5 @@
 <template>
   <div class="container">
-
-    <h2>Son eklenen ilanlar</h2>
-
     <div class="ads">
       <div class="ad" v-for="ad in ads" :key="ad.id">
         <a href="" class="logo">
@@ -47,7 +44,7 @@
 
 <script>
 export default {
-  name: 'HomeAds',
+  name: 'ads',
   data() {
     return {
       ads: [
@@ -101,7 +98,8 @@ export default {
         },
       ]
     }
-  }
+  },
+  
 }
 </script>
 

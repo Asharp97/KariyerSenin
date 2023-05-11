@@ -1,5 +1,5 @@
 <template>
-  ads
+  adsPage
 </template>
 
 <style scoped lang="scss">

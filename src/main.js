@@ -8,7 +8,7 @@ import home from "./views/home.vue";
 import contact from "./views/contact.vue";
 import about from "./views/about.vue";
 import admin from "./views/admin.vue";
-import ads from "./views/ads.vue";
+import adsPage from "./views/adsPage.vue";
 import prices from "./views/prices.vue";
 
 //router
@@ -17,7 +17,7 @@ const router = createRouter({
 
   routes: [
     { path: "/", name: "home", component: home },
-    { path: "/ads", name: "ads", component: ads },
+    { path: "/ads", name: "adsPage", component: adsPage },
     { path: "/prices", name: "prices", component: prices },
     { path: "/about", name: "about", component: about },
     { path: "/contact", name: "contact", component: contact },
