@@ -11,11 +11,13 @@
             <div class="detail">
               <icon icon="fa-solid fa-suitcase" />
               <p>{{ ad.company }}</p>
-            </div>  
+            </div>
             <div class="detail">
               <icon icon="fa-solid fa-money-bill" />
               <p>{{ ad.salary }}{{ ad.salary ? '' : 'Belirtilmedi' }}</p>
             </div>
+
+            
             <!-- <div class="detail">
               <icon icon="fa-solid fa-clock" />
               <p>{{ }}</p>
@@ -99,12 +101,13 @@ export default {
       ]
     }
   },
-  
+
 }
 </script>
 
 <style scoped lang="scss">
 @import '../assets/variables.scss';
+
 h2 {
   text-align: center;
   margin-bottom: 30px;
@@ -113,17 +116,18 @@ h2 {
 .ads {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 40px;
+  justify-content: center;
+  gap: 60px;
 
   .ad {
     display: flex;
     justify-content: space-evenly;
     gap: 20px;
     border: 1px solid $gray;
-    width: 46%;
+    width: 620px;
     padding-block: 15px;
     border-radius: $radius;
+    padding: 20px;
 
     .logo {
       width: 20%;

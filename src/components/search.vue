@@ -115,7 +115,7 @@ export default {
 
   .imgDiv {
     .handshake {
-      width: 924px;
+      width: 100%;
     }
   }
 }

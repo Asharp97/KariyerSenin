@@ -1,0 +1,10 @@
+@media screen and (max-width:768px) {
+  .container{
+    min-width: 100%;
+  }
+  .cities{
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+}

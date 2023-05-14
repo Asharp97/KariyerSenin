@@ -1,17 +1,30 @@
 <template>
   <h2>Aktif iş ilanı bulunan şehirler</h2>
   <div class="container cities">
-    <div class="city istanbul">
-      <div class="number">28</div>
+    <div class="city-content">
+      <div class="city istanbul">
+        <div class="number">31</div>
+      </div>
+      <h3>istanbul</h3>
     </div>
-    <div class="city ankara">
-      <div class="number">26</div>
+
+    <div class="city-content">
+      <div class="city ankara">
+        <div class="number">31</div>
+      </div>
+      <h3>istanbul</h3>
     </div>
-    <div class="city izmir">
-      <div class="number">450</div>
+    <div class="city-content">
+      <div class="city izmir">
+        <div class="number">31</div>
+      </div>
+      <h3>istanbul</h3>
     </div>
-    <div class="city antalya">
-      <div class="number">31</div>
+    <div class="city-content">
+      <div class="city antalya">
+        <div class="number">31</div>
+      </div>
+      <h3>istanbul</h3>
     </div>
   </div>
 </template>
@@ -30,38 +43,47 @@ h2 {
   display: flex;
   justify-content: space-between;
 
-  .city {
-    border-radius: 50%;
-    width: 280px;
-    height: 280px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-position: center;
-    background-size: cover;
-  }
-  
-  .number {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.596);
-    width: 40px;
-    height: 40px;
-  }
+  .city-content {
+    text-align: center;
 
-  .istanbul {
-    background-image: url(https://images.pexels.com/photos/2042109/pexels-photo-2042109.jpeg);
-  }
 
-  .ankara {
-    background-image: url(https://images.pexels.com/photos/14642058/pexels-photo-14642058.jpeg);
-  }
+    .city {
+      border-radius: 50%;
+      width: 280px;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-position: center;
+      background-size: cover;
+    }
 
-  .izmir {
-    background-image: url(https://images.pexels.com/photos/14267576/pexels-photo-14267576.jpeg);
+    h3{
+      margin-top: 20px;
+    }
+
+    .number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.596);
+      width: 40px;
+      height: 40px;
+    }
+
+    .istanbul {
+      background-image: url(https://images.pexels.com/photos/2042109/pexels-photo-2042109.jpeg);
+    }
+
+    .ankara {
+      background-image: url(https://images.pexels.com/photos/14642058/pexels-photo-14642058.jpeg);
+    }
+
+    .izmir {
+      background-image: url(https://images.pexels.com/photos/14267576/pexels-photo-14267576.jpeg);
+    }
   }
 
   .antalya {

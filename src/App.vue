@@ -20,12 +20,19 @@ export default {
 
 <style lang="scss">
 @import "./assets/variables.scss";
+@import "./assets/media.scss";
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 .activate {
   color: $primary !important;
   // font-weight: 600;
   // border-bottom: 1px $primary solid !important;
+}
+
+.mt{
+  margin-top: 25px;
+  margin-bottom: 25px;
+
 }
 
 .gap {
