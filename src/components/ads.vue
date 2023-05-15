@@ -17,7 +17,7 @@
               <p>{{ ad.salary }}{{ ad.salary ? '' : 'Belirtilmedi' }}</p>
             </div>
 
-            
+
             <!-- <div class="detail">
               <icon icon="fa-solid fa-clock" />
               <p>{{ }}</p>
@@ -124,13 +124,14 @@ h2 {
     justify-content: space-evenly;
     gap: 20px;
     border: 1px solid $gray;
-    width: 620px;
+    width: 500px;
+    height: 125px;
     padding-block: 15px;
     border-radius: $radius;
     padding: 20px;
 
     .logo {
-      width: 20%;
+      width: 150px;
       display: flex;
       align-items: center;
 
@@ -152,6 +153,8 @@ h2 {
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
+        // align-items: center;
+        padding-block: 12px;
 
         .detail {
           display: flex;
