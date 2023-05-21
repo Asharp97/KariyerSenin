@@ -5,6 +5,7 @@
 </template>
 
 <script>
+
 import navBar from './components/navBar.vue';
 import footery from './components/footer.vue';
 

@@ -3,6 +3,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
+
 //route imports
 import home from "./views/home.vue";
 import contact from "./views/contact.vue";
@@ -40,6 +41,8 @@ import {
   faSuitcase,
   faMoneyBill,
   faClock,
+  faPen,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookF,
@@ -58,7 +61,9 @@ library.add(
   faClock,
   faInstagram,
   faTwitter,
-  faFacebookF
+  faFacebookF,
+  faPen,
+  faTrash,
 );
 
 createApp(App).use(router).component("icon", FontAwesomeIcon).mount("#app");
