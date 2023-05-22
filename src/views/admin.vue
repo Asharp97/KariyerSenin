@@ -37,8 +37,10 @@ export default
     },
     created() {
       this.getList();
-    }
-  };
+
+    },
+  }
+  ;
 </script>
 
 <style lang="scss">

@@ -1,5 +1,5 @@
-<template> 
-  <form ref="form" class="inputs">
+<template>
+  <form ref="form" class="inputs" id="frm">
     <div class="input">
 
       <label class="company">isim</label>
@@ -12,13 +12,20 @@
     </div>
     <div class="input">
 
-      <label for="">il</label>
-      <input type="text" v-model="ad.state">
+      <label for="state">Il</label>
+      <select name="state" id="state" class="select" v-model="currentState">
+        <option v-for="state in states" :key="state.index">{{ state.isoCode }} - {{ state.name }}
+        </option>
+      </select>
+
     </div>
     <div class="input">
 
-      <label for="">ilce</label>
-      <input type="text" v-model="ad.city">
+      <label for="city">Ilçe</label>
+      <select name="city" id="city" class="select">
+        <option v-for="city in cities" :key="city.index">{{ city.name }}</option>
+      </select>
+
     </div>
     <div class="input">
 
@@ -62,6 +69,11 @@
 
 <script>
 import axios from 'axios';
+import { Country, State, City } from 'country-state-city';
+
+const stateTr = State.getStatesOfCountry('TR')
+const cityTr = City.getCitiesOfState('TR', "34");
+
 export default {
   data() {
     return {
@@ -70,14 +82,22 @@ export default {
         position: "",
         state: "",
         city: "",
-        urgent: 0,
+        urgent: false,
         time: "",
         salary: "",
         telefon: "",
         img: "",
         description: ""
-      }
+      },
+      states: stateTr,
+      cities: cityTr,
+      currentState: null,
     }
+  },
+  components: {
+    Country,
+    State,
+    City
   },
   methods: {
     addad() {
@@ -87,13 +107,17 @@ export default {
       axios.post('http://127.0.0.1:8000/api/ad/store', { ad: this.ad })
         .then(response => {
           if (response.status == 201) {
-            this.$refs.form.reset();
+            return false;
           }
         })
         .catch(error => {
           console.log(error);
         })
-    }
+    },
+    setIsoCode(x) {
+      cityTr = City.getCitiesOfState('TR', x);
+      console.log(x)
+    },
   }
 }
 </script>
