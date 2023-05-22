@@ -37,6 +37,7 @@
       </tr>
 
     </table>
+
   </div>
 </template>
 
@@ -44,17 +45,20 @@
 import axios from 'axios';
 export default {
   name: 'listView',
-  props: ['ads', 'ad'],
+  props: ['ads'],
   methods: {
     removeAd(x) {
-      axios.delete('http://127.0.0.1:8000/api/ad/' + x)
-        .then(response => {
-          if (response.status == 200) {
-            this.$emit('listchanged')
-            console.log('successfully deleted');
-          }
-        })
-        .catch(error => { console.log(error); })
+      if (deleteConfirmed) {
+
+        axios.delete('http://127.0.0.1:8000/api/ad/' + x)
+          .then(response => {
+            if (response.status == 200) {
+              this.$emit('listchanged')
+              console.log('successfully deleted');
+            }
+          })
+          .catch(error => { console.log(error); })
+      }
     },
     editAd() {
       axios.put('http://127.0.0.1:8000/api/ad/' + this.ad.id, {
@@ -68,8 +72,8 @@ export default {
   }
 }
 
-</script>
-<style>
+</script >
+<style scoped lang='scss'>
 .table {
   border: 1px solid #00000081;
   width: 100%;

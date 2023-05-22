@@ -16,7 +16,6 @@ import addadFrom from "../components/addadForm.vue"
 import listView from "../components/listView.vue"
 export default
   {
-    props: ['adss'],
     components: {
       addadFrom,
       listView,

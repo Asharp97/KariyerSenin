@@ -13,17 +13,16 @@
     <div class="input">
 
       <label for="state">Il</label>
-      <select name="state" id="state" class="select" v-model="currentState">
-        <option v-for="state in states" :key="state.index">{{ state.isoCode }} - {{ state.name }}
-        </option>
+      <select name="state" id="state" class="select" v-model="selectedState" @change="selectState">
+        <option v-for="state in states" :key="state.id"> {{ state.name }} </option>
       </select>
 
     </div>
     <div class="input">
 
       <label for="city">Ilçe</label>
-      <select name="city" id="city" class="select">
-        <option v-for="city in cities" :key="city.index">{{ city.name }}</option>
+      <select name="city" id="city" class="select" v-model="selectedCity">
+        <option v-for="city in cities" :key="city.id">{{ city.name }}</option>
       </select>
 
     </div>
@@ -60,21 +59,22 @@
 
       <label for="urgent">acil</label>
       <input type="checkbox" v-model="ad.urgent">
+      <button @click="addad()">paylas</button>
     </div>
 
-    <button @click="addad()">paylas</button>
 
   </form>
 </template>
 
 <script>
 import axios from 'axios';
-import { Country, State, City } from 'country-state-city';
+import { State, City } from 'country-state-city';
 
 const stateTr = State.getStatesOfCountry('TR')
 const cityTr = City.getCitiesOfState('TR', "34");
 
 export default {
+
   data() {
     return {
       ad: {
@@ -90,14 +90,10 @@ export default {
         description: ""
       },
       states: stateTr,
-      cities: cityTr,
-      currentState: null,
+      cities: "",
+      selectedCity: "",
+      selectedState: "",
     }
-  },
-  components: {
-    Country,
-    State,
-    City
   },
   methods: {
     addad() {
@@ -114,9 +110,30 @@ export default {
           console.log(error);
         })
     },
-    setIsoCode(x) {
-      cityTr = City.getCitiesOfState('TR', x);
-      console.log(x)
+    async selectState() {
+      this.cities = [];
+      this.hasCity = true;
+      this.selectedCity = "Select City";
+
+      try {
+        if (this.states && this.selectedState) {
+          this.stateIso2 = this.selectedState.iso2;
+
+          // const cities = City.getCitiesOfState('TR', "34");
+          // console.log(cities.json())
+          const response = await fetch(
+            `https://api.countrystatecity.in/v2.2/countries/tr/states/${this.stateIso2}/cities`,
+            this.$requestOptions
+          );
+          this.cities = await response.data;
+
+          if (this.cities.length < 1) {
+            this.hasCity = false;
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
   }
 }
