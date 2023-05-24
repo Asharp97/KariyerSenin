@@ -1,28 +1,62 @@
-<template >
+<template>
   <navBar />
   <router-view></router-view>
   <footery />
 </template>
 
 <script>
-
-import navBar from './components/navBar.vue';
-import footery from './components/footer.vue';
+import navBar from "./components/navBar.vue";
+import footery from "./components/footer.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     navBar,
-    footery
+    footery,
   },
-
-}
+};
 </script>
 
 <style lang="scss">
 @import "./assets/variables.scss";
 @import "./assets/media.scss";
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+.popup {
+  z-index: 500;
+  background: rgba(255, 255, 255, 0.342);
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .innerpopup {
+    background: white;
+    width: 900px;
+    height: 300px;
+    border-radius: $radius;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: $shadow;
+    position: relative;
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+    }
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+}
 
 .activate {
   color: $primary !important;
@@ -70,13 +104,13 @@ a {
   border: none;
   font-size: 24px;
   transition: 300ms;
-
+  cursor: pointer;
   border-radius: $radius;
   // border-top-right-radius: $radius;
   // border-bottom-right-radius: $radius;
 
   &:hover {
-    background-color: $primary-hover ;
+    background-color: $primary-hover;
   }
 
   &:active {
@@ -119,8 +153,6 @@ a {
       flex-direction: column;
       justify-content: space-evenly;
 
-
-
       .details {
         color: $gray;
         display: flex;
@@ -133,7 +165,6 @@ a {
           display: flex;
           gap: 6px;
         }
-
       }
 
       .extras {
@@ -141,7 +172,7 @@ a {
         gap: 12px;
 
         .time {
-          background-color: #158BCE;
+          background-color: #158bce;
           color: white;
         }
 

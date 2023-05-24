@@ -1,9 +1,8 @@
 <template>
   <div class="header">
     <div class="header-content container">
-
-      <router-link to="/" class=" logo">
-        <img src="../assets/logo.png">
+      <router-link to="/" class="logo">
+        <img src="../assets/logo.png" />
       </router-link>
 
       <div class="nav">
@@ -14,17 +13,102 @@
         <router-link to="/contact"> İletişim</router-link>
       </div>
 
-      <a class="phone " href="">
-        <icon icon="fa-solid fa-phone" />
-      </a>
+      <div class="right">
+        <a class="phone" href="">
+          <icon icon="fa-solid fa-phone" />
+        </a>
+        <a class="sign-in">
+          <!-- href="javascript:void(0)" -->
+          <!-- <icon icon="" /> -->
+          <button class="primary-btn" @click="openPopup()">Sign-in</button>
+        </a>
+        <div class="popup" v-if="popup">
+          <div class="innerpopup">
+            <div class="close" @click="closePopup()">xx</div>
+            <form action="" class="form">
+              <div class="input">
+                <label for="name">name</label>
+                <input
+                  type="text"
+                  id="name"
+                  placeholder="name"
+                  v-model="user.name"
+                />
+              </div>
+              <div class="input">
+                <label for="email">email</label>
+                <input
+                  type="text"
+                  id="email"
+                  placeholder="email"
+                  v-model="user.email"
+                />
+              </div>
+              <div class="input">
+                <label for="paswswrod">paswswrod</label>
+                <input
+                  type="text"
+                  id="paswswrod"
+                  placeholder="paswswrod"
+                  v-model="user.password"
+                />
+              </div>
+              <div class="input">
+                <label for="repassword">repassword</label>
+                <input
+                  type="text"
+                  id="repassword"
+                  placeholder="repassword"
+                  v-model="user.password"
+                />
+              </div>
+            </form>
+            <button class="primary-btn" @click="signUp()">Sign in</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
-  name: 'navBar',
-}
+  name: "navBar",
+  data() {
+    return {
+      popup: false,
+      user: {
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+      },
+    };
+  },
+  methods: {
+    openPopup() {
+      this.popup = true;
+      console.log(popup + "popup");
+    },
+    closePopup() {
+      this.popup = false;
+      console.log(popup + "popup");
+    },
+    signUp() {
+      axios
+        .post("http://127.0.0.1:8000/api/register", { user: this.user })
+        .then((response) => {
+          if (response.status == 201) {
+            return false;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">
@@ -60,16 +144,21 @@ export default {
           // color: $primary-hover;
         }
       }
-
     }
 
-    .phone {
-      color: $primary;
+    .right {
       display: flex;
-      align-items: center;
-      padding-inline: 20px;
+      .phone {
+        color: $primary;
+        display: flex;
+        align-items: center;
+        padding-inline: 30px;
+      }
+      .sign-in {
+        display: flex;
+        align-items: center;
+      }
     }
-
   }
 }
 </style>
