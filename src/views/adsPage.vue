@@ -1,44 +1,50 @@
 <template>
   <div class="container">
     <div class="ads">
-      <div class="ad" v-for="ad in ads" :key="ad.id">
-        <a href="" class="logo">
-          <img :src="ad.img" alt="">
-        </a>
-        <div class="adtext">
-          <h4>{{ ad.position }}</h4>
-          <div class="details">
-            <div class="detail">
-              <icon icon="fa-solid fa-suitcase" />
-              <p>{{ ad.company }}</p>
-            </div>
-            <div class="detail">
-              <icon icon="fa-solid fa-money-bill" />
-              <p>{{ ad.salary }}{{ ad.salary ? '' : 'Belirtilmedi' }}</p>
-            </div>
-            <!-- <div class="detail">
+      <div v-for="ad in ads" :key="ad.id">
+
+        <router-link to="/ad/{{ad.id}}">
+
+          <div class="ad">
+            <a href="" class="logo">
+              <img :src="ad.img" alt="">
+            </a>
+            <div class="adtext">
+              <h4>{{ ad.position }}</h4>
+              <div class="details">
+                <div class="detail">
+                  <icon icon="fa-solid fa-suitcase" />
+                  <p>{{ ad.company }}</p>
+                </div>
+                <div class="detail">
+                  <icon icon="fa-solid fa-money-bill" />
+                  <p>{{ ad.salary }}{{ ad.salary ? '' : 'Belirtilmedi' }}</p>
+                </div>
+                <!-- <div class="detail">
               <icon icon="fa-solid fa-clock" />
               <p>{{ }}</p>
             </div> -->
-            <div class="detail">
-              <icon icon="fas fa-map-marker-alt" />
-
-              <p>{{ ad.state }}-{{ ad.city }}</p>
+                <div class="detail">
+                  <icon icon="fas fa-map-marker-alt" />
+                  <p>{{ ad.state }}-{{ ad.city }}</p>
+                </div>
+              </div>
+              <div class="extras">
+                <div class="urgent extra" v-if="ad.urgent">
+                  Acil
+                </div>
+                <div class="time extra">
+                  {{ ad.time }}
+                </div>
+              </div>
             </div>
-
-
           </div>
-          <div class="extras">
-            <div class="urgent extra" v-if="ad.urgent">
-              Acil
-            </div>
-            <div class="time extra">
-              {{ ad.time }}
-            </div>
-          </div>
-        </div>
+
+        </router-link>
+
       </div>
     </div>
+    <singleAd ads=""></singleAd>
   </div>
 </template>
 
@@ -47,7 +53,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      ads: ""
+      ads: "",
     };
   },
   methods: {
@@ -58,7 +64,8 @@ export default {
             this.ads = response.data
           })
         .catch(error => { console.log(error); })
-    }
+    },
+
   },
   created() {
     this.getList();
@@ -75,6 +82,4 @@ h2 {
   text-align: center;
   margin-bottom: 30px;
 }
-
-
 </style>

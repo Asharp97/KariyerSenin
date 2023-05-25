@@ -8,12 +8,11 @@
         <th>il</th>
         <th>ilce</th>
         <th>acil</th>
-        <th>tipi</th>
+        <th>zaman</th>
         <th>maas</th>
         <th>telefon</th>
-        <th>aciklama</th>
       </tr>
-      <tr v-for="(ad, index) in ads" :key="index" class="data">
+      <tr class="data" v-for="(ad, index) in ads" :key="index">
         <td>{{ ad.id }} </td>
         <td>{{ ad.company }} </td>
         <td>{{ ad.position }}</td>
@@ -23,7 +22,6 @@
         <td>{{ ad.time }}</td>
         <td>{{ ad.salary }}</td>
         <td>{{ ad.telefon }}</td>
-        <td>{{ ad.description }}</td>
         <td>
           <button @click="removeAd(ad.id)">
             <icon icon="fa-solid fa-trash" />
@@ -35,9 +33,7 @@
           </button>
         </td>
       </tr>
-
     </table>
-
   </div>
 </template>
 
@@ -46,34 +42,33 @@ import axios from 'axios';
 export default {
   name: 'listView',
   props: ['ads'],
+
   methods: {
     removeAd(x) {
-      if (deleteConfirmed) {
-
-        axios.delete('http://127.0.0.1:8000/api/ad/' + x)
-          .then(response => {
-            if (response.status == 200) {
-              this.$emit('listchanged')
-              console.log('successfully deleted');
-            }
-          })
-          .catch(error => { console.log(error); })
-      }
-    },
-    editAd() {
-      axios.put('http://127.0.0.1:8000/api/ad/' + this.ad.id, {
-        ad: this.ad
-      })
+      axios.delete('http://127.0.0.1:8000/api/ad/' + x)
         .then(response => {
-          console.log('successfully deleted');
+          if (response.status == 200) {
+            this.$emit('listchanged')
+            console.log('successfully deleted');
+          }
         })
         .catch(error => { console.log(error); })
     }
+  },
+  editAd() {
+    axios.put('http://127.0.0.1:8000/api/ad/' + this.ad.id, {
+      ad: this.ad
+    })
+      .then(response => {
+        console.log('successfully deleted');
+      })
+      .catch(error => { console.log(error); })
   }
 }
 
 </script >
 <style scoped lang='scss'>
+
 .table {
   border: 1px solid #00000081;
   width: 100%;

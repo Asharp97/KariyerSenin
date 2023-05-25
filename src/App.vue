@@ -5,14 +5,17 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 import navBar from "./components/navBar.vue";
 import footery from "./components/footer.vue";
+import sign from "./components/sign.vue";
 
 export default {
   name: "App",
   components: {
     navBar,
     footery,
+    sign,
   },
 };
 </script>
@@ -23,16 +26,17 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
 .popup {
-  z-index: 500;
-  background: rgba(255, 255, 255, 0.342);
-  position: absolute;
+  background: rgba(255, 255, 255, 0.5);
+  position: fixed;
   width: 100vw;
   height: 100vh;
+  z-index: 500;
   left: 0;
   top: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+
   .innerpopup {
     background: white;
     width: 900px;
@@ -44,12 +48,20 @@ export default {
     justify-content: center;
     box-shadow: $shadow;
     position: relative;
+
+    .input {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
     .close {
       position: absolute;
       top: 20px;
       right: 20px;
       cursor: pointer;
     }
+
     .form {
       display: flex;
       flex-direction: column;

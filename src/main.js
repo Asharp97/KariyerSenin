@@ -3,7 +3,6 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
-
 //route imports
 import home from "./views/home.vue";
 import contact from "./views/contact.vue";
@@ -11,18 +10,20 @@ import about from "./views/about.vue";
 import admin from "./views/admin.vue";
 import adsPage from "./views/adsPage.vue";
 import prices from "./views/prices.vue";
+import singleAd from "./views/singleAd.vue";
 
 //router
 const router = createRouter({
   history: createWebHistory(),
 
   routes: [
-    { path: "/", name: "home", component: home },
-    { path: "/ads", name: "adsPage", component: adsPage },
-    { path: "/prices", name: "prices", component: prices },
-    { path: "/about", name: "about", component: about },
-    { path: "/contact", name: "contact", component: contact },
-    { path: "/admin", name: "admin", component: admin },
+    { path: "/", component: home },
+    { path: "/ads", component: adsPage },
+    { path: "/prices", component: prices },
+    { path: "/about", component: about },
+    { path: "/contact", component: contact },
+    { path: "/admin", component: admin },
+    { path: "/:id", component: singleAd },
   ],
   linkActiveClass: "activate",
 });
@@ -63,7 +64,7 @@ library.add(
   faTwitter,
   faFacebookF,
   faPen,
-  faTrash,
+  faTrash
 );
 
 createApp(App).use(router).component("icon", FontAwesomeIcon).mount("#app");

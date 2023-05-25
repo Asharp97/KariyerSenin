@@ -1,8 +1,8 @@
 <template>
   <search />
   <div class="gap">
-    <h2>Son eklenen ilanlar</h2>
-    <ads :ads="ads" />
+    
+    <ads :ads="ads" v-if="ads.length > 6" />
     <startNow />
     <activeDistricts />
   </div>

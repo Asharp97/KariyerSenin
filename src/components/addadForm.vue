@@ -13,22 +13,22 @@
     <div class="input">
 
       <label for="state">Il</label>
-      <select name="state" id="state" class="select" v-model="selectedState" @change="selectState">
-        <option v-for="state in states" :key="state.id"> {{ state.name }} </option>
+      <select name="state" id="state" class="select" v-model="ad.state" @change="selectState()">
+        <option v-for="state in  states " :key="state.isoCode" :value=state.isoCode> {{ state.name }} </option>
       </select>
 
     </div>
     <div class="input">
 
       <label for="city">Ilçe</label>
-      <select name="city" id="city" class="select" v-model="selectedCity">
-        <option v-for="city in cities" :key="city.id">{{ city.name }}</option>
+      <select name="city" id="city" class="select" v-model="ad.city">
+        <option v-for=" city  in  cities " :key="city.id">{{ city.name }}</option>
       </select>
 
     </div>
     <div class="input">
 
-      <label for="">tipi</label>
+      <label for="">Zaman</label>
       <select v-model="ad.time">
         <option value="full">tam</option>
         <option value="half">yari</option>
@@ -59,22 +59,16 @@
 
       <label for="urgent">acil</label>
       <input type="checkbox" v-model="ad.urgent">
-      <button @click="addad()">paylas</button>
     </div>
-
-
   </form>
+  <button @click="addad()">paylas</button>
 </template>
 
 <script>
 import axios from 'axios';
 import { State, City } from 'country-state-city';
 
-const stateTr = State.getStatesOfCountry('TR')
-const cityTr = City.getCitiesOfState('TR', "34");
-
 export default {
-
   data() {
     return {
       ad: {
@@ -89,21 +83,20 @@ export default {
         img: "",
         description: ""
       },
-      states: stateTr,
+      states: State.getStatesOfCountry('TR'),
       cities: "",
-      selectedCity: "",
-      selectedState: "",
     }
   },
   methods: {
     addad() {
-      if (this.ad.company == '') {
+      if (this.company = '') {
         return;
       }
       axios.post('http://127.0.0.1:8000/api/ad/store', { ad: this.ad })
         .then(response => {
           if (response.status == 201) {
-            return false;
+            console.log('done')
+            // return false;
           }
         })
         .catch(error => {
@@ -111,25 +104,11 @@ export default {
         })
     },
     async selectState() {
-      this.cities = [];
-      this.hasCity = true;
-      this.selectedCity = "Select City";
-
       try {
-        if (this.states && this.selectedState) {
-          this.stateIso2 = this.selectedState.iso2;
-
-          // const cities = City.getCitiesOfState('TR', "34");
-          // console.log(cities.json())
-          const response = await fetch(
-            `https://api.countrystatecity.in/v2.2/countries/tr/states/${this.stateIso2}/cities`,
-            this.$requestOptions
-          );
-          this.cities = await response.data;
-
-          if (this.cities.length < 1) {
-            this.hasCity = false;
-          }
+        if (this.ad.state) {
+          // console.log(this.ad.state)
+          this.cities = City.getCitiesOfState('TR',this.ad.state);
+          // console.log(this.cities)
         }
       } catch (error) {
         console.log(error);

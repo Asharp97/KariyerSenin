@@ -20,94 +20,28 @@
         <a class="sign-in">
           <!-- href="javascript:void(0)" -->
           <!-- <icon icon="" /> -->
-          <button class="primary-btn" @click="openPopup()">Sign-in</button>
+          <button class="primary-btn" @click="isOpen = true">Sign-in</button>
         </a>
-        <div class="popup" v-if="popup">
-          <div class="innerpopup">
-            <div class="close" @click="closePopup()">xx</div>
-            <form action="" class="form">
-              <div class="input">
-                <label for="name">name</label>
-                <input
-                  type="text"
-                  id="name"
-                  placeholder="name"
-                  v-model="user.name"
-                />
-              </div>
-              <div class="input">
-                <label for="email">email</label>
-                <input
-                  type="text"
-                  id="email"
-                  placeholder="email"
-                  v-model="user.email"
-                />
-              </div>
-              <div class="input">
-                <label for="paswswrod">paswswrod</label>
-                <input
-                  type="text"
-                  id="paswswrod"
-                  placeholder="paswswrod"
-                  v-model="user.password"
-                />
-              </div>
-              <div class="input">
-                <label for="repassword">repassword</label>
-                <input
-                  type="text"
-                  id="repassword"
-                  placeholder="repassword"
-                  v-model="user.password"
-                />
-              </div>
-            </form>
-            <button class="primary-btn" @click="signUp()">Sign in</button>
-          </div>
-        </div>
       </div>
     </div>
+    <sign :open="isOpen" @close="isOpen = !isOpen"></sign>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import {ref }from 'vue'
+import sign from './sign.vue'
 export default {
   name: "navBar",
-  data() {
-    return {
-      popup: false,
-      user: {
-        name: "",
-        email: "",
-        password: "",
-        password_confirmation: "",
-      },
-    };
+  components: {
+    sign
   },
-  methods: {
-    openPopup() {
-      this.popup = true;
-      console.log(popup + "popup");
-    },
-    closePopup() {
-      this.popup = false;
-      console.log(popup + "popup");
-    },
-    signUp() {
-      axios
-        .post("http://127.0.0.1:8000/api/register", { user: this.user })
-        .then((response) => {
-          if (response.status == 201) {
-            return false;
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-  },
+  setup() {
+    const isOpen = ref(false)
+    return { isOpen }
+  }
+
 };
 </script>
 
@@ -138,6 +72,7 @@ export default {
         padding-block: 20px;
         padding-inline: 12px;
         transition: 300ms;
+
         &:hover {
           // border-bottom: 1px black solid;
           opacity: 0.7;
@@ -148,12 +83,14 @@ export default {
 
     .right {
       display: flex;
+
       .phone {
         color: $primary;
         display: flex;
         align-items: center;
         padding-inline: 30px;
       }
+
       .sign-in {
         display: flex;
         align-items: center;
