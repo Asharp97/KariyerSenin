@@ -3,7 +3,7 @@
     <h2>Son eklenen ilanlar</h2>
     <div class="ads">
       <div v-for="ad in 6" :key="ad">
-        <router-link to="/ad/{{ads[ad].id}}">
+        <router-link :to="`/ad/${ads[ad].id}`">
           <div class="ad">
             <a href="" class="logo">
               <img :src="ads[ad].img" alt="">
@@ -62,11 +62,13 @@ export default {
   color: white;
   display: flex;
   justify-content: end;
-  span{
+
+  span {
     transition: 300ms;
     padding: 5px;
     border-radius: 5px;
     background-color: $primary;
+
     &:hover {
       color: $primary;
       background-color: rgb(231, 231, 231);

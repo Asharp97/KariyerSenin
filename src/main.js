@@ -15,7 +15,6 @@ import singleAd from "./views/singleAd.vue";
 //router
 const router = createRouter({
   history: createWebHistory(),
-
   routes: [
     { path: "/", component: home },
     { path: "/ads", component: adsPage },
@@ -23,7 +22,7 @@ const router = createRouter({
     { path: "/about", component: about },
     { path: "/contact", component: contact },
     { path: "/admin", component: admin },
-    { path: "/:id", component: singleAd },
+    { path: "/ad/:id", component: singleAd },
   ],
   linkActiveClass: "activate",
 });

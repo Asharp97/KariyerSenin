@@ -95,8 +95,9 @@ export default {
       axios.post('http://127.0.0.1:8000/api/ad/store', { ad: this.ad })
         .then(response => {
           if (response.status == 201) {
-            console.log('done')
-            // return false;
+            this.$emit('listchanged')
+            // this.$forceUpdate();
+            // this.frm.reset();
           }
         })
         .catch(error => {
@@ -107,7 +108,7 @@ export default {
       try {
         if (this.ad.state) {
           // console.log(this.ad.state)
-          this.cities = City.getCitiesOfState('TR',this.ad.state);
+          this.cities = City.getCitiesOfState('TR', this.ad.state);
           // console.log(this.cities)
         }
       } catch (error) {

@@ -1,11 +1,14 @@
 <template>
   <div class="container">
 
+    <div class="img">
+      <img :src="ad.img" alt="">
+
+    </div>
+
     <h2>
       id: {{ ad.id }}
       company : {{ ad.company }}
-      id: {{ ad.id }}
-      id: {{ ad.id }}
     </h2>
 
   </div>
@@ -15,14 +18,24 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      id: '',
-      ad: ''
+      ad: {
+        id: "",
+        company: "",
+        position: "",
+        state: "",
+        city: "",
+        urgent: false,
+        time: "",
+        salary: "",
+        telefon: "",
+        img: "",
+        description: ""
+      },
     }
   },
   created() {
-    console.log(this.$route.params)
-    this.id = this.$route.params;
-    axios.get(`http://127.0.0.1:8000/api/ad/${this.id}`)
+    this.id = this.$route.params.id;
+    axios.get(`http://127.0.0.1:8000/api/ad/${this.id}.json`)
       .then(response => {
         this.ad = response.data;
       })
@@ -31,3 +44,13 @@ export default {
 
 
 </script>
+<style scoped lang="scss">
+.img{
+  width: 250px;
+  height: 250px;
+  img{
+    width: 100%;
+    height: 100%;
+  }
+}
+</style>

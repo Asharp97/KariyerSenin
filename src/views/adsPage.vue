@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <div class="ads">
-      <div v-for="ad in ads" :key="ad.id">
+      <div v-for="ad in  ads " :key="ad.id">
 
-        <router-link to="/ad/{{ad.id}}">
+        <router-link :to="`/ad/${ad.id}`">
 
           <div class="ad">
             <a href="" class="logo">
@@ -69,6 +69,7 @@ export default {
   },
   created() {
     this.getList();
+    console.log()
   },
 }
 
