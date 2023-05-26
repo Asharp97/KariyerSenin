@@ -18,28 +18,27 @@
           <icon icon="fa-solid fa-phone" />
         </a>
         <a class="sign-in">
-          <!-- href="javascript:void(0)" -->
-          <!-- <icon icon="" /> -->
-          <button class="primary-btn" @click="isOpen = true">Sign-in</button>
+          <button class="primary-btn" @click="this.$emit('openModal')">Sign-in</button>
         </a>
       </div>
     </div>
-    <sign :open="isOpen" @close="isOpen = !isOpen"></sign>
+
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import {ref }from 'vue'
+import { ref } from 'vue'
 import sign from './sign.vue'
 export default {
   name: "navBar",
   components: {
     sign
   },
-  setup() {
-    const isOpen = ref(false)
-    return { isOpen }
+  data() {
+    return {
+      isOpen: false,
+    }
   }
 
 };

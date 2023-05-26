@@ -30,6 +30,7 @@ export default
         axios.get('http://127.0.0.1:8000/api/ads').then(
           response => {
             this.ads = response.data
+            console.log("list refreshed")
           })
           .catch(error => { console.log(error); })
       }

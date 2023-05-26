@@ -25,6 +25,10 @@ const router = createRouter({
     { path: "/ad/:id", component: singleAd },
   ],
   linkActiveClass: "activate",
+  scrollBehavior(to, from, savedPosition) {
+    // always scroll to top
+    return { top: 0 };
+  },
 });
 
 //font awesome
@@ -43,6 +47,8 @@ import {
   faClock,
   faPen,
   faTrash,
+  faEye,
+  faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookF,
@@ -63,7 +69,9 @@ library.add(
   faTwitter,
   faFacebookF,
   faPen,
-  faTrash
+  faTrash,
+  faEye,
+  faEyeSlash
 );
 
 createApp(App).use(router).component("icon", FontAwesomeIcon).mount("#app");

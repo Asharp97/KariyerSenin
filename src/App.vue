@@ -1,11 +1,20 @@
 <template>
-  <navBar />
+  <navBar @openModal="this.isModalOpen = true" />
   <router-view></router-view>
   <footery />
+  <Teleport to="#modal">
+    <transition name="modal">
+      <div class="modal-bg" v-if="this.isModalOpen" @click.self="this.isModalOpen = false">
+        <div class="modal">
+          <sign v-if="this.isModalOpen"></sign>
+          <div class="close" @click="this.isModalOpen = false">X</div>
+        </div>
+      </div>
+    </transition>
+  </Teleport>
 </template>
 
-<script>
-import { ref } from 'vue'
+<script >
 import navBar from "./components/navBar.vue";
 import footery from "./components/footer.vue";
 import sign from "./components/sign.vue";
@@ -17,16 +26,43 @@ export default {
     footery,
     sign,
   },
+  data() {
+    return {
+      isModalOpen: false
+    }
+  }
 };
 </script>
 
 <style lang="scss">
 @import "./assets/variables.scss";
+@import "./assets/transitions.scss";
 @import "./assets/media.scss";
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
-.popup {
-  background: rgba(255, 255, 255, 0.5);
+input {
+  border: none;
+  padding-left: 12px;
+  width: 80%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  caret-color: $gray;
+  border: $border;
+  border-radius: $radius;
+
+  &:focus {
+    outline: none;
+
+    &::placeholder {
+      opacity: 0;
+      margin-top: 8px;
+    }
+  }
+}
+
+.modal-bg {
+  background: rgba(0, 0, 0, 0.5);
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -37,23 +73,16 @@ export default {
   justify-content: center;
   align-items: center;
 
-  .innerpopup {
+  .modal {
     background: white;
     width: 900px;
     height: 300px;
     border-radius: $radius;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     box-shadow: $shadow;
     position: relative;
-
-    .input {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-    }
 
     .close {
       position: absolute;
@@ -62,10 +91,62 @@ export default {
       cursor: pointer;
     }
 
-    .form {
+    .signUp-bg {
+      background-color: rgba(0, 0, 0, 0.301);
+      border-top-left-radius: $radius ;
+      border-bottom-left-radius: $radius;
+    }
+
+    .bg {
+      height: 100%;
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      width: 34%;
+      transition: 300ms ease;
+    }
+
+    .section {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      transition: 300ms;
+
+      .input {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        height: 0px;
+        visibility: hidden;
+      }
+
+      .text {
+        visibility: visible;
+        height: inherit;
+      }
+    }
+
+    .active {
+      width: 66% !important;
+
+      .form {
+        height: inherit !important;
+        visibility: visible !important;
+      }
+
+      .text {
+        visibility: hidden;
+        height: 0px;
+      }
     }
   }
 }
@@ -91,6 +172,8 @@ export default {
 * {
   padding: 0;
   margin: 0;
+  font-family: $font;
+
 }
 
 a {
@@ -147,6 +230,11 @@ a {
     padding-block: 15px;
     border-radius: $radius;
     padding: 20px;
+    transition: 300ms;
+
+    &:hover {
+      box-shadow: $shadow;
+    }
 
     .logo {
       width: 150px;

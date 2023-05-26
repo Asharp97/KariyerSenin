@@ -62,6 +62,17 @@
     </div>
   </form>
   <button @click="addad()">paylas</button>
+  <Teleport to="#modal">
+    <transition name="modal">
+      <div class="modal-bg" v-if="this.showModal" @click.self="this.showModal = false">
+        <div class="modal">
+          <h2>success </h2>
+          <p>successfully posted</p>
+          <div class="close" @click="this.showModal = false">X</div>
+        </div>
+      </div>
+    </transition>
+  </Teleport>
 </template>
 
 <script>
@@ -85,6 +96,7 @@ export default {
       },
       states: State.getStatesOfCountry('TR'),
       cities: "",
+      showModal: false
     }
   },
   methods: {
@@ -96,6 +108,9 @@ export default {
         .then(response => {
           if (response.status == 201) {
             this.$emit('listchanged')
+            document.getElementById("frm").reset();
+            console.log("added")
+            this.showModal = true
             // this.$forceUpdate();
             // this.frm.reset();
           }
@@ -120,6 +135,9 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../assets/variables.scss";
+@import "../assets/transitions.scss";
+
 .inputs {
 
   gap: 12px;
