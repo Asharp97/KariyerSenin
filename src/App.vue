@@ -17,7 +17,6 @@
 import navBar from "./components/navBar.vue";
 import footery from "./components/footer.vue";
 import sign from "./components/sign.vue";
-import JwPagination from 'jw-vue-pagination'
 
 export default {
   name: "App",
@@ -39,6 +38,13 @@ export default {
 @import "./assets/transitions.scss";
 @import "./assets/media.scss";
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 2rem;
+}
 
 input {
   border: none;
@@ -88,6 +94,7 @@ input {
       border-top-left-radius: $radius ;
       border-bottom-left-radius: $radius;
     }
+
     .signIn-bg {
       border-top-right-radius: $radius ;
       border-bottom-right-radius: $radius;

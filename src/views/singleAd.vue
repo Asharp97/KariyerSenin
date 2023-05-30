@@ -45,6 +45,10 @@
   <div class="adDetails container mt">
     <h2>İlan Detayları</h2>
     <p>{{ ad.description }}</p>
+    <div class="contact">
+      <icon class="icon" icon="fas fa-phone"></icon>
+      <p>{{ ad.telefon }}</p>
+    </div>
   </div>
 </template>
 <script>
@@ -141,5 +145,13 @@ export default {
   gap: 12px;
   display: flex;
   flex-direction: column;
+}
+
+.contact {
+  display: flex;
+  gap: 12px;
+  .icon {
+    color: $primary;
+  }
 }
 </style>

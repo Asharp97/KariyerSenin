@@ -17,9 +17,9 @@
         <a class="phone" href="">
           <icon icon="fa-solid fa-phone" />
         </a>
-        <a class="sign-in">
+        <!-- <a class="sign-in">
           <button class="primary-btn" @click="this.$emit('openModal')">Sign-in</button>
-        </a>
+        </a> -->
       </div>
     </div>
 

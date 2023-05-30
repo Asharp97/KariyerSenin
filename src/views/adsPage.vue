@@ -4,7 +4,7 @@
       <input type="text" class="input" v-model="search" placeholder="search anything">
     </div>
     <div class="ads">
-      <div v-for="ad in  filteredAds " :key="ad.id">
+      <div v-for="ad in filteredAds " :key="ad.id">
 
         <router-link :to="`/ad/${ad.id}`">
 

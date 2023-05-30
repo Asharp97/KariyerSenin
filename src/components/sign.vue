@@ -4,22 +4,19 @@
       <div class="text" v-show="!activated">Are you new here?</div>
       <Transition name="form">
         <form action="" class="form">
-
           <div class="input">
-            <input type="text" id="name" placeholder="name" v-model="newuser.name" />
+            <input type="text" placeholder="name" v-model="newuser.name" />
           </div>
           <div class="input">
-            <input type="text" id="emailLogin" placeholder="email" v-model="newuser.email" />
+            <input type="text" placeholder="email" v-model="newuser.email" />
           </div>
           <div class="input">
-            <input :type="hidePassword ? 'password' : 'text'" id="password1" placeholder="paswswrod"
-              v-model="newuser.password" />
-
+            <input :type="hidePassword ? 'password' : 'text'" placeholder="paswswrod" v-model="newuser.password" />
             <icon :icon="['fas', 'eye']" @click="toggleShow(0)" v-show="!hidePassword" />
             <icon :icon="['fas', 'eye-slash']" @click="toggleShow(0)" v-show="hidePassword" />
           </div>
           <div class="input">
-            <input :type="hidePassword1 ? 'password' : 'text'" id="password2" placeholder="password again"
+            <input :type="hidePassword1 ? 'password' : 'text'" placeholder="password again"
               v-model="newuser.password_confirmation" />
             <icon :icon="['fas', 'eye']" @click="toggleShow(1)" v-show="!hidePassword1" />
             <icon :icon="['fas', 'eye-slash']" @click="toggleShow(1)" v-show="hidePassword1" />
@@ -34,18 +31,14 @@
       <div class="text" v-show="activated">Already a member?</div>
       <Transition name="form">
         <form action="" class="form">
-
           <div class="input">
-            <input type="text" id="emailSignup" placeholder="email" v-model="user.email" />
+            <input type="text" placeholder="email" v-model="user.email" />
           </div>
           <div class="input">
-            <input :type="hidePassword2 ? 'password' : 'text'" id="password3" placeholder="paswswrod"
-              v-model="user.password" />
+            <input :type="hidePassword2 ? 'password' : 'text'" placeholder="paswswrod" v-model="user.password" />
             <icon :icon="['fas', 'eye']" @click="toggleShow(2)" v-show="!hidePassword2" />
             <icon :icon="['fas', 'eye-slash']" @click="toggleShow(2)" v-show="hidePassword2" />
-
           </div>
-
         </form>
       </Transition>
       <button class="primary-btn" @click="signIn()">Sign in</button>
