@@ -7,3 +7,13 @@
   opacity: 0;
   transform: scale(1.1);
 }
+
+.form-enter-active,
+.form-leave-active {
+  transition: all 250ms ease;
+}
+.form-enter-from,
+.form-leave-to {
+  opacity: 0;
+  transform: scale(1.1);
+}

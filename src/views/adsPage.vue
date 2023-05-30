@@ -1,7 +1,10 @@
 <template>
   <div class="container">
+    <div class="searchWrapper">
+      <input type="text" class="input" v-model="search" placeholder="search anything">
+    </div>
     <div class="ads">
-      <div v-for="ad in  ads " :key="ad.id">
+      <div v-for="ad in  filteredAds " :key="ad.id">
 
         <router-link :to="`/ad/${ad.id}`">
 
@@ -54,6 +57,7 @@ export default {
   data() {
     return {
       ads: "",
+      search: '',
     };
   },
   methods: {
@@ -71,6 +75,14 @@ export default {
     this.getList();
     console.log()
   },
+  computed: {
+    filteredAds() {
+      return this.ads.filter(
+        ad => ad.position.toLowerCase().includes(this.search.toLowerCase())
+        // , ad => ad.position.toLowerCase().includes(this.search.toLowerCase())
+      );
+    }
+  }
 }
 
 
@@ -78,6 +90,13 @@ export default {
 
 <style scoped lang="scss">
 @import '../assets/variables.scss';
+
+.searchWrapper {
+  width: 300px;
+  height: 50px;
+  margin-left: auto;
+  margin-top: 40px;
+}
 
 h2 {
   text-align: center;

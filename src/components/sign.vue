@@ -2,53 +2,56 @@
   <div class="signUp-bg bg" @click="activated = true" :class="activated ? 'active' : ''">
 
     <div class="signUp section">
+      <Transition name="form">
+        <form action="" class="form" v-if="activated">
+          <div class="text" v-if="activated == false">are you new here?</div>
+          <div class="input">
+            <input type="text" id="name" placeholder="name" v-model="newuser.name" />
+            {{ newuser.name }}
+          </div>
+          <div class="input">
+            <input type="text" id="emailLogin" placeholder="email" v-model="newuser.email" />
+            {{ newuser.email }}
+          </div>
+          <div class="input">
+            <input :type="showPassword ? 'password' : 'text'" id="password1" placeholder="paswswrod"
+              v-model="newuser.password" />
 
-      <form action="" class="form">
-        <div class="input">
-          <input type="text" id="name" placeholder="name" v-model="newuser.name" />
-          {{ newuser.name }}
-        </div>
-        <div class="input">
-          <input type="text" id="emailLogin" placeholder="email" v-model="newuser.email" />
-          {{ newuser.email }}
-        </div>
-        <div class="input">
-          <input :type="showPassword ? 'password' : 'text'" id="password1" placeholder="paswswrod"
-            v-model="newuser.password" />
-
-          <icon :icon="['fas', 'eye']" @click="toggleShow(0)" v-if="showPassword" />
-          <icon :icon="['fas', 'eye-slash']" @click="toggleShow(0)" v-if="showPassword == false" />
-        </div>
-        <div class="input">
-          <input :type="showPassword1 ? 'password' : 'text'" id="password2" placeholder="password again"
-            v-model="newuser.password_confirmation" />
-          <icon :icon="['fas', 'eye']" @click="toggleShow(1)" v-if="showPassword1" />
-          <icon :icon="['fas', 'eye-slash']" @click="toggleShow(1)" v-if="showPassword1 == false" />
-        </div>
-      </form>
-      <div class="text">are you new here?</div>
+            <icon :icon="['fas', 'eye']" @click="toggleShow(0)" v-if="showPassword" />
+            <icon :icon="['fas', 'eye-slash']" @click="toggleShow(0)" v-if="showPassword == false" />
+          </div>
+          <div class="input">
+            <input :type="showPassword1 ? 'password' : 'text'" id="password2" placeholder="password again"
+              v-model="newuser.password_confirmation" />
+            <icon :icon="['fas', 'eye']" @click="toggleShow(1)" v-if="showPassword1" />
+            <icon :icon="['fas', 'eye-slash']" @click="toggleShow(1)" v-if="showPassword1 == false" />
+          </div>
+        </form>
+      </Transition>
       <button class="primary-btn" @click="signUp()">Sign up</button>
     </div>
   </div>
   <div class="bg" @click="activated = false" :class="activated ? '' : 'active'">
-    
+
     <div class="signIn section">
-      
-      <form action="" class="form">
+      <div class="text" v-if="activated">already a member?</div>
+      <Transition name="form">
 
-        <div class="input">
-          <input type="text" id="emailSignup" placeholder="email" v-model="user.email" />
-        </div>
-        <div class="input">
-          <input :type="showPassword2 ? 'password' : 'text'" id="password3" placeholder="paswswrod"
-            v-model="user.password" />
-          <icon :icon="['fas', 'eye']" @click="toggleShow(2)" v-if="showPassword2" />
-          <icon :icon="['fas', 'eye-slash']" @click="toggleShow(2)" v-if="showPassword2 == false" />
+        <form action="" class="form" v-if="activated == false">
 
-        </div>
+          <div class="input">
+            <input type="text" id="emailSignup" placeholder="email" v-model="user.email" />
+          </div>
+          <div class="input">
+            <input :type="showPassword2 ? 'password' : 'text'" id="password3" placeholder="paswswrod"
+              v-model="user.password" />
+            <icon :icon="['fas', 'eye']" @click="toggleShow(2)" v-if="showPassword2" />
+            <icon :icon="['fas', 'eye-slash']" @click="toggleShow(2)" v-if="showPassword2 == false" />
 
-      </form>
-      <div class="text">already a member?</div>
+          </div>
+
+        </form>
+      </Transition>
       <button class="primary-btn" @click="signIn()">Sign in</button>
     </div>
   </div>
@@ -129,4 +132,6 @@ export default {
 
 
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+@import "../assets/transitions.scss"
+</style>

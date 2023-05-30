@@ -7,7 +7,6 @@
       <div class="modal-bg" v-if="this.isModalOpen" @click.self="this.isModalOpen = false">
         <div class="modal">
           <sign v-if="this.isModalOpen"></sign>
-          <div class="close" @click="this.isModalOpen = false">X</div>
         </div>
       </div>
     </transition>
@@ -18,6 +17,7 @@
 import navBar from "./components/navBar.vue";
 import footery from "./components/footer.vue";
 import sign from "./components/sign.vue";
+import JwPagination from 'jw-vue-pagination'
 
 export default {
   name: "App",
@@ -84,15 +84,7 @@ input {
     box-shadow: $shadow;
     position: relative;
 
-    .close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      cursor: pointer;
-    }
-
     .signUp-bg {
-      background-color: rgba(0, 0, 0, 0.301);
       border-top-left-radius: $radius ;
       border-bottom-left-radius: $radius;
     }
@@ -118,35 +110,22 @@ input {
         position: relative;
         display: flex;
         justify-content: space-between;
-        gap: 12px;
+        height: 30px;
       }
 
       .form {
         display: flex;
         flex-direction: column;
-        gap: 12px;
-        height: 0px;
-        visibility: hidden;
+        gap: 5px
       }
 
-      .text {
-        visibility: visible;
-        height: inherit;
-      }
+
     }
 
     .active {
       width: 66% !important;
+      background-color: rgba(0, 85, 176, 0.293);
 
-      .form {
-        height: inherit !important;
-        visibility: visible !important;
-      }
-
-      .text {
-        visibility: hidden;
-        height: 0px;
-      }
     }
   }
 }
