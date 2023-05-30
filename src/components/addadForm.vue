@@ -11,12 +11,10 @@
       <input type="text" v-model="ad.position">
     </div>
     <div class="input">
-
       <label for="state">Il</label>
       <select name="state" id="state" class="select" v-model="ad.state" @change="selectState()">
-        <option v-for="state in  states " :key="state.isoCode" :value=state.isoCode> {{ state.name }} </option>
+        <option v-for="state in  states " :key="state.isoCode" :value=state> {{ state.name }} </option>
       </select>
-
     </div>
     <div class="input">
 
@@ -85,7 +83,9 @@ export default {
       ad: {
         company: "",
         position: "",
-        state: "",
+        state: {
+          name: ''
+        },
         city: "",
         urgent: false,
         time: "",
@@ -111,8 +111,6 @@ export default {
             document.getElementById("frm").reset();
             console.log("added")
             this.showModal = true
-            // this.$forceUpdate();
-            // this.frm.reset();
           }
         })
         .catch(error => {
@@ -120,10 +118,12 @@ export default {
         })
     },
     async selectState() {
+      console.log(this.ad.state)
       try {
         if (this.ad.state) {
           // console.log(this.ad.state)
-          this.cities = City.getCitiesOfState('TR', this.ad.state);
+          this.cities = City.getCitiesOfState('TR', this.ad.state.isoCode);
+          this.ad.state = this.ad.state.name;
           // console.log(this.cities)
         }
       } catch (error) {
@@ -151,5 +151,6 @@ export default {
 
 .side {
   flex-direction: row !important;
+  align-items: center;
 }
 </style>

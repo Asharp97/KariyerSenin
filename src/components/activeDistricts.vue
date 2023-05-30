@@ -12,19 +12,19 @@
       <div class="city ankara">
         <div class="number">31</div>
       </div>
-      <h3>istanbul</h3>
+      <h3>ankara</h3>
     </div>
     <div class="city-content">
       <div class="city izmir">
         <div class="number">31</div>
       </div>
-      <h3>istanbul</h3>
+      <h3>izmir</h3>
     </div>
     <div class="city-content">
       <div class="city antalya">
         <div class="number">31</div>
       </div>
-      <h3>istanbul</h3>
+      <h3>antalya</h3>
     </div>
   </div>
 </template>
@@ -58,7 +58,7 @@ h2 {
       background-size: cover;
     }
 
-    h3{
+    h3 {
       margin-top: 20px;
     }
 
