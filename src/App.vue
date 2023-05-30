@@ -43,7 +43,7 @@ export default {
 input {
   border: none;
   padding-left: 12px;
-  width: 80%;
+  width: 90%;
   height: 80%;
   display: flex;
   align-items: center;

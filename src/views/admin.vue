@@ -2,7 +2,7 @@
   <div class="admin container">
 
     <div class="form">
-      <addadFrom />
+      <addadFrom v-on:listchanged="getList()" />
     </div>
 
     <div class="data">

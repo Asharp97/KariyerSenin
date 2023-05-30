@@ -6,16 +6,13 @@
       <form action="" class="form">
         <div class="input">
           <input type="text" id="name" placeholder="name" v-model="newuser.name" />
-          {{ newuser.name }}
         </div>
         <div class="input">
           <input type="text" id="emailLogin" placeholder="email" v-model="newuser.email" />
-          {{ newuser.email }}
         </div>
         <div class="input">
           <input :type="showPassword ? 'password' : 'text'" id="password1" placeholder="paswswrod"
             v-model="newuser.password" />
-
           <icon :icon="['fas', 'eye']" @click="toggleShow(0)" v-if="showPassword" />
           <icon :icon="['fas', 'eye-slash']" @click="toggleShow(0)" v-if="showPassword == false" />
         </div>
@@ -31,11 +28,8 @@
     </div>
   </div>
   <div class="bg" @click="activated = false" :class="activated ? '' : 'active'">
-    
     <div class="signIn section">
-      
       <form action="" class="form">
-
         <div class="input">
           <input type="text" id="emailSignup" placeholder="email" v-model="user.email" />
         </div>
@@ -44,9 +38,7 @@
             v-model="user.password" />
           <icon :icon="['fas', 'eye']" @click="toggleShow(2)" v-if="showPassword2" />
           <icon :icon="['fas', 'eye-slash']" @click="toggleShow(2)" v-if="showPassword2 == false" />
-
         </div>
-
       </form>
       <div class="text">already a member?</div>
       <button class="primary-btn" @click="signIn()">Sign in</button>
@@ -87,20 +79,19 @@ export default {
       this.popup = false;
       console.log(popup + "popup");
     },
-    signUp() {
+    async signUp() {
       axios.post("http://127.0.0.1:8000/api/register", { user: this.newuser })
         .then((response) => {
-          console.log(response)
           if (response.status == 201) {
-            console.log("success signed up")
-            return false;
+            document.getElementById("frm").reset();
+            this.showModal = true
           }
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    signIn() {
+    async signIn() {
       axios.post("http://127.0.0.1:8000/api/login", { user: this.user })
         .then((response) => {
           console.log(response)

@@ -28,7 +28,7 @@
           </button>
         </td>
         <td>
-          <button @click="editAd()">
+          <button @click="editAd(ad.id)">
             <icon icon="fa-solid fa-pen" />
           </button>
         </td>
@@ -55,12 +55,13 @@ export default {
         .catch(error => { console.log(error); })
     }
   },
-  editAd() {
-    axios.put('http://127.0.0.1:8000/api/ad/' + this.ad.id, {
-      ad: this.ad
-    })
+  editAd(x) {
+    axios.put('http://127.0.0.1:8000/api/ad/' + x, { ad: this.ad })
       .then(response => {
-        console.log('successfully deleted');
+        if (response.status == 200) {
+          this.$emit('listchanged')
+          console.log('successfully deleted');
+        }
       })
       .catch(error => { console.log(error); })
   }
@@ -68,7 +69,6 @@ export default {
 
 </script >
 <style scoped lang='scss'>
-
 .table {
   border: 1px solid #00000081;
   width: 100%;
