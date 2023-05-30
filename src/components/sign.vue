@@ -1,52 +1,48 @@
 <template>
   <div class="signUp-bg bg" @click="activated = true" :class="activated ? 'active' : ''">
-
     <div class="signUp section">
+      <div class="text" v-show="!activated">Are you new here?</div>
       <Transition name="form">
-        <form action="" class="form" v-if="activated">
-          <div class="text" v-if="activated == false">are you new here?</div>
+        <form action="" class="form">
+
           <div class="input">
             <input type="text" id="name" placeholder="name" v-model="newuser.name" />
-            {{ newuser.name }}
           </div>
           <div class="input">
             <input type="text" id="emailLogin" placeholder="email" v-model="newuser.email" />
-            {{ newuser.email }}
           </div>
           <div class="input">
-            <input :type="showPassword ? 'password' : 'text'" id="password1" placeholder="paswswrod"
+            <input :type="hidePassword ? 'password' : 'text'" id="password1" placeholder="paswswrod"
               v-model="newuser.password" />
 
-            <icon :icon="['fas', 'eye']" @click="toggleShow(0)" v-if="showPassword" />
-            <icon :icon="['fas', 'eye-slash']" @click="toggleShow(0)" v-if="showPassword == false" />
+            <icon :icon="['fas', 'eye']" @click="toggleShow(0)" v-show="!hidePassword" />
+            <icon :icon="['fas', 'eye-slash']" @click="toggleShow(0)" v-show="hidePassword" />
           </div>
           <div class="input">
-            <input :type="showPassword1 ? 'password' : 'text'" id="password2" placeholder="password again"
+            <input :type="hidePassword1 ? 'password' : 'text'" id="password2" placeholder="password again"
               v-model="newuser.password_confirmation" />
-            <icon :icon="['fas', 'eye']" @click="toggleShow(1)" v-if="showPassword1" />
-            <icon :icon="['fas', 'eye-slash']" @click="toggleShow(1)" v-if="showPassword1 == false" />
+            <icon :icon="['fas', 'eye']" @click="toggleShow(1)" v-show="!hidePassword1" />
+            <icon :icon="['fas', 'eye-slash']" @click="toggleShow(1)" v-show="hidePassword1" />
           </div>
         </form>
       </Transition>
       <button class="primary-btn" @click="signUp()">Sign up</button>
     </div>
   </div>
-  <div class="bg" @click="activated = false" :class="activated ? '' : 'active'">
-
+  <div class="signIn-bg bg" @click="activated = false" :class="activated ? '' : 'active'">
     <div class="signIn section">
-      <div class="text" v-if="activated">already a member?</div>
+      <div class="text" v-show="activated">Already a member?</div>
       <Transition name="form">
-
-        <form action="" class="form" v-if="activated == false">
+        <form action="" class="form">
 
           <div class="input">
             <input type="text" id="emailSignup" placeholder="email" v-model="user.email" />
           </div>
           <div class="input">
-            <input :type="showPassword2 ? 'password' : 'text'" id="password3" placeholder="paswswrod"
+            <input :type="hidePassword2 ? 'password' : 'text'" id="password3" placeholder="paswswrod"
               v-model="user.password" />
-            <icon :icon="['fas', 'eye']" @click="toggleShow(2)" v-if="showPassword2" />
-            <icon :icon="['fas', 'eye-slash']" @click="toggleShow(2)" v-if="showPassword2 == false" />
+            <icon :icon="['fas', 'eye']" @click="toggleShow(2)" v-show="!hidePassword2" />
+            <icon :icon="['fas', 'eye-slash']" @click="toggleShow(2)" v-show="hidePassword2" />
 
           </div>
 
@@ -58,6 +54,7 @@
 </template>
 <script>
 import axios from 'axios'
+
 export default {
   name: 'sign',
   props: {
@@ -75,9 +72,9 @@ export default {
         email: "",
         password: "",
       },
-      showPassword: false,
-      showPassword1: false,
-      showPassword2: false,
+      hidePassword: true,
+      hidePassword1: true,
+      hidePassword2: true,
       activated: false
     }
   },
@@ -93,7 +90,7 @@ export default {
     signUp() {
       axios.post("http://127.0.0.1:8000/api/register", { user: this.newuser })
         .then((response) => {
-          console.log(response)
+          console.log(response);
           if (response.status == 201) {
             console.log("success signed up")
             return false;
@@ -106,7 +103,7 @@ export default {
     signIn() {
       axios.post("http://127.0.0.1:8000/api/login", { user: this.user })
         .then((response) => {
-          console.log(response)
+          console.log(response);
           if (response.status == 201) {
             console.log("success signed in")
             return false;
@@ -118,13 +115,13 @@ export default {
     },
     toggleShow(x) {
       if (x == 0) {
-        this.showPassword = !this.showPassword;
+        this.hidePassword = !this.hidePassword;
       }
       if (x == 1) {
-        this.showPassword1 = !this.showPassword1;
+        this.hidePassword1 = !this.hidePassword1;
       }
       if (x == 2) {
-        this.showPassword2 = !this.showPassword2;
+        this.hidePassword2 = !this.hidePassword2;
       }
     }
   },

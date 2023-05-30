@@ -77,10 +77,7 @@ export default {
   },
   computed: {
     filteredAds() {
-      return this.ads.filter(
-        ad => ad.position.toLowerCase().includes(this.search.toLowerCase())
-        // , ad => ad.position.toLowerCase().includes(this.search.toLowerCase())
-      );
+      return this.ads.filter(ad => ad.position.toLowerCase().includes(this.search.toLowerCase()));
     }
   }
 }

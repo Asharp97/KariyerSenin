@@ -88,6 +88,10 @@ input {
       border-top-left-radius: $radius ;
       border-bottom-left-radius: $radius;
     }
+    .signIn-bg {
+      border-top-right-radius: $radius ;
+      border-bottom-right-radius: $radius;
+    }
 
     .bg {
       height: 100%;
