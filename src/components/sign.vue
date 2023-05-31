@@ -80,7 +80,7 @@ export default {
       hidePassword: true,
       hidePassword1: true,
       hidePassword2: true,
-      activated: true,
+      activated: false,
       showModal: false,
     }
   },
@@ -123,7 +123,8 @@ export default {
         console.log("success signed in")
         localStorage.setItem("token", response.data.token)
         console.log(response.data.token)
-        this.$router.push('/')
+        this.$emit('closeModal')
+        this.$router.push('/ads')
       }
       else {
         console.log('error?')
@@ -141,6 +142,7 @@ export default {
       this.hidePassword2 = !this.hidePassword2;
     }
   },
+  
 
 }
 

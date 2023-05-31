@@ -1,12 +1,12 @@
 <template>
-  <navBar @openModal="this.isModalOpen = true" :user="user" @logout="signOut" />
+  <navBar @openModal="this.isModalOpen = true" :user="user" />
   <router-view :user="user"></router-view>
   <footery />
   <Teleport to="#modal">
     <transition name="modal">
       <div class="modal-bg" v-if="this.isModalOpen" @click.self="this.isModalOpen = false">
         <div class="modal">
-          <sign :user="user" v-if="this.isModalOpen && !this.user"></sign>
+          <sign :user="user" v-if="this.isModalOpen && !this.user" @closeModal="this.isModalOpen = false"></sign>
           <div v-if="this.isModalOpen && this.user">You've been logged out</div>
         </div>
       </div>
@@ -18,7 +18,9 @@
 import navBar from "./components/navBar.vue";
 import footery from "./components/footer.vue";
 import sign from "./components/sign.vue";
-import axios from "axios";
+import { useAuthStore } from "./stores/auth";
+
+const authStore = useAuthStore();
 
 
 export default {
@@ -31,16 +33,8 @@ export default {
   data() {
     return {
       isModalOpen: false,
-      user: null
     }
   },
-  async created() {
-    const response = await axios.get('user');
-    console.log(response);
-    this.user = response.data;
-  },
-
-
 };
 </script>
 
@@ -103,9 +97,8 @@ input {
   // border-bottom: 1px $primary solid !important;
 }
 
-.mt {
-  margin-top: 25px;
-  margin-bottom: 25px;
+.my {
+  margin-block: 25px;
 }
 
 .gap {

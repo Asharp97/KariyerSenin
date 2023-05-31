@@ -3,7 +3,7 @@
 
     <div class="container">
 
-      <div class="ad mt">
+      <div class="ad my">
         <a href="" class="logo">
           <img :src="ad.img" alt="">
         </a>
@@ -42,7 +42,7 @@
       </div>
     </div>
   </div>
-  <div class="adDetails container mt">
+  <div class="adDetails container my">
     <h2>İlan Detayları</h2>
     <p>{{ ad.description }}</p>
     <div class="contact">

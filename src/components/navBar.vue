@@ -20,7 +20,7 @@
         <a class="sign in" v-if="!user">
           <button class="primary-btn" @click="this.$emit('openModal')">Sign-in</button>
         </a>
-        <a class="sign out" v-if="!user">
+        <a class="sign out" v-if="user">
           <button class="primary-btn" @click="localStorage.removeItem('token')">Sign-out</button>
         </a>
       </div>
@@ -44,11 +44,6 @@ export default {
     }
   },
   props: ['user'],
-  methods: {
-    signOut() {
-      
-    }
-  }
 
 };
 </script>

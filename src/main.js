@@ -2,6 +2,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import { createRouter, createWebHistory } from "vue-router";
+import { createPinia } from "pinia";
 
 //route imports
 import home from "./views/home.vue";
@@ -11,7 +12,7 @@ import admin from "./views/admin.vue";
 import adsPage from "./views/adsPage.vue";
 import prices from "./views/prices.vue";
 import singleAd from "./views/singleAd.vue";
-import "./axios"
+import "./axios";
 
 //router
 const router = createRouter({
@@ -75,4 +76,9 @@ library.add(
   faEyeSlash
 );
 
-createApp(App).use(router).component("icon", FontAwesomeIcon).mount("#app");
+const app = createApp(App)
+  .use(router)
+  .use(createPinia())
+  .component("icon", FontAwesomeIcon);
+
+app.mount("#app");

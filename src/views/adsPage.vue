@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="searchWrapper">
+    <div class="searchWrapper my">
       <div v-if="user">hi {{ user.name }}</div>
       <div v-if="!user">ur not logged in</div>
       <input type="text" class="input" v-model="search" placeholder="search anything">
@@ -92,10 +92,11 @@ export default {
 @import '../assets/variables.scss';
 
 .searchWrapper {
-  width: 300px;
   height: 50px;
-  margin-left: auto;
-  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
 }
 
 h2 {
