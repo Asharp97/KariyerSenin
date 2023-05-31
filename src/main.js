@@ -11,6 +11,7 @@ import admin from "./views/admin.vue";
 import adsPage from "./views/adsPage.vue";
 import prices from "./views/prices.vue";
 import singleAd from "./views/singleAd.vue";
+import "./axios"
 
 //router
 const router = createRouter({

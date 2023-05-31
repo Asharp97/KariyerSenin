@@ -1,6 +1,8 @@
 <template>
   <div class="container">
     <div class="searchWrapper">
+      <div v-if="user">hi {{ user.name }}</div>
+      <div v-if="!user">ur not logged in</div>
       <input type="text" class="input" v-model="search" placeholder="search anything">
     </div>
     <div class="ads">
@@ -60,9 +62,10 @@ export default {
       search: '',
     };
   },
+  props: ['user'],
   methods: {
     getList() {
-      axios.get('http://127.0.0.1:8000/api/ads')
+      axios.get('ads', { params: this.selected })
         .then(
           response => {
             this.ads = response.data

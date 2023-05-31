@@ -27,7 +27,7 @@ export default
     },
     methods: {
       getList() {
-        axios.get('http://127.0.0.1:8000/api/ads').then(
+        axios.get('ads').then(
           response => {
             this.ads = response.data
             console.log("list refreshed")

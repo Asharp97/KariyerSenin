@@ -17,9 +17,12 @@
         <a class="phone" href="">
           <icon icon="fa-solid fa-phone" />
         </a>
-        <!-- <a class="sign-in">
+        <a class="sign in" v-if="!user">
           <button class="primary-btn" @click="this.$emit('openModal')">Sign-in</button>
-        </a> -->
+        </a>
+        <a class="sign out" v-if="!user">
+          <button class="primary-btn" @click="localStorage.removeItem('token')">Sign-out</button>
+        </a>
       </div>
     </div>
 
@@ -38,6 +41,12 @@ export default {
   data() {
     return {
       isOpen: false,
+    }
+  },
+  props: ['user'],
+  methods: {
+    signOut() {
+      
     }
   }
 
@@ -90,7 +99,7 @@ export default {
         padding-inline: 30px;
       }
 
-      .sign-in {
+      .sign {
         display: flex;
         align-items: center;
       }

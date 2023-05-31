@@ -66,7 +66,6 @@
         <div class="modal">
           <h2>success </h2>
           <p>successfully posted</p>
-          <div class="close" @click="this.showModal = false">X</div>
         </div>
       </div>
     </transition>
@@ -104,7 +103,7 @@ export default {
       if (this.company = '') {
         return;
       }
-      axios.post('http://127.0.0.1:8000/api/ad/store', { ad: this.ad })
+      axios.post('ad/store', { ad: this.ad })
         .then(response => {
           if (response.status == 201) {
             this.$emit('listchanged')

@@ -45,7 +45,7 @@ export default {
 
   methods: {
     removeAd(x) {
-      axios.delete('http://127.0.0.1:8000/api/ad/' + x)
+      axios.delete('ad/' + x)
         .then(response => {
           if (response.status == 200) {
             this.$emit('listchanged')
@@ -56,7 +56,7 @@ export default {
     }
   },
   editAd(x) {
-    axios.put('http://127.0.0.1:8000/api/ad/' + x, { ad: this.ad })
+    axios.put('ad/' + x, { ad: this.ad })
       .then(response => {
         if (response.status == 200) {
           this.$emit('listchanged')

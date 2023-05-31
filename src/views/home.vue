@@ -1,7 +1,7 @@
 <template>
   <search />
   <div class="gap">
-    
+
     <ads :ads="ads" v-if="ads.length > 6" />
     <startNow />
     <activeDistricts />
@@ -19,7 +19,7 @@ import activeDistricts from '../components/activeDistricts.vue';
 export default {
   data() {
     return {
-      ads: ""
+      ads: "",
     };
   },
   name: 'home',
@@ -29,9 +29,10 @@ export default {
     startNow,
     activeDistricts,
   },
+
   methods: {
-    getList() {
-      axios.get('http://127.0.0.1:8000/api/ads').then(
+    async getList() {
+      axios.get('ads').then(
         response => {
           this.ads = response.data
         })
@@ -42,6 +43,7 @@ export default {
     this.getList();
 
   },
+  
 }
 
 </script>

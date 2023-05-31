@@ -1,13 +1,13 @@
 <template>
-  <navBar @openModal="this.isModalOpen = true" />
-  <router-view></router-view>
+  <navBar @openModal="this.isModalOpen = true" :user="user" @logout="signOut" />
+  <router-view :user="user"></router-view>
   <footery />
   <Teleport to="#modal">
     <transition name="modal">
       <div class="modal-bg" v-if="this.isModalOpen" @click.self="this.isModalOpen = false">
         <div class="modal">
-          <sign v-if="this.isModalOpen"></sign>
-          <div class="close" @click="this.isModalOpen = false">X</div>
+          <sign :user="user" v-if="this.isModalOpen && !this.user"></sign>
+          <div v-if="this.isModalOpen && this.user">You've been logged out</div>
         </div>
       </div>
     </transition>
@@ -18,6 +18,8 @@
 import navBar from "./components/navBar.vue";
 import footery from "./components/footer.vue";
 import sign from "./components/sign.vue";
+import axios from "axios";
+
 
 export default {
   name: "App",
@@ -28,9 +30,17 @@ export default {
   },
   data() {
     return {
-      isModalOpen: false
+      isModalOpen: false,
+      user: null
     }
-  }
+  },
+  async created() {
+    const response = await axios.get('user');
+    console.log(response);
+    this.user = response.data;
+  },
+
+
 };
 </script>
 
@@ -43,13 +53,12 @@ export default {
 input {
   border: none;
   padding-left: 12px;
-  width: 90%;
-  height: 80%;
   display: flex;
   align-items: center;
   caret-color: $gray;
   border: $border;
   border-radius: $radius;
+  height: 25px;
 
   &:focus {
     outline: none;
@@ -84,70 +93,7 @@ input {
     box-shadow: $shadow;
     position: relative;
 
-    .close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      cursor: pointer;
-    }
 
-    .signUp-bg {
-      background-color: rgba(0, 0, 0, 0.301);
-      border-top-left-radius: $radius ;
-      border-bottom-left-radius: $radius;
-    }
-
-    .bg {
-      height: 100%;
-      display: flex;
-      align-content: center;
-      justify-content: center;
-      width: 34%;
-      transition: 300ms ease;
-    }
-
-    .section {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      align-items: center;
-      justify-content: center;
-      transition: 300ms;
-
-      .input {
-        position: relative;
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-      }
-
-      .form {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        height: 0px;
-        visibility: hidden;
-      }
-
-      .text {
-        visibility: visible;
-        height: inherit;
-      }
-    }
-
-    .active {
-      width: 66% !important;
-
-      .form {
-        height: inherit !important;
-        visibility: visible !important;
-      }
-
-      .text {
-        visibility: hidden;
-        height: 0px;
-      }
-    }
   }
 }
 

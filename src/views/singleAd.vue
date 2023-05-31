@@ -61,7 +61,7 @@ export default {
   },
   created() {
     this.id = this.$route.params.id;
-    axios.get(`http://127.0.0.1:8000/api/ad/${this.id}.json`)
+    axios.get(`ad/${this.id}.json`)
       .then(response => {
         this.ad = response.data;
       })
@@ -150,6 +150,7 @@ export default {
 .contact {
   display: flex;
   gap: 12px;
+
   .icon {
     color: $primary;
   }
