@@ -1,13 +1,13 @@
 <template>
-  <navBar @openModal="this.isModalOpen = true" :user="user" />
-  <router-view :user="user"></router-view>
+  <navBar @openModal="this.isModalOpen = true" />
+  <router-view></router-view>
   <footery />
   <Teleport to="#modal">
     <transition name="modal">
       <div class="modal-bg" v-if="this.isModalOpen" @click.self="this.isModalOpen = false">
         <div class="modal">
-          <sign :user="user" v-if="this.isModalOpen && !this.user" @closeModal="this.isModalOpen = false"></sign>
-          <div v-if="this.isModalOpen && this.user">You've been logged out</div>
+          <sign v-if="this.isModalOpen && !user" @closeModal="this.isModalOpen = false"></sign>
+          <div v-if="this.isModalOpen && user">You've been logged out</div>
         </div>
       </div>
     </transition>
@@ -18,10 +18,9 @@
 import navBar from "./components/navBar.vue";
 import footery from "./components/footer.vue";
 import sign from "./components/sign.vue";
-import { useAuthStore } from "./stores/auth";
+import axios from "axios";
 
-const authStore = useAuthStore();
-
+import { mapGetters } from 'vuex'
 
 export default {
   name: "App",
@@ -35,6 +34,13 @@ export default {
       isModalOpen: false,
     }
   },
+  async created() {
+    const response = await axios.get('user');
+    this.$store.dispatch('user', response.data);
+  },
+  computed: {
+    ...mapGetters(['user'])
+  }
 };
 </script>
 
@@ -52,7 +58,7 @@ input {
   caret-color: $gray;
   border: $border;
   border-radius: $radius;
-  height: 25px;
+  height: 40px;
 
   &:focus {
     outline: none;
@@ -150,6 +156,10 @@ a {
   &:active {
     opacity: 0.8;
   }
+}
+
+.prim {
+  color: $primary;
 }
 
 .ads {

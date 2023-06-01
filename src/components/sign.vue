@@ -4,7 +4,7 @@
 
     <div class="signUp section">
       <div class="text">are you new here?</div>
-      <form id="frm" @submit.prevent="signIn" action="" class="form">
+      <form id="register" @submit.prevent="signUp" action="" class="form">
         <div class="input">
           <input type="text" placeholder="name" v-model="newuser.name" />
         </div>
@@ -32,18 +32,19 @@
   <div class="signIn-bg bg" @click="activated = false" :class="activated ? '' : 'active'">
     <div class="signIn section">
       <div class="text">already a member?</div>
-      <form id="frm" @submit.prevent="signUp" action="" class="form">
+      <form id="login" @submit.prevent="signIn" class="form">
         <div class="input">
-          <input type="text" id="emailSignup" placeholder="email" v-model="user.email" />
+          <input type="text" id="emailSignup" placeholder="email" v-model="userLogin.email" />
         </div>
         <div class="input">
           <input :type="hidePassword2 ? 'password' : 'text'" id="password3" placeholder="paswswrod"
-            v-model="user.password" />
+            v-model="userLogin.password" />
           <icon class="icon" :icon="['fas', 'eye']" @click="toggleShow(2)" v-if="!hidePassword2" />
           <icon class="icon" :icon="['fas', 'eye-slash']" @click="toggleShow(2)" v-if="hidePassword2" />
         </div>
       </form>
-      <button class="primary-btn" @click="signIn()">Sign in</button>
+      <button class="primary-btn" @click="signIn">Sign in</button>
+
     </div>
     <Teleport to="#modal">
       <transition name="modal">
@@ -60,11 +61,13 @@
 </template>
 <script>
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 export default {
   name: 'sign',
   props: {
     open: false,
   },
+  emits: ['closeModal'],
   data() {
     return {
       newuser: {
@@ -73,7 +76,7 @@ export default {
         password: "",
         password_confirmation: "",
       },
-      user: {
+      userLogin: {
         email: "",
         password: "",
       },
@@ -82,6 +85,7 @@ export default {
       hidePassword2: true,
       activated: false,
       showModal: false,
+      
     }
   },
   methods: {
@@ -90,7 +94,7 @@ export default {
         .post("register", this.newuser)
         .then((response) => {
           if (response.status === 201) {
-            document.getElementById("frm").reset();
+            document.getElementById("register").reset();
             this.activated = false;
           }
         })
@@ -118,31 +122,35 @@ export default {
         });
     },
     async signIn() {
-      const response = await axios.post("login", this.user);
+      const response = await axios.post("login", this.userLogin);
       if (response.status == 201) {
         console.log("success signed in")
-        localStorage.setItem("token", response.data.token)
-        console.log(response.data.token)
+        // localStorage.setItem("token", response.data.token)
+        this.$store.dispatch('user', response.data.user)
+        // console.log(response.data.user)
         this.$emit('closeModal')
         this.$router.push('/ads')
       }
       else {
         console.log('error?')
       }
-    }
+    },
+    toggleShow(x) {
+      if (x == 0) {
+        this.hidePassword = !this.hidePassword;
+      }
+      if (x == 1) {
+        this.hidePassword1 = !this.hidePassword1;
+      }
+      if (x == 2) {
+        this.hidePassword2 = !this.hidePassword2;
+      }
+    },
   },
-  toggleShow(x) {
-    if (x == 0) {
-      this.hidePassword = !this.hidePassword;
-    }
-    if (x == 1) {
-      this.hidePassword1 = !this.hidePassword1;
-    }
-    if (x == 2) {
-      this.hidePassword2 = !this.hidePassword2;
-    }
+  computed: {
+    ...mapGetters(['user'])
   },
-  
+
 
 }
 

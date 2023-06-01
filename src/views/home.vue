@@ -15,6 +15,8 @@ import search from '../components/search.vue';
 import ads from '../components/ads.vue';
 import startNow from '../components/startNow.vue';
 import activeDistricts from '../components/activeDistricts.vue';
+import { mapGetters } from 'vuex'
+
 
 export default {
   data() {
@@ -41,6 +43,9 @@ export default {
   },
   created() {
     this.getList();
+  },
+  computed:{
+    ...mapGetters(['user'])
   }
 
 }

@@ -42,7 +42,7 @@ import axios from 'axios';
 export default {
   name: 'listView',
   props: ['ads'],
-
+  emits:['listchanged'],
   methods: {
     removeAd(x) {
       axios.delete('ad/' + x)

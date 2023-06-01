@@ -2,7 +2,8 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import { createRouter, createWebHistory } from "vue-router";
-import { createPinia } from "pinia";
+// import store from "vuex";
+import store from "./vuex";
 
 //route imports
 import home from "./views/home.vue";
@@ -51,12 +52,14 @@ import {
   faTrash,
   faEye,
   faEyeSlash,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookF,
   faInstagram,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+import {} from "@fortawesome/free-regular-svg-icons";
 
 library.add(
   faPhone,
@@ -73,12 +76,14 @@ library.add(
   faPen,
   faTrash,
   faEye,
-  faEyeSlash
+  faEyeSlash,
+  faUser
 );
 
-const app = createApp(App)
-  .use(router)
-  .use(createPinia())
-  .component("icon", FontAwesomeIcon);
+const app = createApp(App);
+
+app.use(store);
+app.use(router);
+app.component("icon", FontAwesomeIcon);
 
 app.mount("#app");

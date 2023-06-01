@@ -67,15 +67,15 @@ export default {
       background-color: white;
 
       .icon-search {
-        width: 35%;
+        width: 40%;
         display: flex;
         align-items: center;
 
         .input {
           border: none;
           padding-left: 12px;
-          width: 80%;
-          height: 80%;
+          width: 100%;
+          height: 100%;
           display: flex;
           align-items: center;
           caret-color: $gray;

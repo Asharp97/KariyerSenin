@@ -98,6 +98,7 @@ export default {
       showModal: false
     }
   },
+  emits:['listchanged'],
   methods: {
     addad() {
       if (this.company = '') {

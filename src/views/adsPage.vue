@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="searchWrapper my">
-      <div v-if="user">hi {{ user.name }}</div>
+      <div v-if="user">Merhaba {{ user.name }}</div>
       <div v-if="!user">ur not logged in</div>
       <input type="text" class="input" v-model="search" placeholder="search anything">
     </div>
@@ -55,6 +55,7 @@
 
 <script>
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -62,7 +63,6 @@ export default {
       search: '',
     };
   },
-  props: ['user'],
   methods: {
     getList() {
       axios.get('ads', { params: this.selected })
@@ -76,12 +76,12 @@ export default {
   },
   created() {
     this.getList();
-    console.log()
   },
   computed: {
+    ...mapGetters(['user']),
     filteredAds() {
       return this.ads.filter(ad => ad.position.toLowerCase().includes(this.search.toLowerCase()));
-    }
+    },
   }
 }
 

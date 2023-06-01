@@ -14,14 +14,12 @@
       </div>
 
       <div class="right">
-        <a class="phone" href="">
-          <icon icon="fa-solid fa-phone" />
-        </a>
         <a class="sign in" v-if="!user">
           <button class="primary-btn" @click="this.$emit('openModal')">Sign-in</button>
         </a>
         <a class="sign out" v-if="user">
-          <button class="primary-btn" @click="localStorage.removeItem('token')">Sign-out</button>
+          <!-- <icon class="icon prim" icon="fa-solid fa-user" contextmenu="userMenu"></icon> -->
+          <div class="primary-btn" @click="signOut()">logout</div>
         </a>
       </div>
     </div>
@@ -30,20 +28,29 @@
 </template>
 
 <script>
-import axios from "axios";
-import { ref } from 'vue'
 import sign from './sign.vue'
+import { mapGetters } from 'vuex'
 export default {
   name: "navBar",
   components: {
     sign
   },
+  emits: ['openModal'],
   data() {
     return {
       isOpen: false,
     }
   },
-  props: ['user'],
+  methods: {
+    signOut() {
+      this.$store.dispatch('user', null)
+      console.log('sign out?')
+    }
+  },
+  computed: {
+    ...mapGetters(['user'])
+  }
+
 
 };
 </script>
@@ -97,6 +104,16 @@ export default {
       .sign {
         display: flex;
         align-items: center;
+      }
+
+      .out {
+        position: relative;
+
+        .userMenu {
+          position: absolute;
+          top: 0;
+
+        }
       }
     }
   }
