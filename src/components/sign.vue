@@ -6,19 +6,19 @@
       <div class="text">are you new here?</div>
       <form id="register" @submit.prevent="signUp" action="" class="form">
         <div class="input">
-          <input type="text" placeholder="name" v-model="newuser.name" />
+          <input class="primary-input" type="text" placeholder="name" v-model="newuser.name" />
         </div>
         <div class="input">
-          <input type="text" placeholder="email" v-model="newuser.email" />
+          <input class="primary-input" type="text" placeholder="email" v-model="newuser.email" />
         </div>
         <div class="input">
-          <input :type="hidePassword ? 'password' : 'text'" id="password1" placeholder="paswswrod"
+          <input class="primary-input" :type="hidePassword ? 'password' : 'text'" id="password1" placeholder="paswswrod"
             v-model="newuser.password" />
           <icon class="icon" :icon="['fas', 'eye']" @click="toggleShow(0)" v-if="!hidePassword" />
           <icon class="icon" :icon="['fas', 'eye-slash']" @click="toggleShow(0)" v-if="hidePassword" />
         </div>
         <!-- <div class="input">
-          <input :type="hidePassword1 ? 'password' : 'text'" id="password2" placeholder="password again"
+          <input class="primary-input" :type="hidePassword1 ? 'password' : 'text'" id="password2" placeholder="password again"
             v-model="newuser.password_confirmation" name="password_confirmation" required/>
           <icon class="icon" :icon="['fas', 'eye']" @click="toggleShow(1)" v-if="!hidePassword1" />
           <icon class="icon" :icon="['fas', 'eye-slash']" @click="toggleShow(1)" v-if="hidePassword1" />
@@ -34,10 +34,10 @@
       <div class="text">already a member?</div>
       <form id="login" @submit.prevent="signIn" class="form">
         <div class="input">
-          <input type="text" id="emailSignup" placeholder="email" v-model="userLogin.email" />
+          <input class="primary-input" type="text" id="emailSignup" placeholder="email" v-model="userLogin.email" />
         </div>
         <div class="input">
-          <input :type="hidePassword2 ? 'password' : 'text'" id="password3" placeholder="paswswrod"
+          <input class="primary-input" :type="hidePassword2 ? 'password' : 'text'" id="password3" placeholder="paswswrod"
             v-model="userLogin.password" />
           <icon class="icon" :icon="['fas', 'eye']" @click="toggleShow(2)" v-if="!hidePassword2" />
           <icon class="icon" :icon="['fas', 'eye-slash']" @click="toggleShow(2)" v-if="hidePassword2" />
@@ -74,7 +74,6 @@ export default {
         name: "",
         email: "",
         password: "",
-        password_confirmation: "",
       },
       userLogin: {
         email: "",
@@ -85,41 +84,26 @@ export default {
       hidePassword2: true,
       activated: false,
       showModal: false,
-      
+
     }
   },
   methods: {
     async signUp() {
-      axios
-        .post("register", this.newuser)
-        .then((response) => {
-          if (response.status === 201) {
-            document.getElementById("register").reset();
-            this.activated = false;
-          }
-        })
-        .catch((error) => {
-          console.log(this.newuser)
-          if (error.response && error.response.data && error.response.data.errors) {
-            // Handle the validation errors
-            const { errors } = error.response.data;
-            console.log(errors);
-
-            // Display the error messages to the user
-            if (errors.name) {
-              console.log(errors.name[0]); // The name field is required
-            }
-            if (errors.email) {
-              console.log(errors.email[0]); // The email field is required
-            }
-            if (errors.password) {
-              console.log(errors.password[0]); // The password field is required
-            }
-          } else {
-            // Handle other types of errors
-            console.log(error);
-          }
-        });
+      const response = await axios.post("register", this.newuser);
+      if (response.status = 201) {
+        const res = await axios.post("login", this.newuser);
+        console.log("success signed up")
+        if (res.status = 201) {
+          this.$store.dispatch('user', response.data.user)
+          this.$router.push('/prices')
+        }
+        else {
+          console.log("login ERROR!" + error)
+        }
+      }
+      else {
+        console.log("register ERROR!" + error)
+      }
     },
     async signIn() {
       const response = await axios.post("login", this.userLogin);
@@ -195,7 +179,12 @@ export default {
     display: flex;
     justify-content: space-between;
     gap: 12px;
-    height: 20px;
+    height: 30px;
+    align-items: center;
+
+    input {
+      height: 100%;
+    }
   }
 
   .form {

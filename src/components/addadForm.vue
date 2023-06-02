@@ -134,14 +134,12 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @import "../assets/variables.scss";
 @import "../assets/transitions.scss";
 
 .inputs {
-
   gap: 12px;
-
   .input {
     display: flex;
     flex-direction: column;

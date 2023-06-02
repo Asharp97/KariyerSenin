@@ -1,0 +1,77 @@
+.ads {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 60px;
+  padding: 40px;
+
+  .ad {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20px;
+    border: 1px solid $gray;
+    width: 500px;
+    height: 125px;
+    padding-block: 15px;
+    border-radius: $radius;
+    padding: 20px;
+    transition: 300ms;
+
+    &:hover {
+      box-shadow: $shadow;
+    }
+
+    .logo {
+      width: 150px;
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: scale-down;
+      }
+    }
+
+    .adtext {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+
+      .details {
+        color: $gray;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        // align-items: center;
+        padding-block: 12px;
+
+        .detail {
+          display: flex;
+          gap: 6px;
+        }
+      }
+
+      .extras {
+        display: flex;
+        gap: 12px;
+
+        .time {
+          background-color: #158bce;
+          color: white;
+        }
+
+        .urgent {
+          background-color: #021474;
+          color: white;
+        }
+
+        .extra {
+          padding-inline: 10px;
+          padding-block: 5px;
+          border-radius: $radius;
+        }
+      }
+    }
+  }
+}
