@@ -3,7 +3,7 @@
     <div class="searchWrapper my">
       <div v-if="user">Merhaba {{ user.name }}</div>
       <div v-if="!user">Hi nice to meet you</div>
-      <input type="text" class="primary-input" v-model="search" placeholder="search anything">
+      <input type="text" class="primary-input" v-model="search" v-on:keyup.enter="search" placeholder="search anything">
     </div>
     <div class="content">
       <div class="filter"> .</div>
@@ -64,6 +64,7 @@ export default {
     return {
       ads: "",
       search: '',
+
     };
   },
   methods: {
@@ -75,6 +76,9 @@ export default {
           })
         .catch(error => { console.log(error); })
     },
+    async search() {
+      this.ads = await axios.get(`search/${search}`)
+    }
 
   },
   created() {
@@ -82,9 +86,6 @@ export default {
   },
   computed: {
     ...mapGetters(['user', 'admin']),
-    filteredAds() {
-      return this.ads.filter(ad => ad.position.toLowerCase().includes(this.search.toLowerCase()));
-    },
   }
 }
 

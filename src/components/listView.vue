@@ -14,12 +14,12 @@
       </tr>
       <tr class="data" v-for="(ad, index) in ads" :key="index">
         <td>{{ ad.id }} </td>
-        <td><input type="text" v-model="ad.company" class="input" :readonly="isReadOnly"> </td>
-        <td><input type="text" v-model="ad.position" class="input"></td>
-        <td><input type="text" v-model="ad.state" class="input"></td>
-        <td><input type="text" v-model="ad.city" class="input"></td>
-        <td><input type="text" v-model="ad.urgent" class="input"></td>
-        <td><input type="text" v-model="ad.time" class="input"></td>
+        <td>{{ ad.company }}</td>
+        <td>{{ ad.position }}</td>
+        <td>{{ ad.state }}</td>
+        <td>{{ ad.city }}</td>
+        <td>{{ ad.urgent ? 'acil' : 'degil' }}</td>
+        <td>{{ ad.time }}</td>
         <td>{{ ad.salary }}</td>
         <td>{{ ad.telefon }}</td>
         <td>
@@ -46,7 +46,7 @@ export default {
   methods: {
     removeAd(x) {
       axios.delete('ad/' + x)
-        .then(response => {
+      .then(response => {
           if (response.status == 200) {
             this.$emit('listchanged')
             console.log('successfully deleted');

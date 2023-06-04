@@ -1,14 +1,10 @@
 <template>
   <form ref="form" class="inputs" id="frm">
     <div class="input">
-
-      <label class="company">isim</label>
-      <input type="text" v-model="ad.company">
+      <input type="text" v-model="ad.company" placeholder="sirket isimi">
     </div>
     <div class="input">
-
-      <label for="">pozisiyon</label>
-      <input type="text" v-model="ad.position">
+      <input type="text" v-model="ad.position" placeholder="pozisioyon">
     </div>
     <div class="input">
       <label for="state">Il</label>
@@ -34,29 +30,20 @@
       </select>
     </div>
     <div class="input">
-
-      <label for="">maas</label>
-      <input type="text" v-model="ad.salary">
+      <input type="text" v-model="ad.salary" placeholder="Maaş">
     </div>
     <div class="input">
-
-      <label for="">telefon</label>
-      <input type="text" v-model="ad.telefon">
+      <input type="text" v-model="ad.telefon" placeholder="telefon">
     </div>
     <div class="input">
-
-      <label for="">gorsel</label>
-      <input type="text" v-model="ad.img">
+      <input type="text" v-model="ad.img" placeholder="gorsel link">
     </div>
     <div class="input">
-
-      <label for="">acikalama</label>
-      <input type="text" v-model="ad.description">
+      <textarea type="text" v-model="ad.description" rows="4" placeholder="aciklama"></textarea>
     </div>
     <div class="input side">
-
       <label for="urgent">acil</label>
-      <input type="checkbox" v-model="ad.urgent">
+      <input type="checkbox" id="urgent" v-model="ad.urgent">
     </div>
   </form>
   <button @click="addad()">paylas</button>
@@ -98,7 +85,7 @@ export default {
       showModal: false
     }
   },
-  emits:['listchanged'],
+  emits: ['listchanged'],
   methods: {
     addad() {
       if (this.company = '') {
@@ -121,10 +108,8 @@ export default {
       console.log(this.ad.state)
       try {
         if (this.ad.state) {
-          // console.log(this.ad.state)
           this.cities = City.getCitiesOfState('TR', this.ad.state.isoCode);
           this.ad.state = this.ad.state.name;
-          // console.log(this.cities)
         }
       } catch (error) {
         console.log(error);
@@ -140,15 +125,21 @@ export default {
 
 .inputs {
   gap: 12px;
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+
   .input {
     display: flex;
     flex-direction: column;
     width: 200px;
   }
 }
-.modal{
+
+.modal {
   flex-direction: column;
 }
+
 .side {
   flex-direction: row !important;
   align-items: center;

@@ -34,11 +34,11 @@
       <div class="text">already a member?</div>
       <form id="login" @submit.prevent="signIn" class="form">
         <div class="input">
-          <input class="primary-input" type="text" id="emailSignup" placeholder="email" v-model="userLogin.email" />
+          <input class="primary-input" type="text" id="emailSignup" placeholder="email" v-model="userLogin.email" v-on:keyup.enter="signIn" />
         </div>
         <div class="input">
           <input class="primary-input" :type="hidePassword2 ? 'password' : 'text'" id="password3" placeholder="paswswrod"
-            v-model="userLogin.password" />
+            v-model="userLogin.password" v-on:keyup.enter="signIn"/>
           <icon class="icon" :icon="['fas', 'eye']" @click="toggleShow(2)" v-if="!hidePassword2" />
           <icon class="icon" :icon="['fas', 'eye-slash']" @click="toggleShow(2)" v-if="hidePassword2" />
         </div>
@@ -92,7 +92,7 @@ export default {
     async signUp() {
       const response = await axios.post("register", this.newuser);
       if (response.status = 201) {
-        // const res = await axios.post("login", this.newuser.userLogin);
+        const res = await axios.post("login", this.newuser.userLogin);
         console.log("success signed up")
         if (res.status = 201) {
           this.$store.dispatch('user', response.data.user)
