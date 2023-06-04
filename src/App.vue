@@ -59,7 +59,6 @@ export default {
   caret-color: $gray;
   border: $border;
   border-radius: $radius;
-  height: 30px;
 
   &:focus {
     outline: none;
@@ -93,6 +92,71 @@ export default {
     justify-content: center;
     box-shadow: $shadow;
     position: relative;
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+    }
+
+    .signUp-bg {
+      background-color: rgba(0, 0, 0, 0.301);
+      border-top-left-radius: $radius ;
+      border-bottom-left-radius: $radius;
+    }
+
+    .bg {
+      height: 100%;
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      width: 34%;
+      transition: 300ms ease;
+    }
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      transition: 300ms;
+
+      .input {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        height: 0px;
+        visibility: hidden;
+      }
+
+      .text {
+        visibility: visible;
+        height: inherit;
+      }
+    }
+
+    .active {
+      width: 66% !important;
+
+      .form {
+        height: inherit !important;
+        visibility: visible !important;
+      }
+
+      .text {
+        visibility: hidden;
+        height: 0px;
+      }
+    }
   }
 }
 

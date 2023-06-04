@@ -146,7 +146,9 @@ export default {
     width: 200px;
   }
 }
-
+.modal{
+  flex-direction: column;
+}
 .side {
   flex-direction: row !important;
   align-items: center;
