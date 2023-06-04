@@ -2,11 +2,11 @@
   <navBar @openModal="this.isModalOpen = true" />
   <router-view @showModal="this.isModalOpen = true"></router-view>
   <footery />
-  <Teleport to="#modal">  
+  <Teleport to="#modal">
     <transition name="modal">
       <div class="modal-bg" v-if="this.isModalOpen" @click.self="this.isModalOpen = false">
         <div class="modal">
-          <sign v-if="this.isModalOpen && !user" @closeModal="this.isModalOpen = false"></sign>
+          <sign v-if="this.isModalOpen" @closeModal="this.isModalOpen = false"></sign>
         </div>
       </div>
     </transition>
@@ -36,11 +36,14 @@ export default {
   },
   async created() {
     const response = await axios.get('user');
-    this.$store.dispatch('user', response.data);
+    if (response.data.user.type == 'user')
+      this.$store.dispatch('user', response.data);
+    if (response.data.user.type == 'admin')
+      this.$store.dispatch('admin', response.data);
   },
   computed: {
-    ...mapGetters(['user'])
-  }
+    ...mapGetters(['user','admin'])
+  },
 };
 </script>
 
@@ -93,19 +96,6 @@ export default {
     box-shadow: $shadow;
     position: relative;
 
-    .close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      cursor: pointer;
-    }
-
-    .signUp-bg {
-      background-color: rgba(0, 0, 0, 0.301);
-      border-top-left-radius: $radius ;
-      border-bottom-left-radius: $radius;
-    }
-
     .bg {
       height: 100%;
       display: flex;
@@ -116,13 +106,6 @@ export default {
     }
 
     .section {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      align-items: center;
-      justify-content: center;
-      transition: 300ms;
-
       .input {
         position: relative;
         display: flex;
@@ -133,7 +116,6 @@ export default {
       .form {
         display: flex;
         flex-direction: column;
-        gap: 12px;
         height: 0px;
         visibility: hidden;
       }
@@ -144,19 +126,7 @@ export default {
       }
     }
 
-    .active {
-      width: 66% !important;
 
-      .form {
-        height: inherit !important;
-        visibility: visible !important;
-      }
-
-      .text {
-        visibility: hidden;
-        height: 0px;
-      }
-    }
   }
 }
 

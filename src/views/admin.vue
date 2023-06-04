@@ -1,5 +1,5 @@
 <template>
-  <div class="admin container">
+  <div class="admin container" v-if="admin">
 
     <div class="form">
       <addadFrom v-on:listchanged="getList()" />
@@ -14,6 +14,8 @@
 import axios from 'axios';
 import addadFrom from "../components/addadForm.vue"
 import listView from "../components/listView.vue"
+import { mapGetters } from 'vuex'
+
 export default
   {
     components: {
@@ -33,17 +35,19 @@ export default
             console.log("list refreshed")
           })
           .catch(error => { console.log(error); })
-      }
+      },
     },
     created() {
       this.getList();
-
+    },
+    computed: {
+      ...mapGetters(['user', 'admin'])
     },
   }
   ;
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 * {
   margin: 0;
   padding: 0;

@@ -62,6 +62,7 @@
 <script>
 import axios from 'axios'
 import { mapGetters } from 'vuex'
+
 export default {
   name: 'sign',
   props: {
@@ -91,7 +92,7 @@ export default {
     async signUp() {
       const response = await axios.post("register", this.newuser);
       if (response.status = 201) {
-        const res = await axios.post("login", this.newuser);
+        // const res = await axios.post("login", this.newuser.userLogin);
         console.log("success signed up")
         if (res.status = 201) {
           this.$store.dispatch('user', response.data.user)
@@ -108,12 +109,19 @@ export default {
     async signIn() {
       const response = await axios.post("login", this.userLogin);
       if (response.status == 201) {
-        console.log("success signed in")
-        // localStorage.setItem("token", response.data.token)
-        this.$store.dispatch('user', response.data.user)
-        // console.log(response.data.user)
+        console.log(response.data.user)
+        if (response.data.user.type == 'user') {
+          console.log("success signed in ya user")
+          this.$store.dispatch('user', response.data.user)
+          this.$router.push('/ads')
+        }
+        else if (response.data.user.type == 'admin') {
+          console.log("success signed in ya admin")
+          this.$store.dispatch('admin', response.data.user)
+          this.$router.push('/admin')
+        }
         this.$emit('closeModal')
-        this.$router.push('/ads')
+
       }
       else {
         console.log('error?')
@@ -132,7 +140,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['user'])
+    ...mapGetters(['user','admin'])
   },
 
 
@@ -190,9 +198,8 @@ export default {
   .form {
     display: flex;
     flex-direction: column;
-    gap: 12px;
     visibility: hidden;
-    height: 0px;
+    gap: 30px;
   }
 
   .text {
@@ -206,8 +213,10 @@ export default {
   background-color: $secondry;
 
   .form {
+    transition: 300ms;
     height: inherit !important;
     visibility: visible !important;
+    gap: 12px;
   }
 
   .text {

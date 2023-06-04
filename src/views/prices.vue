@@ -20,7 +20,9 @@
 </template>
 
 <script>
+import axios from 'axios'
 import { mapGetters } from 'vuex'
+
 export default {
   data() {
     return {
@@ -36,7 +38,7 @@ export default {
                 advantage: "1 adet ilan yayınlama hakkı",
               },
               {
-                advantage: "1 adet ilan yayınlama hakkı",
+                advantage: "2 adet ilan yayınlama hakkı",
               },
               {
                 advantage: "1 adet ilan yayınlama hakkı",
@@ -118,7 +120,7 @@ export default {
   },
   methods: {
     purchase() {
-      if (user) {
+      if (this.user) {
         console.log('payment api')
       }
       else {
@@ -129,7 +131,7 @@ export default {
 
   },
   computed: {
-    ...mapGetters(['user'])
+    ...mapGetters(['user', 'admin'])
   },
   async created() {
     const response = await axios.get('user');

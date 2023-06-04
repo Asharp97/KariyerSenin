@@ -2,7 +2,6 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import { createRouter, createWebHistory } from "vue-router";
-// import store from "vuex";
 import store from "./vuex";
 
 //route imports

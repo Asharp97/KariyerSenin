@@ -44,9 +44,9 @@ export default {
   created() {
     this.getList();
   },
-  computed:{
-    ...mapGetters(['user'])
-  }
+  computed: {
+    ...mapGetters(['user','admin'])
+  },
 
 }
 

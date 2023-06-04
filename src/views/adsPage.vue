@@ -81,7 +81,7 @@ export default {
     this.getList();
   },
   computed: {
-    ...mapGetters(['user']),
+    ...mapGetters(['user', 'admin']),
     filteredAds() {
       return this.ads.filter(ad => ad.position.toLowerCase().includes(this.search.toLowerCase()));
     },
