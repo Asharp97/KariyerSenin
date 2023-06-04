@@ -14,12 +14,12 @@
       </tr>
       <tr class="data" v-for="(ad, index) in ads" :key="index">
         <td>{{ ad.id }} </td>
-        <td>{{ ad.company }} </td>
-        <td>{{ ad.position }}</td>
-        <td>{{ ad.state }}</td>
-        <td>{{ ad.city }}</td>
-        <td>{{ ad.urgent == 0 ? 'acil degil' : 'acil' }}</td>
-        <td>{{ ad.time }}</td>
+        <td><input type="text" v-model="ad.company" class="input" :readonly="isReadOnly"> </td>
+        <td><input type="text" v-model="ad.position" class="input"></td>
+        <td><input type="text" v-model="ad.state" class="input"></td>
+        <td><input type="text" v-model="ad.city" class="input"></td>
+        <td><input type="text" v-model="ad.urgent" class="input"></td>
+        <td><input type="text" v-model="ad.time" class="input"></td>
         <td>{{ ad.salary }}</td>
         <td>{{ ad.telefon }}</td>
         <td>
@@ -42,7 +42,7 @@ import axios from 'axios';
 export default {
   name: 'listView',
   props: ['ads'],
-  emits:['listchanged'],
+  emits: ['listchanged'],
   methods: {
     removeAd(x) {
       axios.delete('ad/' + x)
@@ -69,6 +69,14 @@ export default {
 
 </script >
 <style scoped lang='scss'>
+@import "../assets/variables.scss";
+
+.input {
+  border: none;
+  outline: none;
+  border: $border;
+}
+
 .table {
   border: 1px solid #00000081;
   width: 100%;

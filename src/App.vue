@@ -62,6 +62,7 @@ export default {
   caret-color: $gray;
   border: $border;
   border-radius: $radius;
+  height: 30px;
 
   &:focus {
     outline: none;

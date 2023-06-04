@@ -1,4 +1,5 @@
 import Vuex from "vuex";
+import createPersistedState from 'vuex-persistedstate'
 
 const state = {
   user: null,
@@ -8,7 +9,6 @@ const state = {
 const store = new Vuex.Store({
   state,
   getters: {
-    
     user: (state) => {
       return state.user;
     },
@@ -32,6 +32,9 @@ const store = new Vuex.Store({
       state.admin = admin;
     },
   },
+  plugins: [createPersistedState({
+    storage: window.sessionStorage,
+})],
 });
 
 export default store;
