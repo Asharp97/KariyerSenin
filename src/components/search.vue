@@ -7,14 +7,14 @@
       <div class="search">
         <div class="icon-search">
           <icon class="icon" icon="fas fa-search" />
-          <input type="text" class="input position" placeholder="Pozisyon adı">
+          <input type="text" class="input position" placeholder="Pozisyon adı" v-model="search">
         </div>
         <div class="separator"> </div>
         <div class="icon-search">
           <icon class="icon" icon="fas fa-map-marker-alt" />
-          <input type="text" class="input city" placeholder="Şehir ya da plaka kodu">
+          <input type="text" class="input city" placeholder="Şehir " v-model="city">
         </div>
-        <button class="primary-btn">İş Bul</button>
+        <button class="primary-btn" @click="searchFn()">İş Bul</button>
       </div>
     </div>
     <div class="imgDiv">
@@ -24,9 +24,26 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'search',
+  data() {
+    return {
+      ads: '',
+      search: '',
+      city: '',
+    }
+  },
+  props: ['search'],
+  emits: ['searchemit'],
+  methods: {
+    searchFn() {
+      this.$emit('searchemit')
+      this.$router.push('/ads')
+    }
+  }
 }
+
 </script>
 
 <style scoped lang="scss">

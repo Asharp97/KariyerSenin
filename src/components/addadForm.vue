@@ -131,8 +131,12 @@ export default {
 
   .input {
     display: flex;
-    flex-direction: column;
     width: 200px;
+    justify-content: space-between;
+
+    input {
+      width: 100%;
+    }
   }
 }
 

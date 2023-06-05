@@ -1,7 +1,6 @@
 <template>
   <search />
   <div class="gap">
-
     <ads :ads="ads" v-if="ads.length > 6" />
     <startNow />
     <activeDistricts />
@@ -15,6 +14,7 @@ import search from '../components/search.vue';
 import ads from '../components/ads.vue';
 import startNow from '../components/startNow.vue';
 import activeDistricts from '../components/activeDistricts.vue';
+
 import { mapGetters } from 'vuex'
 
 
@@ -33,7 +33,7 @@ export default {
   },
 
   methods: {
-    async getList() {
+    getList() {
       axios.get('ads').then(
         response => {
           this.ads = response.data
@@ -45,7 +45,7 @@ export default {
     this.getList();
   },
   computed: {
-    ...mapGetters(['user','admin'])
+    ...mapGetters(['user', 'admin'])
   },
 
 }

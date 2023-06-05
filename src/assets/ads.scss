@@ -1,8 +1,7 @@
 .ads {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 60px;
+  justify-content: space-evenly;
   padding: 40px;
 
   .ad {
@@ -10,12 +9,13 @@
     justify-content: space-evenly;
     gap: 20px;
     border: 1px solid $gray;
-    width: 500px;
+    width: 450px;
     height: 125px;
     padding-block: 15px;
     border-radius: $radius;
     padding: 20px;
     transition: 300ms;
+    margin-block: 12px;
 
     &:hover {
       box-shadow: $shadow;
