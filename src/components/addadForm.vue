@@ -91,7 +91,8 @@ export default {
       if (this.company = '') {
         return;
       }
-      axios.post('ad/store', { ad: this.ad })
+      axios
+        .post('ad/store', { ad: this.ad })
         .then(response => {
           if (response.status == 201) {
             this.$emit('listchanged')

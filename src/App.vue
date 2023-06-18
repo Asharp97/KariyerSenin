@@ -42,7 +42,7 @@ export default {
       this.$store.dispatch('admin', response.data);
   },
   computed: {
-    ...mapGetters(['user','admin'])
+    ...mapGetters(['user', 'admin'])
   },
 };
 </script>

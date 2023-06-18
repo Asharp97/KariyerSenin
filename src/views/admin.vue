@@ -59,10 +59,6 @@ export default
   }
 }
 
-.container {
-  width: 1400px;
-  margin-inline: auto;
-}
 
 .admin {
   display: flex;

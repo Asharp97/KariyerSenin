@@ -57,42 +57,58 @@
         </div>
       </div>
     </div>
-    <singleAd ads=""></singleAd>
+    <div v-show="this.loading" class="spinner">
+      <spinner />
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import search from "../components/search.vue";
+import spinner from "../components/spinner.vue";
+
 import { mapGetters } from 'vuex'
 export default {
+  components: {
+    search,
+    spinner
+  },
   data() {
     return {
       ads: "",
       search: "",
+      loading: false,
     };
   },
   methods: {
     searchfn() {
-      axios.get(`ad/search/${this.search}`)
-        .then(
-          response => {
-            this.ads = response.data
-          })
-        .catch(error => { console.log(error); })
+      this.loading = true;
+      if (this.search == "")
+        this.getList();
+      else
+        axios.get(`ad/search/${this.search}`)
+          .then(
+            response => {
+              this.ads = response.data
+            })
+          .catch(error => { console.log(error); })
+      this.loading = false;
     },
     getList() {
+      this.loading = true;
       axios.get('ads')
         .then(
           response => {
             this.ads = response.data
           })
         .catch(error => { console.log(error); })
+      this.loading = false;
     },
     clearSearch() {
       this.search = ''
       this.getList();
     }
-
   },
   created() {
     this.getList();
@@ -109,6 +125,13 @@ export default {
 @import '../assets/variables.scss';
 @import "../assets/ads.scss";
 
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  z-index: 100;
+}
 
 .search {
   position: relative;
