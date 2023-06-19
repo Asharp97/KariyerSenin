@@ -30,89 +30,102 @@ export default {
         {
           id: 1,
           name: "Standart",
-          price: '349 ',
+          price: '299 ',
           oldPrice: '479',
+          advantages:
+            [
+              {
+                advantage: "1 Adet ilan yayınlama hakkı",
+              },
+              {
+                advantage: "15 gün ilan yayın süresi",
+              },
+              {
+                advantage: "İlan güncelleme hakkı",
+              },
+              {
+                advantage: "Kelime sınırı yok",
+              },
+            ],
+
+        },
+        {
+          id: 1,
+          name: "Gold",
+          price: '649 ',
+          oldPrice: '799',
           advantages:
             [
               {
                 advantage: "1 adet ilan yayınlama hakkı",
               },
+              {
+                advantage: "25 gün ilan yayın süresi",
+              },
+              {
+                advantage: "2 kez güncelleme hakkı",
+              },
+              {
+                advantage: "Kelime sınırı yok",
+              },
+            ],
+
+        },
+        {
+          id: 1,
+          name: "Vip",
+          price: '549 ',
+          oldPrice: '699',
+          advantages:
+            [
+            {
+                advantage: "1 adet ilan yayınlama hakkı",
+              },
+              {
+                advantage: "30 gün ilan yayın süresi",
+              },
+              {
+                advantage: "Sınırsız güncelleme hakkı",
+              },
+              {
+                advantage: "Ana sayfada yayınlama hakkı",
+              },             
+               {
+                advantage: "Şirket logosu ile yayınlama ",
+              },
+              {
+                advantage: "Kelime sınırı yok ",
+              },
+            ],
+
+        },
+        {
+          id: 1,
+          name: "Premium",
+          price: '799 ',
+          oldPrice: '999',
+          advantages:
+            [
               {
                 advantage: "2 adet ilan yayınlama hakkı",
               },
               {
-                advantage: "1 adet ilan yayınlama hakkı",
+                advantage: "30 gün ilan yayın süresi",
               },
               {
-                advantage: "1 adet ilan yayınlama hakkı",
+                advantage: "Sınırsız güncelleme hakkı",
+              },
+              {
+                advantage: "Ana sayfada yayınlama hakkı",
+              },             
+               {
+                advantage: "Şirket logosu ile yayınlama ",
+              },
+              {
+                advantage: "Kelime sınırı yok ",
               },
             ],
 
-        },
-        {
-          id: 1,
-          name: "Standart",
-          price: '349 ',
-          oldPrice: '479',
-          advantages:
-            [
-              {
-                advantage: "1 adet ilan yayınlama hakkı",
-              },
-              {
-                advantage: "1 adet ilan yayınlama hakkı",
-              },
-              {
-                advantage: "1 adet ilan yayınlama hakkı",
-              },
-              {
-                advantage: "1 adet ilan yayınlama hakkı",
-              },
-            ],
-
-        },
-        {
-          id: 1,
-          name: "Standart",
-          price: '349 ',
-          oldPrice: '479',
-          advantages:
-            [
-              {
-                advantage: "1 adet ilan yayınlama hakkı",
-              },
-              {
-                advantage: "1 adet ilan yayınlama hakkı",
-              },
-              {
-                advantage: "1 adet ilan yayınlama hakkı",
-              },
-              {
-                advantage: "1 adet ilan yayınlama hakkı",
-              },
-            ],
-
-        },
-        {
-          id: 1,
-          name: "Standart",
-          price: '349 ',
-          oldPrice: '479',
-          advantages:
-            [
-              {
-                advantage: "1 adet ilan yayınlama hakkı",
-              },
-              {
-                advantage: "1 adet ilan yayınlama hakkı",
-              },
-              {
-                advantage: "1 adet ilan yayınlama hakkı",
-              },
-              {
-                advantage: "1 adet ilan yayınlama hakkı",
-              },
-            ],
 
         },
       ]
