@@ -65,9 +65,10 @@
 
                     <label for="">Zaman</label>
                     <select v-model="ad.time">
-                      <option value="full">tam</option>
-                      <option value="half">yari</option>
-                      <option value="staj">staj</option>
+                      <option>Tam</option>
+                      <option>Yari</option>
+                      <option>Uzaktan</option>
+                      <option>Staj</option>
                     </select>
                   </div>
                 </div>

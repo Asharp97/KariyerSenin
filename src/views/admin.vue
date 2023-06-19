@@ -49,19 +49,12 @@ export default
 </script>
 
 <style scoped lang="scss">
-* {
-  margin: 0;
-  padding: 0;
 
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-}
 
 
 .admin {
   display: flex;
+  justify-content: center;
 
   .form {
     width: 20%;
