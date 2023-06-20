@@ -3,16 +3,16 @@
 
 
     <div class="signUp section">
-      <div class="text">are you new here?</div>
+      <div class="text">Daha önce kayıt olmadınız mı?</div>
       <form id="register" @submit.prevent="signUp" action="" class="form">
         <div class="input">
-          <input class="primary-input" type="text" placeholder="name" v-model="newuser.name" />
+          <input class="primary-input" type="text" placeholder="İsim" v-model="newuser.name" />
         </div>
         <div class="input">
-          <input class="primary-input" type="text" placeholder="email" v-model="newuser.email" />
+          <input class="primary-input" type="text" placeholder="Email" v-model="newuser.email" />
         </div>
         <div class="input">
-          <input class="primary-input" :type="hidePassword ? 'password' : 'text'" id="password1" placeholder="paswswrod"
+          <input class="primary-input" :type="hidePassword ? 'password' : 'text'" id="password1" placeholder="Parola"
             v-model="newuser.password" />
           <icon class="icon" :icon="['fas', 'eye']" @click="toggleShow(0)" v-if="!hidePassword" />
           <icon class="icon" :icon="['fas', 'eye-slash']" @click="toggleShow(0)" v-if="hidePassword" />
@@ -24,34 +24,34 @@
           <icon class="icon" :icon="['fas', 'eye-slash']" @click="toggleShow(1)" v-if="hidePassword1" />
         </div> -->
       </form>
-      <button class="primary-btn" @click="signUp()">Sign up</button>
+      <button class="primary-btn" @click="signUp()">Kayıt Ol</button>
     </div>
 
   </div>
 
   <div class="signIn-bg bg" @click="activated = false" :class="activated ? '' : 'active'">
     <div class="signIn section">
-      <div class="text">already a member?</div>
+      <div class="text">Zaten bir hesabınız var mı?</div>
       <form id="login" @submit.prevent="signIn" class="form">
         <div class="input">
-          <input class="primary-input" type="text" id="emailSignup" placeholder="email" v-model="userLogin.email" v-on:keyup.enter="signIn" />
+          <input class="primary-input" type="text" id="emailSignup" placeholder="Email" v-model="userLogin.email" v-on:keyup.enter="signIn" />
         </div>
         <div class="input">
-          <input class="primary-input" :type="hidePassword2 ? 'password' : 'text'" id="password3" placeholder="paswswrod"
+          <input class="primary-input" :type="hidePassword2 ? 'password' : 'text'" id="password3" placeholder="Parola"
             v-model="userLogin.password" v-on:keyup.enter="signIn"/>
           <icon class="icon" :icon="['fas', 'eye']" @click="toggleShow(2)" v-if="!hidePassword2" />
           <icon class="icon" :icon="['fas', 'eye-slash']" @click="toggleShow(2)" v-if="hidePassword2" />
         </div>
       </form>
-      <button class="primary-btn" @click="signIn">Sign in</button>
+      <button class="primary-btn" @click="signIn">Giriş Yap</button>
 
     </div>
     <Teleport to="#modal">
       <transition name="modal">
         <div class="modal-bg" v-if="this.showModal" @click.self="this.showModal = false">
           <div class="modal" style="flex-direction: column;">
-            <h2>Success </h2>
-            <p>Successfully registerd</p>
+            <h2>Success</h2>
+            <p>Successfully registered</p>
           </div>
         </div>
       </transition>
