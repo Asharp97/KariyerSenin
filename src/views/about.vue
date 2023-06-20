@@ -5,15 +5,10 @@
     <div class="section">
 
       <h4>Biz Kimiz?</h4>
-      <p>Lorem ipsum dolor sit amet consectetur. Mauris dictum nascetur sagittis egestas quis. Enim sem rutrum enim quis
-        praesent. Lorem tempor id scelerisque a lacus. Quis gravida metus sit fermentum. Faucibus fringilla enim varius
-        viverra amet tellus. Morbi nunc facilisi sit ut sed arcu dolor est fames. Hendrerit pretium nec et risus enim
-        aliquam faucibus ullamcorper vel. Ultrices cursus gravida nisl ipsum lectus. Justo dui tempus elit malesuada magna
-        dui. Purus ultrices mi quam nisi sit duis varius vitae nisl. Morbi platea ut suspendisse suspendisse non
-        tristique.
-        Nunc lobortis imperdiet diam nunc. Lectus viverra faucibus tellus habitant tempus amet hendrerit. Viverra amet
-        cras
-        volutpat leo imperdiet.</p>
+      <p>Biz, iş ilanları yayınlayan bir websitesi olarak faaliyet gösteriyoruz. 
+        Amacımız, iş arayanlar ile işverenleri bir araya getirerek iş bulma sürecini kolaylaştırmaktır. 
+        Müşteri memnuniyetini ön planda tutan bir yaklaşımla hareket ediyoruz ve kullanıcılarımıza kullanıcı dostu 
+        bir deneyim sunmayı hedefliyoruz.</p>
     </div>
 
     <div class="section">
@@ -23,30 +18,31 @@
       <div class="boxes">
 
         <div class="box">
-          <h5>Vizyonumuz
+          <h5>İş İlanları Yayınlama:
           </h5>
           <p>
-            sit sit aliquam eu ut elit donec. Eu vitae donec elit cras malesuada cras sed lorem ipsum. Nulla enim
-            dignissim
-            morbi egestas habitant proin. Velit est velit nunc odio vel erat porttitor lorem commodo.</p>
+            İşverenlerin iş ilanlarını yayınlamalarını sağlıyoruz. İşverenler, firmaları hakkında detaylı bilgi vererek ihtiyaç duydukları pozisyonlar için iş ilanı oluşturabiliyorlar.</p>
         </div>
         <div class="box">
-          <h5>Vizyonumuz
+          <h5>İş Arama:
           </h5>
           <p>
-            sit sit aliquam eu ut elit donec. Eu vitae donec elit cras malesuada cras sed lorem ipsum. Nulla enim
-            dignissim
-            morbi egestas habitant proin. Velit est velit nunc odio vel erat porttitor lorem commodo.</p>
+           İş arayanlara, kariyer hedeflerine uygun iş fırsatlarını bulmaları için geniş bir iş ilanı veritabanı sunuyoruz. İş arayanlar, kriterlerine uygun ilanları arayabilir ve başvurularını kolaylıkla yapabilirler.</p>
         </div>
         <div class="box">
-          <h5>Vizyonumuz
+          <h5>Kariyer Danışmanlığı:
           </h5>
           <p>
-            sit sit aliquam eu ut elit donec. Eu vitae donec elit cras malesuada cras sed lorem ipsum. Nulla enim
-            dignissim
-            morbi egestas habitant proin. Velit est velit nunc odio vel erat porttitor lorem commodo.</p>
+            Kariyer planlama, özgeçmiş hazırlama ve mülakat teknikleri gibi konularda iş arayanlara destek sağlayan kariyer danışmanlığı hizmetleri sunuyoruz. Uzman danışmanlarımız, iş arayanlara kariyer yolculuklarında rehberlik ediyor.</p>
         </div>
       </div>
+      <div class="section">
+
+<h4>Vizyonumuz</h4>
+<p>Vizyonumuz, iş arayanlar ve işverenler arasında güvenilir bir köprü oluşturarak istihdam sürecini iyileştirmektir. Yenilikçi teknolojileri ve kullanıcı odaklı çözümleri kullanarak iş ilanı yayınlama ve iş bulma süreçlerini daha etkili ve verimli hale getirmeyi hedefliyoruz. Aynı zamanda, iş arayanlara kariyerlerini geliştirebilecekleri kaynaklar sunarak onları destekliyoruz.
+<br>
+Bu vizyon doğrultusunda, sürekli olarak platformumuzu güncellemek, kullanıcı geri bildirimlerini dikkate almak ve iş arayanların ve işverenlerin ihtiyaçlarına uygun çözümler sunmak için çalışıyoruz.</p>
+</div>
 
     </div>
   </div>
