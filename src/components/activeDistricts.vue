@@ -5,26 +5,25 @@
       <div class="city istanbul">
         <div class="number">31</div>
       </div>
-      <h3>istanbul</h3>
+      <h3>Istanbul</h3>
     </div>
-
     <div class="city-content">
       <div class="city ankara">
         <div class="number">31</div>
       </div>
-      <h3>ankara</h3>
+      <h3>Ankara</h3>
     </div>
     <div class="city-content">
       <div class="city izmir">
         <div class="number">31</div>
       </div>
-      <h3>izmir</h3>
+      <h3>Izmir</h3>
     </div>
     <div class="city-content">
       <div class="city antalya">
         <div class="number">31</div>
       </div>
-      <h3>antalya</h3>
+      <h3>Antalya</h3>
     </div>
   </div>
 </template>

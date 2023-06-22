@@ -3,19 +3,19 @@
     <div class="textDiv">
       <h2>Beklediğin iş bir tık uzağında </h2>
       <p>Senin kariyerin senin seçimlerin</p>
-
-      <div class="search">
+      <!-- <div class="search">
         <div class="icon-search">
           <icon class="icon" icon="fas fa-search" />
-          <input type="text" class="input position" placeholder="Pozisyon adı" v-model="search">
+          <input type="text" class="input position" placeholder="Pozisyon adı" :value="modelValue"
+            @input="$emit('update:modelValue', $event.target.value)">
         </div>
         <div class="separator"> </div>
         <div class="icon-search">
           <icon class="icon" icon="fas fa-map-marker-alt" />
-          <input type="text" class="input city" placeholder="Şehir " v-model="city">
+          <input type="text" class="input city" placeholder="Şehir ">
         </div>
         <button class="primary-btn" @click="searchFn()">İş Bul</button>
-      </div>
+      </div> -->
     </div>
     <div class="imgDiv">
       <img src="../assets/handshake.png" class="handshake">
@@ -29,15 +29,12 @@ export default {
   data() {
     return {
       ads: '',
-      search: '',
-      city: '',
     }
   },
-  props: ['search'],
-  emits: ['searchemit'],
+  props: ['modelValue'],
+  emits: ['update:modelValue'],
   methods: {
     searchFn() {
-      this.$emit('searchemit')
       this.$router.push('/ads')
     }
   }

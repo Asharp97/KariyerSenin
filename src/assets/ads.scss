@@ -1,21 +1,41 @@
+.filter {
+  padding-block: 40px;
+}
+.filter-content {
+  border-radius: $radius;
+  padding: 20px;
+  border: 1px solid $gray;
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+}
 .ads {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   padding: 40px;
-
+  gap: 12px;
   .ad {
     display: flex;
     justify-content: space-evenly;
     gap: 20px;
     border: 1px solid $gray;
-    width: 450px;
+    width: 400px;
     height: 125px;
     padding-block: 15px;
     border-radius: $radius;
     padding: 20px;
     transition: 300ms;
-    margin-block: 12px;
 
     &:hover {
       box-shadow: $shadow;
