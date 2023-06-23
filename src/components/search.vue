@@ -7,14 +7,14 @@
         <div class="icon-search">
           <icon class="icon" icon="fas fa-search" />
           <input type="text" class="input position" placeholder="Pozisyon adı" :value="modelValue"
-            @input="$emit('update:modelValue', $event.target.value)">
+            @input="$emit('updateModelValue', modelValue)">
         </div>
         <div class="separator"> </div>
         <div class="icon-search">
           <icon class="icon" icon="fas fa-map-marker-alt" />
           <input type="text" class="input city" placeholder="Şehir ">
         </div>
-        <button class="primary-btn" @click="searchFn()">İş Bul</button>
+        <button class="primary-btn" @click="searchFn(this.modelValue)">İş Bul</button>
       </div> -->
     </div>
     <div class="imgDiv">
@@ -32,9 +32,9 @@ export default {
     }
   },
   props: ['modelValue'],
-  emits: ['update:modelValue'],
+  emits: ['updateModelValue'],
   methods: {
-    searchFn() {
+    searchFn(x) {
       this.$router.push('/ads')
     }
   }

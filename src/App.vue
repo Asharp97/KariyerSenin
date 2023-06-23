@@ -14,12 +14,13 @@
 </template>
 
 <script >
+import axios from "axios";
+
 import navBar from "./components/navBar.vue";
 import footery from "./components/footer.vue";
 import sign from "./components/sign.vue";
-import axios from "axios";
 
-import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
 
 export default {
   name: "App",
@@ -34,16 +35,16 @@ export default {
       logout: false
     }
   },
-  async created() {
-    const response = await axios.get('user');
-    if (response.data.user.type == 'user')
-      this.$store.dispatch('user', response.data);
-    if (response.data.user.type == 'admin')
-      this.$store.dispatch('admin', response.data);
-  },
-  computed: {
-    ...mapGetters(['user', 'admin'])
-  },
+  // async created() {
+  //   const response = await axios.get('user');
+  //   if (response.data.user.type == 'user')
+  //     this.$store.dispatch('user', response.data);
+  //   if (response.data.user.type == 'admin')
+  //     this.$store.dispatch('admin', response.data);
+  // },
+  // computed: {
+  //   ...mapGetters(['user', 'admin'])
+  // },
 };
 </script>
 
@@ -167,6 +168,10 @@ a {
   font-family: $font;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .primary-btn {
   padding-block: 10px;
   padding-inline: 20px;
@@ -174,7 +179,7 @@ a {
   background-color: $primary;
   color: white;
   border: none;
-  font-size: 24px;
+  font-size: 18px;
   transition: 300ms;
   cursor: pointer;
   border-radius: $radius;

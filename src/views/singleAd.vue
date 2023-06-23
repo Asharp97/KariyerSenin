@@ -11,9 +11,7 @@
           <div class="title">
             <h2>{{ ad.position }}</h2>
             <div class="extras">
-              <div class="urgent extra" v-if="ad.urgent">
-                Acil
-              </div>
+
               <div class="time extra">
                 {{ ad.time }}
               </div>
@@ -83,6 +81,7 @@ export default {
 
     .logo {
       width: 350px;
+      height: 350px;
       display: flex;
       align-items: center;
 
@@ -126,10 +125,7 @@ export default {
           color: white;
         }
 
-        .urgent {
-          background-color: #021474;
-          color: white;
-        }
+
 
         .extra {
           padding-inline: 10px;

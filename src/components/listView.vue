@@ -7,10 +7,12 @@
         <th>pozition</th>
         <th>il</th>
         <th>ilce</th>
-        <th>acil</th>
         <th>zaman</th>
         <th>maas</th>
         <th>telefon</th>
+        <th @click="this.$emit('listchanged')" title="yeinleme" class="pointer">
+          <icon icon="fa-solid fa-arrows-rotate"></icon>
+        </th>
       </tr>
       <tr class="data" v-for="(ad, index) in ads" :key="index">
         <td>{{ ad.id }} </td>
@@ -18,17 +20,16 @@
         <td>{{ ad.position }}</td>
         <td>{{ ad.state }}</td>
         <td>{{ ad.city }}</td>
-        <td>{{ ad.urgent ? 'acil' : 'degil' }}</td>
         <td>{{ ad.time }}</td>
         <td>{{ ad.salary }}</td>
         <td>{{ ad.telefon }}</td>
         <td>
-          <button @click="removeAd(ad.id)">
+          <button @click="removeAd(ad.id)" title="sil">
             <icon icon="fa-solid fa-trash" />
           </button>
         </td>
         <td>
-          <button @click="openModal(ad)">
+          <button @click="openModal(ad)" title="edit">
             <icon icon="fa-solid fa-pen" />
           </button>
         </td>
@@ -39,56 +40,52 @@
         <div class="modal-bg" v-if="this.isModalOpen" @click.self="this.isModalOpen = false">
           <div class="modal">
             <div v-if="this.isModalOpen">
-              <form ref="form" id="frm">
+              <form ref="form" id="frm" @submit.prevent="editAd(ad.id)">
                 <div class="inputs">
-
                   <div class="input">
-                    <input type="text" v-model="ad.company" placeholder="sirket isimi">
+                    <input type="text" v-model="this.ad.company" placeholder="sirket isimi">
                   </div>
                   <div class="input">
-                    <input type="text" v-model="ad.position" placeholder="pozisioyon">
+                    <input type="text" v-model="this.ad.position" placeholder="pozisioyon">
                   </div>
                   <div class="input">
                     <label for="state">Il</label>
-                    <select name="state" id="state" class="select" v-model="ad.state" @change="selectState()">
+                    <select name="state" id="state" class="select" v-model="this.ad.state" @change="selectState()">
                       <option v-for="state in  states " :key="state.isoCode" :value=state> {{ state.name }} </option>
                     </select>
                   </div>
                   <div class="input">
                     <label for="city">Ilçe</label>
-                    <select name="city" id="city" class="select" v-model="ad.city">
+                    <select name="city" id="city" class="select" v-model="this.ad.city">
                       <option v-for=" city  in  cities " :key="city.id">{{ city.name }}</option>
                     </select>
-
                   </div>
                   <div class="input">
-
                     <label for="">Zaman</label>
-                    <select v-model="ad.time">
-                      <option>Tam</option>
-                      <option>Yari</option>
+                    <select v-model="this.ad.time">
+                      <option>Tam zamanlı</option>
+                      <option>Yari zamanlı</option>
                       <option>Uzaktan</option>
                       <option>Staj</option>
                     </select>
                   </div>
                 </div>
                 <div class="inputs">
+                  <div class="input">
+                    <input type="text" v-model="this.ad.salary" placeholder="Maaş">
+                  </div>
+                  <div class="input">
+                    <input type="text" v-model="this.ad.telefon" placeholder="telefon">
+                  </div>
+                  <div class="input">
+                    <input type="text" v-model="this.ad.img" placeholder="gorsel link">
+                  </div>
 
+                
+                </div>
+                <div class="inputs">
                   <div class="input">
-                    <input type="text" v-model="ad.salary" placeholder="Maaş">
-                  </div>
-                  <div class="input">
-                    <input type="text" v-model="ad.telefon" placeholder="telefon">
-                  </div>
-                  <div class="input">
-                    <input type="text" v-model="ad.img" placeholder="gorsel link">
-                  </div>
-                  <div class="input">
-                    <textarea type="text" v-model="ad.description" rows="4" placeholder="aciklama"></textarea>
-                  </div>
-                  <div class="input side">
-                    <label for="urgent">acil</label>
-                    <input type="checkbox" id="urgent" v-model="ad.urgent">
+                    <textarea type="text" v-model="this.ad.description" rows="9" placeholder="aciklama"></textarea>
                   </div>
                 </div>
               </form>
@@ -109,10 +106,10 @@ import { State, City } from 'country-state-city';
 export default {
   data() {
     return {
-      isModalOpen: false,
-      ad: {},
+      ad: null,
       states: State.getStatesOfCountry('TR'),
       cities: "",
+      isModalOpen: false,
     }
   },
   name: 'listView',

@@ -40,10 +40,6 @@
                 <option value="staj">Staj</option>
               </select>
             </div>
-            <div class="input side">
-              <label>acil</label>
-              <input type="checkbox" v-model="selected.urgent">
-            </div>
           </form>
           <div class="buttons">
 
@@ -59,12 +55,12 @@
 
     <div class="ads">
       <div v-for="ad in ads " :key="ad.id">
-
         <router-link :to="`/ad/${ad.id}`">
-
           <div class="ad">
             <a href="" class="logo">
-              <img :src="ad.img" alt="">
+
+              <img v-if="ad.img" :src=ad.img alt="">
+              <img v-else src="https://www.freeiconspng.com/uploads/no-image-icon-6.png">
             </a>
             <div class="adtext">
               <h4>{{ ad.position }}</h4>
@@ -86,22 +82,17 @@
                 </div>
               </div>
               <div class="extras">
-                <div class="urgent extra" v-if="ad.urgent" @click="urgentFilter">
-                  Acil
-                </div>
                 <div class="time extra">
                   {{ ad.time }}
                 </div>
               </div>
             </div>
           </div>
-
         </router-link>
-
-        </div>
       </div>
     </div>
-    <singleAd ads=""></singleAd>
+    <singleAd ads="" v-if="false"></singleAd>
+    <spinner v-if="this.loading"></spinner>
   </div>
 </template>
 
@@ -109,50 +100,60 @@
 import axios from 'axios'
 import search from "../components/search.vue";
 import spinner from "../components/spinner.vue";
+import singleAd from "./singleAd.vue"
 
 import { mapGetters } from 'vuex'
-import search from '../components/search.vue';
 
 // import { State, City } from 'country-state-city';
 export default {
   components: {
     search,
-    spinner
+    spinner,
+    singleAd,
   },
   data() {
     return {
       ads: "",
       search: "",
+      MainPageSearch: '',
     };
   },
   methods: {
+    mainSearchfn(x) {
+      this.search = x;
+      console.log(x);
+      this.$router.push('/ads')
+    },
     searchfn() {
-      axios.get(`ad/search/${this.search}`)
-        .then(
-          response => {
-            this.ads = response.data
-          })
-        .catch(error => { console.log(error); })
+      if (this.search == '')
+        this.getList();
+      else
+        axios.get(`ad/search/${this.search}`)
+          .then(
+            response => {
+              this.ads = response.data
+            })
+          .catch(error => { console.log(error); })
     },
     getList() {
       this.loading = true;
       axios.get('ads')
-        .then(
-          response => {
-            this.ads = response.data
-          })
+        .then(response => { this.ads = response.data })
         .catch(error => { console.log(error); })
       this.loading = false;
     },
     clearSearch() {
-      this.search = ''
-      this.getList();
+      this.search = '';
     }
-
+  },
+  watch: {
+    search(val) {
+      if (val == '')
+        this.getList();
+    }
   },
   created() {
     this.getList();
-    this.searchfn();
   },
   computed: {
     ...mapGetters(['user', 'admin']),

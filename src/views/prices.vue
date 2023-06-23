@@ -30,7 +30,7 @@ export default {
         {
           id: 1,
           name: "Standart",
-          price: '299 ',
+          price: '349 ',
           oldPrice: '479',
           advantages:
             [
@@ -38,10 +38,10 @@ export default {
                 advantage: "1 Adet ilan yayınlama hakkı",
               },
               {
-                advantage: "15 gün ilan yayın süresi",
+                advantage: "10 gün ilan yayın süresi",
               },
               {
-                advantage: "İlan güncelleme hakkı",
+                advantage: "1 kez ilan güncelleme desteği",
               },
               {
                 advantage: "Kelime sınırı yok",
@@ -60,10 +60,10 @@ export default {
                 advantage: "1 adet ilan yayınlama hakkı",
               },
               {
-                advantage: "25 gün ilan yayın süresi",
+                advantage: "30 gün ilan yayın süresi",
               },
               {
-                advantage: "2 kez güncelleme hakkı",
+                advantage: "2 kez güncelleme desteği",
               },
               {
                 advantage: "Kelime sınırı yok",
@@ -78,19 +78,19 @@ export default {
           oldPrice: '699',
           advantages:
             [
-            {
+              {
                 advantage: "1 adet ilan yayınlama hakkı",
               },
               {
-                advantage: "30 gün ilan yayın süresi",
+                advantage: "15 gün ilan yayın süresi",
               },
               {
-                advantage: "Sınırsız güncelleme hakkı",
+                advantage: "Sınırsız güncelleme desteği",
               },
               {
                 advantage: "Ana sayfada yayınlama hakkı",
-              },             
-               {
+              },
+              {
                 advantage: "Şirket logosu ile yayınlama ",
               },
               {
@@ -110,15 +110,15 @@ export default {
                 advantage: "2 adet ilan yayınlama hakkı",
               },
               {
-                advantage: "30 gün ilan yayın süresi",
+                advantage: "15 gün ilan yayın süresi",
               },
               {
-                advantage: "Sınırsız güncelleme hakkı",
+                advantage: "Sınırsız güncelleme desteği",
               },
               {
                 advantage: "Ana sayfada yayınlama hakkı",
-              },             
-               {
+              },
+              {
                 advantage: "Şirket logosu ile yayınlama ",
               },
               {
@@ -131,6 +131,7 @@ export default {
       ]
     }
   },
+  emits: ["showModal"],
   methods: {
     purchase() {
       if (this.user) {

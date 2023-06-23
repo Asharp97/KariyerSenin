@@ -35,7 +35,8 @@ export default {
   methods: {
     getList() {
       axios.get('ads')
-        .then(response => {
+        .then(
+          response => {
           this.ads = response.data
         })
         .catch(error => { console.log(error); })

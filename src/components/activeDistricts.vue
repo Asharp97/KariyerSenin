@@ -37,7 +37,6 @@ export default {
 h2 {
   margin-inline: auto;
 }
-
 .cities {
   display: flex;
   justify-content: space-between;
