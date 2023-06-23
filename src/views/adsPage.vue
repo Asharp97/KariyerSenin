@@ -42,9 +42,7 @@
                   </div>
                 </div>
                 <div class="extras">
-                  <div class="urgent extra" v-if="ad.urgent">
-                    Acil
-                  </div>
+
                   <div class="time extra">
                     {{ ad.time }}
                   </div>

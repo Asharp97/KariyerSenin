@@ -7,7 +7,6 @@
         <th>pozition</th>
         <th>il</th>
         <th>ilce</th>
-        <th>acil</th>
         <th>zaman</th>
         <th>maas</th>
         <th>telefon</th>
@@ -18,7 +17,6 @@
         <td>{{ ad.position }}</td>
         <td>{{ ad.state }}</td>
         <td>{{ ad.city }}</td>
-        <td>{{ ad.urgent ? 'acil' : 'degil' }}</td>
         <td>{{ ad.time }}</td>
         <td>{{ ad.salary }}</td>
         <td>{{ ad.telefon }}</td>
@@ -86,10 +84,7 @@
                   <div class="input">
                     <textarea type="text" v-model="ad.description" rows="4" placeholder="aciklama"></textarea>
                   </div>
-                  <div class="input side">
-                    <label for="urgent">acil</label>
-                    <input type="checkbox" id="urgent" v-model="ad.urgent">
-                  </div>
+             
                 </div>
               </form>
               <div class="submit">

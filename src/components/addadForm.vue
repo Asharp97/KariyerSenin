@@ -41,10 +41,6 @@
     <div class="input">
       <textarea type="text" v-model="ad.description" rows="4" placeholder="aciklama"></textarea>
     </div>
-    <div class="input side">
-      <label for="urgent">acil</label>
-      <input type="checkbox" id="urgent" v-model="ad.urgent">
-    </div>
   </form>
   <button @click="addad()">paylas</button>
   <Teleport to="#modal">
@@ -73,7 +69,6 @@ export default {
           name: ''
         },
         city: "",
-        urgent: false,
         time: "",
         salary: "",
         telefon: "",
