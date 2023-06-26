@@ -32,7 +32,6 @@ export default
         axios.get('ads').then(
           response => {
             this.ads = response.data
-            console.log(this.ads)
             console.log("list refreshed")
           })
           .catch(error => { console.log(error); })

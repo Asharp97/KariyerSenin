@@ -53,6 +53,8 @@ import {
   faEyeSlash,
   faUser,
   faCircleXmark,
+  faFilter,
+  faArrowsRotate,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookF,
@@ -79,6 +81,8 @@ library.add(
   faEyeSlash,
   faUser,
   faCircleXmark,
+  faFilter,
+  faArrowsRotate,
 );
 
 const app = createApp(App);

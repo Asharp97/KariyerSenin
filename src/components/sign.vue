@@ -109,14 +109,11 @@ export default {
     async signIn() {
       const response = await axios.post("login", this.userLogin);
       if (response.status == 201) {
-        console.log(response.data.user)
         if (response.data.user.type == 'user') {
-          console.log("success signed in ya user")
           this.$store.dispatch('user', response.data.user)
           this.$router.push('/ads')
         }
         else if (response.data.user.type == 'admin') {
-          console.log("success signed in ya admin")
           this.$store.dispatch('admin', response.data.user)
           this.$router.push('/admin')
         }

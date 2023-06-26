@@ -4,7 +4,7 @@
       <h2>Beklediğin iş bir tık uzağında </h2>
       <p>Senin kariyerin senin seçimlerin</p>
 
-      <div class="search">
+      <!-- <div class="search">
         <div class="icon-search">
           <icon class="icon" icon="fas fa-search" />
           <input type="text" class="input position" placeholder="Pozisyon adı" v-model="search">
@@ -15,7 +15,7 @@
           <input type="text" class="input city" placeholder="Şehir " v-model="city">
         </div>
         <button class="primary-btn" @click="searchFn()">İş Bul</button>
-      </div>
+      </div> -->
     </div>
     <div class="imgDiv">
       <img src="../assets/handshake.png" class="handshake">

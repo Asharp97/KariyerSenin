@@ -3,13 +3,13 @@
   <div class="gap">
     <ads :ads="ads" v-if="ads.length > 6" />
     <startNow />
-    <activeDistricts />
+    <activeDistricts /> 
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-
+ 
 import search from '../components/search.vue';
 import ads from '../components/ads.vue';
 import startNow from '../components/startNow.vue';

@@ -10,6 +10,9 @@
         <th>zaman</th>
         <th>maas</th>
         <th>telefon</th>
+        <th>
+          <icon icon="fa-solid fa-arrows-rotate" @click="this.$emit('listchanged')" class="pointer"></icon>
+        </th>
       </tr>
       <tr class="data" v-for="(ad, index) in ads" :key="index">
         <td>{{ ad.id }} </td>
@@ -84,7 +87,7 @@
                   <div class="input">
                     <textarea type="text" v-model="ad.description" rows="4" placeholder="aciklama"></textarea>
                   </div>
-             
+
                 </div>
               </form>
               <div class="submit">

@@ -1,18 +1,18 @@
 <template>
   <form ref="form" class="inputs" id="frm">
-    <div class="input">
+    <div class="input" :class="!ad.company ? 'req' : ''">
       <input type="text" v-model="ad.company" placeholder="sirket isimi">
     </div>
-    <div class="input">
+    <div class="input req">
       <input type="text" v-model="ad.position" placeholder="pozisioyon">
     </div>
-    <div class="input">
+    <div class="input" :class="!ad.state.isoCode ? 'req' : ''">
       <label for="state">Il</label>
       <select name="state" id="state" class="select" v-model="ad.state" @change="selectState()">
         <option v-for="state in  states " :key="state.isoCode" :value=state> {{ state.name }} </option>
       </select>
     </div>
-    <div class="input">
+    <div class="input" :class="!ad.city ? 'req' : ''">
 
       <label for="city">Ilçe</label>
       <select name="city" id="city" class="select" v-model="ad.city">
@@ -20,19 +20,19 @@
       </select>
 
     </div>
-    <div class="input">
-
+    <div class="input " :class="!ad.time ? 'req' : ''">
       <label for="">Zaman</label>
       <select v-model="ad.time">
-        <option value="full">tam</option>
-        <option value="half">yari</option>
-        <option value="staj">staj</option>
+        <option selected>Tam zamanlı</option>
+        <option>Yari zamanlı</option>
+        <option>Uzaktan</option>
+        <option>Staj</option>
       </select>
     </div>
-    <div class="input">
+    <div class=" input">
       <input type="text" v-model="ad.salary" placeholder="Maaş">
     </div>
-    <div class="input">
+    <div class="input " :class="!ad.time ? 'req' : ''">
       <input type="text" v-model="ad.telefon" placeholder="telefon">
     </div>
     <div class="input">
@@ -118,6 +118,13 @@ export default {
 <style scoped lang="scss">
 @import "../assets/variables.scss";
 @import "../assets/transitions.scss";
+
+.req {
+  &::after {
+    content: '*';
+    color: rgb(255, 92, 92);
+  }
+}
 
 .inputs {
   gap: 12px;

@@ -15,11 +15,11 @@
 
       <div class="right">
         <div class="sign in" v-if="!user && !admin">
-          <button class="primary-btn" @click="this.$emit('openModal')">Sign-in</button>
+          <button class="primary-btn" @click="this.$emit('openModal')">Giriş</button>
         </div>
         <div class="sign out" v-if="user || admin">
           <!-- <icon class="icon prim" icon="fa-solid fa-user" contextmenu="userMenu"></icon> -->
-          <div class="primary-btn" @click="signOut()">log-out</div>
+          <div class="primary-btn" @click="signOut()">Çikiş</div>
         </div>
       </div>
     </div>
@@ -52,12 +52,15 @@ export default {
       console.log('sign out?')
     }
   },
-  async created() {
-    const response = await axios.get('user');
-    this.$store.dispatch('user', response.data);
+  created() {
+    axios.get('user')
+      .then(response => {
+        this.$store.dispatch('user', response.data)
+      })
+      .catch(error => { console.log(error) })
   },
   computed: {
-    ...mapGetters(['user','admin'])
+    ...mapGetters(['user', 'admin'])
   },
 
 

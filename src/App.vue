@@ -14,6 +14,7 @@
 </template>
 
 <script >
+
 import navBar from "./components/navBar.vue";
 import footery from "./components/footer.vue";
 import sign from "./components/sign.vue";
@@ -34,12 +35,16 @@ export default {
       logout: false
     }
   },
-  async created() {
-    const response = await axios.get('user');
-    if (response.data.user.type == 'user')
-      this.$store.dispatch('user', response.data);
-    if (response.data.user.type == 'admin')
-      this.$store.dispatch('admin', response.data);
+  created() {
+    axios.get('user')
+      .then(response => {
+        console.log(response)
+        if (response.data.user.type == 'user')
+          this.$store.dispatch('user', response.data);
+        if (response.data.user.type == 'admin')
+          this.$store.dispatch('admin', response.data);
+      })
+      .catch(error => { console.log(error) })
   },
   computed: {
     ...mapGetters(['user', 'admin'])
@@ -72,6 +77,10 @@ export default {
       margin-top: 8px;
     }
   }
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 .modal-bg {
