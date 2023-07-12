@@ -11,7 +11,16 @@
       </div>
     </div>
     <div class="content">
-      <!-- <div class="filter"> .</div> -->
+      <div class="filter" v-show="true">
+        <div class="salary">
+          <input v-model="this.salary_min" placeholder="min salary" />
+          <input v-model="this.salary_max" placeholder="max salary" />
+        </div>
+        <input v-model="this.state" placeholder="il" />
+        <input v-model="this.city" placeholder="ilce" />
+        <input v-model="this.time" placeholder="zamani" />
+        <button @click="filter()">submit</button>
+      </div>
       <div class="ads">
         <div v-for="ad in ads " :key="ad.id">
 
@@ -33,9 +42,9 @@
                     <p>{{ ad.salary }}{{ ad.salary ? '' : ' Belirtilmedi' }}</p>
                   </div>
                   <!-- <div class="detail">
-                <icon icon="fa-solid fa-clock" />
-                <p>{{ }}</p>
-              </div> -->
+                    <icon icon="fa-solid fa-clock" />
+                    <p>{{ ad.created_at }}</p>
+                  </div> -->
                   <div class="detail">
                     <icon icon="fas fa-map-marker-alt" />
                     <p>{{ ad.state }}-{{ ad.city }}</p>
@@ -77,6 +86,11 @@ export default {
       ads: "",
       search: "",
       loading: false,
+      salary_min: '',
+      salary_max: '',
+      state: '',
+      city: '',
+      time: '',
     };
   },
   methods: {
@@ -89,9 +103,9 @@ export default {
           .then(
             response => {
               this.ads = response.data
+              this.loading = false;
             })
           .catch(error => { console.log(error); })
-      this.loading = false;
     },
     getList() {
       this.loading = true;
@@ -106,7 +120,28 @@ export default {
     clearSearch() {
       this.search = ''
       this.getList();
+    },
+    filter() {
+      this.loading = true;
+      axios.get(
+        `ad/search/{search}?` +
+        `${this.state ? `state=${this.state}` : ""}` +
+        `${this.city ? `city=${this.city}` : ""}` +
+        `${this.salary_min ? `salary_min=${this.salary_min}` : ""}` +
+        `${this.salary_max ? `salary_max=${this.salary_max}` : ""}` +
+        `${this.time ? `time=${this.time}` : ""}` +
+        `${this.search ? `search=${this.search}` : ""}`
+      )
+        .then(
+          response => {
+            this.ads = response.data
+            this.loading = true;
+          })
+        .catch(error => { console.log(error); })
     }
+
+
+
   },
   created() {
     this.getList();
