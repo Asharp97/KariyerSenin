@@ -1,6 +1,6 @@
 <template>
   <navBar @openModal="this.isModalOpen = true" />
-  <router-view @showModal="this.isModalOpen = true" ></router-view>
+  <router-view @showModal="this.isModalOpen = true"></router-view>
   <footery />
   <Teleport to="#modal">
     <transition name="modal">
@@ -198,6 +198,7 @@ a {
     opacity: 0.8;
   }
 }
+
 
 .prim {
   color: $primary;

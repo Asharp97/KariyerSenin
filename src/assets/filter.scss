@@ -10,8 +10,27 @@
     display: flex;
     gap: 12px;
     justify-content: space-between;
+    .secondry {
+      font-size: 14px !important;
+      padding-block: 5px;
+    }
   }
-  input,button{
+  input,
+  button {
     width: 80px;
   }
+}
+
+.filterIcon {
+  color: $gray;
+  margin-left: auto;
+  margin-right: 12px;
+
+  &:hover {
+    color: $primary-hover;
+  }
+}
+
+.open {
+  color: $primary;
 }

@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   gap: 12px;
+  margin-bottom: 25px;
 
   .ad {
     display: flex;
@@ -58,8 +59,6 @@
           background-color: #158bce;
           color: white;
         }
-
-
 
         .extra {
           padding-inline: 10px;

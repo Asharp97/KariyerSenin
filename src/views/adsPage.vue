@@ -3,7 +3,9 @@
     <search v-if="false" @searchemit="searchfn($event)" :search="this.search"></search>
     <div class="searchWrapper my">
       <div v-if="user">Merhaba {{ user.name }}</div>
-      <div v-if="!user">Hi nice to meet you</div>
+
+      <icon :icon="['fas', 'filter']" @click="filterOpen = !filterOpen" :class="filterOpen ? 'open' : ''"
+        class="filterIcon pointer" />
       <div class="search">
         <icon class="icon" icon="fa-solid fa-circle-xmark" @click="clearSearch"></icon>
         <input id="searchContent" type="text" class="primary-input" v-model="search" v-on:keyup.enter="searchfn"
@@ -11,19 +13,19 @@
       </div>
     </div>
     <div class="content">
-      <div class="filter" v-show="true">
+      <div class="filter" v-show="filterOpen">
         <div class="couple">
-          <input v-model="this.salary_min" placeholder="min salary" />
-          <input v-model="this.salary_max" placeholder="max salary" />
+          <input v-model="this.salary_min" placeholder="min salary" class="primary-input" />
+          <input v-model="this.salary_max" placeholder="max salary" class="primary-input" />
         </div>
         <div class="couple">
-          <input v-model="this.state" placeholder="il" />
-          <input v-model="this.city" placeholder="ilce" />
+          <input v-model="this.state" placeholder="il" class="primary-input" />
+          <input v-model="this.city" placeholder="ilce" class="primary-input" />
         </div>
-        <input v-model="this.time" placeholder="zamani" />
+        <input v-model="this.time" placeholder="zamani" class="primary-input " />
         <div class="couple">
-          <button @click="filter()">submit</button>
-          <button @click="clearFilter()">clear</button>
+          <button class="primary-btn secondry" @click="filter()">submit</button>
+          <button class="primary-btn secondry" @click="clearFilter()">clear</button>
         </div>
       </div>
       <div class="ads">
@@ -70,9 +72,9 @@
 
         </div>
       </div>
-    </div>
-    <div class="spinner">
-      <spinner v-show="this.loading" />
+      <div class="spinner">
+        <spinner v-show="this.loading" />
+      </div>
     </div>
   </div>
 </template>
@@ -99,8 +101,9 @@ export default {
       state: '',
       city: '',
       time: '',
-      states: State.getStatesOfCountry('TR'), 
+      states: State.getStatesOfCountry('TR'),
       cities: "",
+      filterOpen: false,
     };
   },
   methods: {
@@ -146,7 +149,7 @@ export default {
             this.ads = response.data
           })
         .catch(error => { console.log(error); })
-      this.loading = true;
+      this.loading = false;
     },
     clearFilter() {
       this.salary_min = '';
@@ -185,6 +188,8 @@ export default {
   z-index: 100;
 }
 
+
+
 .search {
   position: relative;
 
@@ -200,7 +205,6 @@ export default {
     }
   }
 
-  .primary-input {}
 }
 
 .searchWrapper {
