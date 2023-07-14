@@ -6,7 +6,9 @@
         <router-link :to="`/ad/${ads[ad].id}`">
           <div class="ad">
             <a href="" class="logo">
-              <img :src="ads[ad].img" alt="">
+              <img v-if=ads[ad].img :src="ads[ad].img" alt="">
+              <img v-else
+                src="https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg">
             </a>
             <div class="adtext">
               <h4>{{ ads[ad].position }}</h4>

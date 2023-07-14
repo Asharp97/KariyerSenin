@@ -3,13 +3,18 @@
     <div class="text container">
       <h2>Eleman mı arıyorsun? Hemen ilan ver! </h2>
       <p>İlanlarınızı bizimle paylaşın, istediğiniz nitelikte sizlere eleman bulalım.</p>
-      <button class="primary-btn">Hemen Başla</button>
+      <button class="primary-btn" @click="start">Hemen Başla</button>
     </div>
   </div>
 </template>
 <script>
 export default {
   name: 'startNow',
+  methods:{
+    start(){
+      this.$router.push('/prices')
+    }
+  }
 }
 
 </script>

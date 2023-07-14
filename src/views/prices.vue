@@ -78,7 +78,7 @@ export default {
           oldPrice: '699',
           advantages:
             [
-            {
+              {
                 advantage: "1 adet ilan yayınlama hakkı",
               },
               {
@@ -89,8 +89,8 @@ export default {
               },
               {
                 advantage: "Ana sayfada yayınlama hakkı",
-              },             
-               {
+              },
+              {
                 advantage: "Şirket logosu ile yayınlama ",
               },
               {
@@ -117,8 +117,8 @@ export default {
               },
               {
                 advantage: "Ana sayfada yayınlama hakkı",
-              },             
-               {
+              },
+              {
                 advantage: "Şirket logosu ile yayınlama ",
               },
               {

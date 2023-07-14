@@ -5,13 +5,16 @@
 
       <div class="ad my">
         <a href="" class="logo">
-          <img :src="ad.img" alt="">
+          <img v-if="ad.img" :src="ad.img" alt="">
+          <img v-else
+            src="https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
+            alt="">
         </a>
         <div class="adtext">
           <div class="title">
             <h2>{{ ad.position }}</h2>
             <div class="extras">
-       
+
               <div class="time extra">
                 {{ ad.time }}
               </div>
@@ -43,10 +46,12 @@
   <div class="adDetails container my">
     <h2>İlan Detayları</h2>
     <p>{{ ad.description }}</p>
-    <div class="contact">
-      <icon class="icon" icon="fas fa-phone"></icon>
-      <p>{{ ad.telefon }}</p>
-    </div>
+    <a :href="`tel:+90${ad.telefon}`">
+      <div class="contact">
+        <icon class="icon" icon="fas fa-phone"></icon>
+        <p>{{ ad.telefon }}</p>
+      </div>
+    </a>
   </div>
 </template>
 <script>
@@ -123,6 +128,7 @@ export default {
           background-color: #158bce;
           color: white;
         }
+
         .extra {
           padding-inline: 10px;
           padding-block: 5px;

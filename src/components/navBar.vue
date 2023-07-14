@@ -52,13 +52,6 @@ export default {
       console.log('sign out?')
     }
   },
-  created() {
-    axios.get('user')
-      .then(response => {
-        this.$store.dispatch('user', response.data)
-      })
-      .catch(error => { console.log(error) })
-  },
   computed: {
     ...mapGetters(['user', 'admin'])
   },

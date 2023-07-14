@@ -5,16 +5,20 @@
     </h1>
     <div class="contact container ">
       <div class="cont-box">
-        <icon class="icon" icon="fas fa-phone"></icon>
-        <h5>Telefon Numaramız</h5>
-        <div class="separator"></div>
-        <div class="info">0850 850 50 50</div>
+        <a href="">
+          <icon class="icon" icon="fas fa-phone"></icon>
+          <h5>Telefon Numaramız</h5>
+          <div class="separator"></div>
+          <div class="info">0850 850 50 50</div>
+        </a>
       </div>
       <div class="cont-box">
-        <icon class="icon" icon="fa fa-envelope"></icon>
-        <h5>E posta</h5>
-        <div class="separator"></div>
-        <div class="info">destek@kariyersenin.com</div>
+        <a href="">
+          <icon class="icon" icon="fa fa-envelope"></icon>
+          <h5>E posta</h5>
+          <div class="separator"></div>
+          <div class="info">destek@kariyersenin.com</div>
+        </a>
       </div>
       <div class="cont-box">
         <icon class="icon" icon="fas fa-map-marker-alt"></icon>

@@ -9,7 +9,7 @@
 
 <script>
 import axios from 'axios';
- 
+
 import search from '../components/search.vue';
 import ads from '../components/ads.vue';
 import startNow from '../components/startNow.vue';

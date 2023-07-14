@@ -75,7 +75,7 @@ export default {
         img: "",
         description: ""
       },
-      states: State.getStatesOfCountry('TR'),
+      states: State.getStatesOfCountry('TR'), 
       cities: "",
       showModal: false
     }

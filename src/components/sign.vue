@@ -8,8 +8,11 @@
         <div class="input">
           <input class="primary-input" type="text" placeholder="İsim" v-model="newuser.name" />
         </div>
-        <div class="input">
-          <input class="primary-input" type="text" placeholder="Email" v-model="newuser.email" />
+        <div class="input ">
+          <input class="primary-input" type="text" placeholder='Email' v-model="newuser.email" />
+        </div>
+        <div class="error" v-if="this.emailError">
+          {{ emailError }}
         </div>
         <div class="input">
           <input class="primary-input" :type="hidePassword ? 'password' : 'text'" id="password1" placeholder="Parola"
@@ -17,12 +20,9 @@
           <icon class="icon" :icon="['fas', 'eye']" @click="toggleShow(0)" v-if="!hidePassword" />
           <icon class="icon" :icon="['fas', 'eye-slash']" @click="toggleShow(0)" v-if="hidePassword" />
         </div>
-        <!-- <div class="input">
-          <input class="primary-input" :type="hidePassword1 ? 'password' : 'text'" id="password2" placeholder="password again"
-            v-model="newuser.password_confirmation" name="password_confirmation" required/>
-          <icon class="icon" :icon="['fas', 'eye']" @click="toggleShow(1)" v-if="!hidePassword1" />
-          <icon class="icon" :icon="['fas', 'eye-slash']" @click="toggleShow(1)" v-if="hidePassword1" />
-        </div> -->
+        <div class="error" v-if="this.passwordError">
+          {{ passwordError }}
+        </div>
       </form>
       <button class="primary-btn" @click="signUp()">Kayıt Ol</button>
     </div>
@@ -34,16 +34,23 @@
       <div class="text">Zaten bir hesabınız var mı?</div>
       <form id="login" @submit.prevent="signIn" class="form">
         <div class="input">
-          <input class="primary-input" type="text" id="emailSignup" placeholder="Email" v-model="userLogin.email" v-on:keyup.enter="signIn" />
+          <input class="primary-input" type="text" id="emailSignup" placeholder="Email" v-model="userLogin.email"
+            v-on:keyup.enter="signIn" />
+        </div>
+        <div class="error" v-if="this.emailError">
+          {{ emailError }}
         </div>
         <div class="input">
           <input class="primary-input" :type="hidePassword2 ? 'password' : 'text'" id="password3" placeholder="Parola"
-            v-model="userLogin.password" v-on:keyup.enter="signIn"/>
+            v-model="userLogin.password" v-on:keyup.enter="signIn" />
           <icon class="icon" :icon="['fas', 'eye']" @click="toggleShow(2)" v-if="!hidePassword2" />
           <icon class="icon" :icon="['fas', 'eye-slash']" @click="toggleShow(2)" v-if="hidePassword2" />
         </div>
+        <div class="error" v-if="this.passwordError">
+          {{ passwordError }}
+        </div>
       </form>
-      <button class="primary-btn" @click="signIn">Giriş Yap</button>
+      <button class="primary-btn" @click="signIn()">Giriş Yap</button>
 
     </div>
     <Teleport to="#modal">
@@ -71,6 +78,9 @@ export default {
   emits: ['closeModal'],
   data() {
     return {
+      userError: false,
+      emailError: "",
+      passwordError: "",
       newuser: {
         name: "",
         email: "",
@@ -89,55 +99,81 @@ export default {
     }
   },
   methods: {
-    async signUp() {
-      const response = await axios.post("register", this.newuser);
-      if (response.status = 201) {
-        const res = await axios.post("login", this.newuser.userLogin);
-        console.log("success signed up")
-        if (res.status = 201) {
-          this.$store.dispatch('user', response.data.user)
-          this.$router.push('/prices')
-        }
-        else {
-          console.log("login ERROR!" + error)
-        }
-      }
-      else {
-        console.log("register ERROR!" + error)
-      }
-    },
-    async signIn() {
-      const response = await axios.post("login", this.userLogin);
-      if (response.status == 201) {
-        if (response.data.user.type == 'user') {
-          this.$store.dispatch('user', response.data.user)
-          this.$router.push('/ads')
-        }
-        else if (response.data.user.type == 'admin') {
-          this.$store.dispatch('admin', response.data.user)
-          this.$router.push('/admin')
-        }
-        this.$emit('closeModal')
+    signUp() {
+      //email
+      if (!this.newuser.email)
+        this.emailError = 'Email gereklidir';
+      else if (!/^[^@]+@\w+(\.\w+)+\w$/.test(this.newuser.email))
+        this.emailError = 'Geçersiz e-posta';
+      else
+        this.emailError = ''
 
-      }
-      else {
-        console.log('error?')
-      }
+      //password
+      if (!this.newuser.password)
+        this.passwordError = 'Şifre gereklidir';
+      else if (this.newuser.password.length < 8)
+        this.passwordError = 'Şifre 8 karakterden uzun olmalıdır';
+      else
+        this.passwordError = ''
+
+      axios.post("register", this.newuser)
+        .then(response => {
+          if (response.status = 201) {
+            axios.post("login", this.newuser)
+              .then(res => {
+                if (res.status = 201) {
+                  this.$store.dispatch('user', response.data.user)
+                  this.$router.push('/ads')
+                  this.$emit('closeModal')
+                }
+              }).catch(e => console.log("login ERROR!" + e))
+          }
+        }).catch(error => this.userError = true)
+
+    },
+    signIn() {
+      if (!this.userLogin.email)
+        this.emailError = 'Email gereklidir';
+      else if (!/^[^@]+@\w+(\.\w+)+\w$/.test(this.userLogin.email))
+        this.emailError = 'Geçersiz e-posta';
+      else
+        this.emailError = ''
+
+      if (!this.userLogin.password)
+        this.passwordError = 'Şifre gereklidir'
+      else if (this.userLogin.password.length < 8)
+        this.passwordError = 'Şifre 8 karakterden uzun olmalıdır'
+      else if (this.userLogin.password && this.userLogin.email && this.userError)
+        this.passwordError = 'Şifre veya e-posta yanlış';
+      else
+        this.passwordError = ''
+
+      axios.post("login", this.userLogin)
+        .then(response => {
+          if (response.status == 201) {
+            if (response.data.user.type == 'user') {
+              this.$store.dispatch('user', response.data.user)
+              this.$router.push('/ads')
+            }
+            else if (response.data.user.type == 'admin') {
+              this.$store.dispatch('admin', response.data.user)
+              this.$router.push('/admin')
+            }
+            this.$emit('closeModal')
+          }
+        }).catch(error => this.userError = true)
     },
     toggleShow(x) {
-      if (x == 0) {
+      if (x == 0)
         this.hidePassword = !this.hidePassword;
-      }
-      if (x == 1) {
+      if (x == 1)
         this.hidePassword1 = !this.hidePassword1;
-      }
-      if (x == 2) {
+      if (x == 2)
         this.hidePassword2 = !this.hidePassword2;
-      }
     },
   },
   computed: {
-    ...mapGetters(['user','admin'])
+    ...mapGetters(['user', 'admin']),
   },
 
 
@@ -147,6 +183,11 @@ export default {
 </script>
 <style scoped lang="scss">
 @import "../assets/variables.scss";
+
+
+.error {
+  color: rgb(84, 84, 84);
+}
 
 .icon {
   color: rgb(81, 81, 81);

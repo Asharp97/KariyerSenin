@@ -12,14 +12,19 @@
     </div>
     <div class="content">
       <div class="filter" v-show="true">
-        <div class="salary">
+        <div class="couple">
           <input v-model="this.salary_min" placeholder="min salary" />
           <input v-model="this.salary_max" placeholder="max salary" />
         </div>
-        <input v-model="this.state" placeholder="il" />
-        <input v-model="this.city" placeholder="ilce" />
+        <div class="couple">
+          <input v-model="this.state" placeholder="il" />
+          <input v-model="this.city" placeholder="ilce" />
+        </div>
         <input v-model="this.time" placeholder="zamani" />
-        <button @click="filter()">submit</button>
+        <div class="couple">
+          <button @click="filter()">submit</button>
+          <button @click="clearFilter()">clear</button>
+        </div>
       </div>
       <div class="ads">
         <div v-for="ad in ads " :key="ad.id">
@@ -28,7 +33,9 @@
 
             <div class="ad">
               <a href="" class="logo">
-                <img :src="ad.img" alt="">
+                <img v-if="ad.img" :src="ad.img" alt="">
+                <img v-else
+                  src="https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg">
               </a>
               <div class="adtext">
                 <h4>{{ ad.position }}</h4>
@@ -64,8 +71,8 @@
         </div>
       </div>
     </div>
-    <div v-show="this.loading" class="spinner">
-      <spinner />
+    <div class="spinner">
+      <spinner v-show="this.loading" />
     </div>
   </div>
 </template>
@@ -74,6 +81,7 @@
 import axios from 'axios'
 import search from "../components/search.vue";
 import spinner from "../components/spinner.vue";
+import { State, City } from 'country-state-city';
 
 import { mapGetters } from 'vuex'
 export default {
@@ -91,29 +99,30 @@ export default {
       state: '',
       city: '',
       time: '',
+      states: State.getStatesOfCountry('TR'), 
+      cities: "",
     };
   },
   methods: {
     searchfn() {
-      this.loading = true;
       if (this.search == "")
         this.getList();
-      else
+      else {
+        this.loading = true;
         axios.get(`ad/search/${this.search}`)
-          .then(
-            response => {
-              this.ads = response.data
-              this.loading = false;
-            })
+          .then(response => {
+            this.ads = response.data
+          })
           .catch(error => { console.log(error); })
+        this.loading = false;
+      }
     },
     getList() {
       this.loading = true;
       axios.get('ads')
-        .then(
-          response => {
-            this.ads = response.data
-          })
+        .then(response => {
+          this.ads = response.data
+        })
         .catch(error => { console.log(error); })
       this.loading = false;
     },
@@ -135,9 +144,18 @@ export default {
         .then(
           response => {
             this.ads = response.data
-            this.loading = true;
           })
         .catch(error => { console.log(error); })
+      this.loading = true;
+    },
+    clearFilter() {
+      this.salary_min = '';
+      this.salary_max = '';
+      this.state = '';
+      this.city = '';
+      this.time = '';
+      this.getList();
+
     }
 
 
@@ -157,6 +175,7 @@ export default {
 <style scoped lang="scss">
 @import '../assets/variables.scss';
 @import "../assets/ads.scss";
+@import "../assets/filter.scss";
 
 .spinner {
   display: flex;

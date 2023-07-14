@@ -3,36 +3,71 @@
   <div class="container cities">
     <div class="city-content">
       <div class="city istanbul">
-        <div class="number">31</div>
+        <div class="number">{{ this.getIstanbul() }}</div>
       </div>
-      <h3>istanbul</h3>
+      <h3>İstanbul</h3>
     </div>
-
     <div class="city-content">
       <div class="city ankara">
-        <div class="number">31</div>
+        <div class="number">{{ this.getAnkara() }}</div>
       </div>
-      <h3>ankara</h3>
+      <h3>Ankara</h3>
     </div>
     <div class="city-content">
       <div class="city izmir">
-        <div class="number">31</div>
+        <div class="number">{{ this.getIzmir() }}</div>
       </div>
-      <h3>izmir</h3>
+      <h3>İzmir</h3>
     </div>
     <div class="city-content">
       <div class="city antalya">
-        <div class="number">31</div>
+        <div class="number">{{ this.getAntalya() }}</div>
       </div>
-      <h3>antalya</h3>
+      <h3>Antalya</h3>
     </div>
   </div>
 </template>
 <script>
+import axios from 'axios';
+
 export default {
   name: "activedistricts",
-
+  data() {
+    return {
+      istanbul: '',
+      ankara: '',
+      izmir: '',
+      antalya: '',
+    }
+  },
+  methods: {
+    getIstanbul() {
+      axios.get(`ad/search/{search}?state=istanbul`)
+        .then(response => { this.istanbul= response.data.length })
+        .catch(error => { console.log(error); })
+      return this.istanbul
+    },
+    getAnkara() {
+      axios.get(`ad/search/{search}?state=ankara`)
+        .then(response => { this.ankara= response.data.length })
+        .catch(error => { console.log(error); })
+      return this.ankara
+    },
+    getIzmir() {
+      axios.get(`ad/search/{search}?state=izmir`)
+        .then(response => { this.izmir= response.data.length })
+        .catch(error => { console.log(error); })
+      return this.izmir
+    },
+    getAntalya() {
+      axios.get(`ad/search/{search}?state=antalya`)
+        .then(response => { this.antalya= response.data.length })
+        .catch(error => { console.log(error); })
+      return this.antalya
+    },
+  },
 }
+
 </script>
 <style scoped lang="scss">
 h2 {
