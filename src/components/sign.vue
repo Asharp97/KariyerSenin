@@ -6,17 +6,17 @@
       <div class="text">Daha önce kayıt olmadınız mı?</div>
       <form id="register" @submit.prevent="signUp" action="" class="form">
         <div class="input">
-          <input class="primary-input" type="text" placeholder="İsim" v-model="newuser.name" />
+          <input class="primary-input" type="text" placeholder="İsim" v-model="newuser.name" @keyup.enter="signUp()" />
         </div>
         <div class="input ">
-          <input class="primary-input" type="text" placeholder='Email' v-model="newuser.email" />
+          <input class="primary-input" type="text" placeholder='Email' v-model="newuser.email" @keyup.enter="signUp()" />
         </div>
         <div class="error" v-if="this.emailError">
           {{ emailError }}
         </div>
         <div class="input">
           <input class="primary-input" :type="hidePassword ? 'password' : 'text'" id="password1" placeholder="Parola"
-            v-model="newuser.password" />
+            v-model="newuser.password" @keyup.enter="signUp()" />
           <icon class="icon" :icon="['fas', 'eye']" @click="toggleShow(0)" v-if="!hidePassword" />
           <icon class="icon" :icon="['fas', 'eye-slash']" @click="toggleShow(0)" v-if="hidePassword" />
         </div>
@@ -35,14 +35,14 @@
       <form id="login" @submit.prevent="signIn" class="form">
         <div class="input">
           <input class="primary-input" type="text" id="emailSignup" placeholder="Email" v-model="userLogin.email"
-            v-on:keyup.enter="signIn" />
+            @keyup.enter="signIn()" />
         </div>
         <div class="error" v-if="this.emailError">
           {{ emailError }}
         </div>
         <div class="input">
           <input class="primary-input" :type="hidePassword2 ? 'password' : 'text'" id="password3" placeholder="Parola"
-            v-model="userLogin.password" v-on:keyup.enter="signIn" />
+            v-model="userLogin.password" @keyup.enter="signIn()" />
           <icon class="icon" :icon="['fas', 'eye']" @click="toggleShow(2)" v-if="!hidePassword2" />
           <icon class="icon" :icon="['fas', 'eye-slash']" @click="toggleShow(2)" v-if="hidePassword2" />
         </div>

@@ -21,10 +21,12 @@
         </a>
       </div>
       <div class="cont-box">
-        <icon class="icon" icon="fas fa-map-marker-alt"></icon>
-        <h5>Lokasyon</h5>
-        <div class="separator"></div>
-        <div class="info">İstanbul/Ümraniye</div>
+        <a href="">
+          <icon class="icon" icon="fas fa-map-marker-alt"></icon>
+          <h5>Lokasyon</h5>
+          <div class="separator"></div>
+          <div class="info">İstanbul/Ümraniye</div>
+        </a>
       </div>
     </div>
     <iframe
@@ -89,6 +91,8 @@ h1 {
       font-size: 25px;
       border-bottom: 1px #ffffff71 solid;
       width: 100px;
+      margin-inline: auto;
+      margin-block: 6px;
     }
 
     .info {
