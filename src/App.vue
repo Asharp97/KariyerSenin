@@ -83,6 +83,10 @@ export default {
   cursor: pointer;
 }
 
+button {
+  cursor: pointer;
+}
+
 .modal-bg {
   background: rgba(0, 0, 0, 0.5);
   position: fixed;

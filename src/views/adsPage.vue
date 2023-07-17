@@ -7,22 +7,22 @@
       <icon :icon="['fas', 'filter']" @click="filterOpen = !filterOpen" :class="filterOpen ? 'open' : ''"
         class="filterIcon pointer" />
       <div class="search">
-        <icon class="icon" icon="fa-solid fa-circle-xmark" @click="clearSearch"></icon>
-        <input id="searchContent" type="text" class="primary-input" v-model="search" v-on:keyup.enter="searchfn"
+        <icon class="icon pointer" icon="fa-solid fa-circle-xmark" @click="clearSearch"></icon>
+        <input @keyup.enter="searchfn()" id="searchContent" type="text" class="primary-input" v-model="search"
           placeholder="Search anything">
       </div>
     </div>
     <div class="content">
       <div class="filter" v-show="filterOpen">
         <div class="couple">
-          <input v-model="this.salary_min" placeholder="min salary" class="primary-input" />
-          <input v-model="this.salary_max" placeholder="max salary" class="primary-input" />
+          <input @keyup.enter="filter()" v-model="this.salary_min" placeholder="min salary" class="primary-input" />
+          <input @keyup.enter="filter()" v-model="this.salary_max" placeholder="max salary" class="primary-input" />
         </div>
         <div class="couple">
-          <input v-model="this.state" placeholder="il" class="primary-input" />
-          <input v-model="this.city" placeholder="ilce" class="primary-input" />
+          <input @keyup.enter="filter()" v-model="this.state" placeholder="il" class="primary-input" />
+          <input @keyup.enter="filter()" v-model="this.city" placeholder="ilce" class="primary-input" />
         </div>
-        <input v-model="this.time" placeholder="zamani" class="primary-input " />
+        <input @keyup.enter="filter()" v-model="this.time" placeholder="zamani" class="primary-input " />
         <div class="couple">
           <button class="primary-btn secondry" @click="filter()">submit</button>
           <button class="primary-btn secondry" @click="clearFilter()">clear</button>
@@ -76,6 +76,7 @@
         <spinner v-show="this.loading" />
       </div>
     </div>
+    <TailwindPagination :data="this.ads" @pagination-change-page="getlist()" />
   </div>
 </template>
 
@@ -83,7 +84,9 @@
 import axios from 'axios'
 import search from "../components/search.vue";
 import spinner from "../components/spinner.vue";
-import { State, City } from 'country-state-city';
+import { TailwindPagination } from 'laravel-vue-pagination';
+
+
 
 import { mapGetters } from 'vuex'
 export default {
@@ -93,7 +96,7 @@ export default {
   },
   data() {
     return {
-      ads: "",
+      ads: [],
       search: "",
       loading: false,
       salary_min: '',
@@ -101,9 +104,8 @@ export default {
       state: '',
       city: '',
       time: '',
-      states: State.getStatesOfCountry('TR'),
       cities: "",
-      filterOpen: false,
+      filterOpen: true,
     };
   },
   methods: {
@@ -120,9 +122,9 @@ export default {
         this.loading = false;
       }
     },
-    getList() {
+    getList(page = 1) {
       this.loading = true;
-      axios.get('ads')
+      axios.get(`ads?page=${page}`)
         .then(response => {
           this.ads = response.data
         })
