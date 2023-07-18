@@ -2,11 +2,11 @@
   <div class="admin container" v-if="admin">
 
     <div class="form">
-      <addadFrom v-on:listchanged="getList()" />
+      <addadFrom v-on:listchanged="getAds()" />
     </div>
 
     <div class="data">
-      <listView :ads="ads" v-on:listchanged="getList()" />
+      <listView :ads="ads" v-on:listchanged="getAds()" />
     </div>
   </div>
 </template>
@@ -28,7 +28,7 @@ export default
       }
     },
     methods: {
-      getList() {
+      getAds() {
         axios.get('ads').then(
           response => {
             this.ads = response.data
@@ -38,7 +38,7 @@ export default
       },
     },
     created() {
-      this.getList();
+      this.getAds();
     },
     computed: {
       ...mapGetters(['user', 'admin'])
@@ -48,9 +48,6 @@ export default
 </script>
 
 <style scoped lang="scss">
-
-
-
 .admin {
   display: flex;
   justify-content: center;

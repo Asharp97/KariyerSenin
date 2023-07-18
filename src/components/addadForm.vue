@@ -75,7 +75,7 @@ export default {
         img: "",
         description: ""
       },
-      states: State.getStatesOfCountry('TR'), 
+      states: State.getStatesOfCountry('TR'),
       cities: "",
       showModal: false
     }
@@ -101,7 +101,6 @@ export default {
         })
     },
     async selectState() {
-      console.log(this.ad.state)
       try {
         if (this.ad.state) {
           this.cities = City.getCitiesOfState('TR', this.ad.state.isoCode);

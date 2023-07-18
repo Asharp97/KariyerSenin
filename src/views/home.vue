@@ -3,7 +3,7 @@
   <div class="gap">
     <ads :ads="ads" v-if="ads.length > 6" />
     <startNow />
-    <activeDistricts /> 
+    <activeDistricts />
   </div>
 </template>
 
@@ -33,7 +33,7 @@ export default {
   },
 
   methods: {
-    getList() {
+    getAds() {
       axios.get('ads').then(
         response => {
           this.ads = response.data
@@ -42,7 +42,7 @@ export default {
     }
   },
   created() {
-    this.getList();
+    this.getAds();
   },
   computed: {
     ...mapGetters(['user', 'admin'])

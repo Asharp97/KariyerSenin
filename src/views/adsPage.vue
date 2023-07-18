@@ -1,28 +1,35 @@
 <template>
   <div class="container">
-    <search v-if="false" @searchemit="searchfn($event)" :search="this.search"></search>
     <div class="searchWrapper my">
-      <div v-if="user">Merhaba {{ user.name }}</div>
-
       <icon :icon="['fas', 'filter']" @click="filterOpen = !filterOpen" :class="filterOpen ? 'open' : ''"
         class="filterIcon pointer" />
-      <div class="search">
-        <icon class="icon pointer" icon="fa-solid fa-circle-xmark" @click="clearSearch"></icon>
-        <input @keyup.enter="searchfn()" id="searchContent" type="text" class="primary-input" v-model="search"
-          placeholder="Search anything">
-      </div>
+      <div v-if="user">Merhaba {{ user.name }}</div>
+
     </div>
     <div class="content">
       <div class="filter" v-show="filterOpen">
+        <div class="couple">
+          <input @keyup.enter="filter()" id="searchContent" type="text" class="primary-input w-full" v-model="search"
+            placeholder="Search anything">
+        </div>
         <div class="couple">
           <input @keyup.enter="filter()" v-model="this.salary_min" placeholder="min salary" class="primary-input" />
           <input @keyup.enter="filter()" v-model="this.salary_max" placeholder="max salary" class="primary-input" />
         </div>
         <div class="couple">
-          <input @keyup.enter="filter()" v-model="this.state" placeholder="il" class="primary-input" />
-          <input @keyup.enter="filter()" v-model="this.city" placeholder="ilce" class="primary-input" />
+          <input @keyup.enter="filter()" list="states" v-model="this.state" placeholder="il" class="primary-input"
+            @change="selectState()" />
+          <input @keyup.enter="filter()" list="cities" v-model="this.city" placeholder="ilce" class="primary-input" />
+          <datalist id="states">
+            <option v-for="state in states">{{ state.name }}</option>
+          </datalist>
+          <datalist id="cities">
+            <option v-for="city in cities">{{ city }}</option>
+          </datalist>
         </div>
-        <input @keyup.enter="filter()" v-model="this.time" placeholder="zamani" class="primary-input " />
+        <div class="couple">
+          <input @keyup.enter="filter()" v-model="this.time" placeholder="zamani" class="primary-input w-full " />
+        </div>
         <div class="couple">
           <button class="primary-btn secondry" @click="filter()">submit</button>
           <button class="primary-btn secondry" @click="clearFilter()">clear</button>
@@ -76,7 +83,6 @@
         <spinner v-show="this.loading" />
       </div>
     </div>
-    <TailwindPagination :data="this.ads" @pagination-change-page="getlist()" />
   </div>
 </template>
 
@@ -84,8 +90,8 @@
 import axios from 'axios'
 import search from "../components/search.vue";
 import spinner from "../components/spinner.vue";
-import { TailwindPagination } from 'laravel-vue-pagination';
 
+import { State, City } from 'country-state-city';
 
 
 import { mapGetters } from 'vuex'
@@ -96,60 +102,43 @@ export default {
   },
   data() {
     return {
-      ads: [],
-      search: "",
       loading: false,
+      ads: [],
+      //filters
+      search: '',
       salary_min: '',
       salary_max: '',
       state: '',
       city: '',
       time: '',
-      cities: "",
       filterOpen: true,
+      //cities states
+      states: State.getStatesOfCountry('TR'),
+      stateTR: {},
+      cities: "",
     };
   },
   methods: {
-    searchfn() {
-      if (this.search == "")
-        this.getList();
-      else {
-        this.loading = true;
-        axios.get(`ad/search/${this.search}`)
-          .then(response => {
-            this.ads = response.data
-          })
-          .catch(error => { console.log(error); })
-        this.loading = false;
-      }
-    },
-    getList(page = 1) {
+    getAds() {
       this.loading = true;
-      axios.get(`ads?page=${page}`)
-        .then(response => {
-          this.ads = response.data
-        })
+      axios.get(`ads`)
+        .then(response => { this.ads = response.data })
         .catch(error => { console.log(error); })
       this.loading = false;
     },
-    clearSearch() {
-      this.search = ''
-      this.getList();
-    },
     filter() {
+      console.log(this.states.data)
       this.loading = true;
       axios.get(
         `ad/search/{search}?` +
-        `${this.state ? `state=${this.state}` : ""}` +
-        `${this.city ? `city=${this.city}` : ""}` +
-        `${this.salary_min ? `salary_min=${this.salary_min}` : ""}` +
-        `${this.salary_max ? `salary_max=${this.salary_max}` : ""}` +
-        `${this.time ? `time=${this.time}` : ""}` +
-        `${this.search ? `search=${this.search}` : ""}`
+        `${this.state ? `&state=${this.state}` : ""}` +
+        `${this.city ? `&city=${this.city}` : ""}` +
+        `${this.salary_min ? `&salary_min=${this.salary_min}` : ""}` +
+        `${this.salary_max ? `&salary_max=${this.salary_max}` : ""}` +
+        `${this.time ? `&time=${this.time}` : ""}` +
+        `${this.search ? `&search=${this.search}` : ""}`
       )
-        .then(
-          response => {
-            this.ads = response.data
-          })
+        .then(response => { this.ads = response.data })
         .catch(error => { console.log(error); })
       this.loading = false;
     },
@@ -159,15 +148,19 @@ export default {
       this.state = '';
       this.city = '';
       this.time = '';
-      this.getList();
-
-    }
-
-
-
+      this.search = '';
+      this.getAds();
+    },
+    selectState() {
+      console.log(this.state)
+      if (this.state) {
+        this.cities = City.getCitiesOfState('TR', this.state.isoCode);
+        this.state = this.state.name;
+      }
+    },
   },
   created() {
-    this.getList();
+    this.getAds();
   },
   computed: {
     ...mapGetters(['user', 'admin']),
@@ -190,8 +183,6 @@ export default {
   z-index: 100;
 }
 
-
-
 .search {
   position: relative;
 
@@ -212,7 +203,6 @@ export default {
 .searchWrapper {
   height: 50px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
