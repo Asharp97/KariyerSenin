@@ -86,9 +86,11 @@ export default {
 button {
   cursor: pointer;
 }
-.w-full{
+
+.w-full {
   width: 100% !important;
 }
+
 .modal-bg {
   background: rgba(0, 0, 0, 0.5);
   position: fixed;

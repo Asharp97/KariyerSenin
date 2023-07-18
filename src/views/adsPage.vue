@@ -83,6 +83,7 @@
         <spinner v-show="this.loading" />
       </div>
     </div>
+    
   </div>
 </template>
 
