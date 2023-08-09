@@ -9,19 +9,28 @@
     </div>
     <div class="city-content">
       <div class="city ankara">
-        <div class="number">{{ this.getAnkara() }}</div>
+        <div class="number">
+          <!-- {{ this.getAnkara() }} -->
+          40
+        </div>
       </div>
       <h3>Ankara</h3>
     </div>
     <div class="city-content">
       <div class="city izmir">
-        <div class="number">{{ this.getIzmir() }}</div>
+        <div class="number">
+          <!-- {{ this.getIzmir() }} -->
+          25
+        </div>
       </div>
       <h3>İzmir</h3>
     </div>
     <div class="city-content">
       <div class="city antalya">
-        <div class="number">{{ this.getAntalya() }}</div>
+        <div class="number">
+          <!-- {{ this.getAntalya() }} -->
+          20
+        </div>
       </div>
       <h3>Antalya</h3>
     </div>
@@ -72,6 +81,7 @@ export default {
 <style scoped lang="scss">
 h2 {
   margin-inline: auto;
+  font-size: 38px;
 }
 
 .cities {

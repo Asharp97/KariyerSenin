@@ -51,15 +51,17 @@
                   </div>
                   <div class="input">
                     <label for="state">Il</label>
-                    <select name="state" id="state" class="select" v-model="ad.state" @change="selectState()">
+                    <!-- <select name="state" id="state" class="select" v-model="ad.state" @change="selectState()">
                       <option v-for="state in  states " :key="state.isoCode" :value=state> {{ state.name }} </option>
-                    </select>
+                    </select> -->
+                    <input type="text" v-model="ad.state">
                   </div>
                   <div class="input">
                     <label for="city">Ilçe</label>
-                    <select name="city" id="city" class="select" v-model="ad.city">
+                    <!-- <select name="city" id="city" class="select" v-model="ad.city">
                       <option v-for=" city  in  cities " :key="city.id">{{ city.name }}</option>
-                    </select>
+                    </select> -->
+                    <input type="text" v-model="ad.city">
 
                   </div>
                   <div class="input">
@@ -103,14 +105,14 @@
 
 <script>
 import axios from 'axios';
-import { State, City } from 'country-state-city';
+// import { State, City } from 'country-state-city';
 export default {
   data() {
     return {
       isModalOpen: false,
       ad: {},
-      states: State.getStatesOfCountry('TR'),
-      cities: "",
+      // states: State.getStatesOfCountry('TR'),
+      // cities: "",
     }
   },
   name: 'listView',
@@ -142,17 +144,7 @@ export default {
         })
         .catch(error => { console.log(error); })
     },
-    async selectState() {
-      console.log(this.ad.state)
-      try {
-        if (this.ad.state) {
-          this.cities = City.getCitiesOfState('TR', this.ad.state.isoCode);
-          this.ad.state = this.ad.state.name;
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    },
+
   },
 }
 

@@ -5,10 +5,9 @@
 
       <div class="ad my">
         <a href="" class="logo">
-          <img v-if="ad.img" :src="ad.img" alt="">
-          <img v-else
-            src="https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
-            alt="">
+          <img class="actualImg" v-if="ad.img" :src="ad.img" alt="">
+          <img class="defaultImg" v-else
+            src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Eo_circle_blue_letter-k.svg">
         </a>
         <div class="adtext">
           <div class="title">
@@ -37,6 +36,20 @@
               <icon icon="fas fa-map-marker-alt" />
               <p>{{ ad.state }}-{{ ad.city }}</p>
             </div>
+
+          </div>
+          <div class="calls">
+            <a :href="`tel:+90${ad.telefon}`">
+              <div class="call phone primary-btn">
+                Hemen Ara
+              </div>
+            </a>
+            <a target=”_blank” :href="`https://wa.me/${ad.telefon}`">
+
+              <div class="call whats">
+                <icon icon="fab fa-whatsapp" />
+              </div>
+            </a>
           </div>
 
         </div>
@@ -52,6 +65,12 @@
         <p>{{ ad.telefon }}</p>
       </div>
     </a>
+    <div class="socialMedia">
+      <icon class="icon" icon="fab fa-facebook-f" />
+      <icon class="icon" icon="fab fa-twitter" />
+      <icon class="icon" icon="fab fa-instagram" />
+      <icon class="icon" icon="fab fa-linkedin" />
+    </div>
   </div>
 </template>
 <script>
@@ -99,7 +118,8 @@ export default {
     .adtext {
       display: flex;
       flex-direction: column;
-      justify-content: space-evenly;
+      justify-content: center;
+      gap: 27px;
 
       .title {
         display: flex;
@@ -117,6 +137,29 @@ export default {
         .detail {
           display: flex;
           gap: 6px;
+        }
+      }
+
+      .calls {
+        display: flex;
+        gap: 12px;
+
+        .phone {
+          font-size: 20px !important;
+          font-weight: 500;
+
+
+        }
+
+        .whats {
+          height: 100%;
+          align-items: center;
+          display: flex;
+          justify-content: center;
+          border-radius: 4px;
+          border: $border;
+          font-size: 30px;
+          padding-inline: 15px;
         }
       }
 
@@ -143,6 +186,16 @@ export default {
   gap: 12px;
   display: flex;
   flex-direction: column;
+
+  .socialMedia {
+    gap: 12px;
+    display: flex;
+    .icon {
+      // border: 1px solid $gray;
+      font-size: 40px;
+      
+    }
+  }
 }
 
 .contact {

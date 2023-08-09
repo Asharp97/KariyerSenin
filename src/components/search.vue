@@ -47,6 +47,7 @@ export default {
 
 <style scoped lang="scss">
 @import '../assets/variables.scss';
+@import '../assets/media.scss';
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 
@@ -73,7 +74,7 @@ export default {
 
     .search {
       min-width: 220px;
-      border: solid 1px #C9C9C9;
+      border: $border;
       border-radius: $radius;
       padding: 12px;
       display: flex;

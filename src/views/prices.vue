@@ -5,7 +5,7 @@
     <p>Sizin için en uygun fiyat paketini seçin, hemen aradığınız çalışan adayı ile tanışın!</p>
     <div class="packages container">
       <div class="package" v-for="pack in packages" :key="pack.id">
-        <h5>{{ pack.name }}</h5>
+        <h3>{{ pack.name }}</h3>
         <div class="price">
           <h2>{{ pack.price }} ₺ </h2>
           <h4>/ <span> {{ pack.oldPrice }} ₺</span></h4>
@@ -164,7 +164,8 @@ p {
 
 .packages {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
+
 
   .package {
     display: flex;
@@ -175,7 +176,7 @@ p {
     gap: 2rem;
     margin-block: 2rem;
 
-    h5 {
+    h3 {
       color: $primary;
     }
 
@@ -196,6 +197,7 @@ p {
       flex-direction: column;
 
       li {
+        line-height: 26px;
         &::before {
           content: "\2022";
           color: #021474;

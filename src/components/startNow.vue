@@ -23,9 +23,15 @@ export default {
 @import '../assets/variables.scss';
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
+h2{
+  font-size: 38px;
+}
+p{
+  font-size: 23px;
+}
 .bg-image {
   background-image: url(https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg);
-  background-color: #00000062;
+  background-color: #000000a0;
   background-blend-mode: multiply;
   background-repeat: no-repeat;
   background-size: cover;

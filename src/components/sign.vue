@@ -116,6 +116,7 @@ export default {
       else
         this.passwordError = ''
 
+      //axios
       axios.post("register", this.newuser)
         .then(response => {
           if (response.status = 201) {
@@ -132,13 +133,14 @@ export default {
 
     },
     signIn() {
+      //email
       if (!this.userLogin.email)
         this.emailError = 'Email gereklidir';
       else if (!/^[^@]+@\w+(\.\w+)+\w$/.test(this.userLogin.email))
         this.emailError = 'Geçersiz e-posta';
       else
         this.emailError = ''
-
+      //password
       if (!this.userLogin.password)
         this.passwordError = 'Şifre gereklidir'
       else if (this.userLogin.password.length < 8)
@@ -147,7 +149,7 @@ export default {
         this.passwordError = 'Şifre veya e-posta yanlış';
       else
         this.passwordError = ''
-
+      //axios
       axios.post("login", this.userLogin)
         .then(response => {
           if (response.status == 201) {

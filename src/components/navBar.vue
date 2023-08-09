@@ -21,6 +21,22 @@
           <!-- <icon class="icon prim" icon="fa-solid fa-user" contextmenu="userMenu"></icon> -->
           <div class="primary-btn" @click="signOut()">Çikiş</div>
         </div>
+        <div class="burgerMenu" @click="this.sideMenu = !this.sideMenu">
+          <icon v-show="!this.sideMenu" icon="fa-solid fa-bars" />
+          <icon v-show="this.sideMenu" icon="fa-solid fa-xmark" />
+        </div>
+      </div>
+    </div>
+
+    <div class="sideWrapper" :class="this.sideMenu ? '' : 'closeSideWrapper'" @click.self="this.sideMenu = false">
+      <div :class="this.sideMenu ? 'openSideMenu' : 'closeSideMenu'" class="sideMenu">
+        <div class="nav">
+          <router-link onclick="this.sideMenu=false" to="/">Ana Sayfa</router-link>
+          <router-link onclick="this.sideMenu=false" to="/ads"> İlanlar</router-link>
+          <router-link onclick="this.sideMenu=false" to="/prices"> Fiyatlandırma</router-link>
+          <router-link onclick="this.sideMenu=false" to="/about"> Hakkımızda</router-link>
+          <router-link onclick="this.sideMenu=false" to="/contact"> İletişim</router-link>
+        </div>
       </div>
     </div>
 
@@ -41,6 +57,7 @@ export default {
   data() {
     return {
       isOpen: false,
+      sideMenu: false,
     }
   },
   methods: {
@@ -62,9 +79,14 @@ export default {
 
 <style scoped lang="scss">
 @import "../assets/variables.scss";
+@import "../assets/media.scss";
 
 .header {
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
   border-bottom: $border;
+  z-index: 100;
+  transition: 300ms;
 
   .header-content {
     display: flex;
@@ -80,7 +102,6 @@ export default {
       display: flex;
       align-items: center;
 
-      // gap: 24px;
       a {
         font-size: 20px;
         border-bottom: 1px transparent solid;
@@ -98,6 +119,10 @@ export default {
 
     .right {
       display: flex;
+
+      .burgerMenu {
+        display: none;
+      }
 
       .phone {
         color: $primary;
@@ -121,6 +146,10 @@ export default {
         }
       }
     }
+  }
+
+  .sideWrapper {
+    display: none;
   }
 }
 </style>

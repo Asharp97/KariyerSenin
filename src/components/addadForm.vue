@@ -1,42 +1,42 @@
 <template>
   <form ref="form" class="inputs" id="frm">
     <div class="input" :class="!ad.company ? 'req' : ''">
-      <input type="text" v-model="ad.company" placeholder="sirket isimi">
+      <input @keyup.enter="addad()" type="text" v-model="ad.company" placeholder="sirket isimi">
     </div>
     <div class="input req">
-      <input type="text" v-model="ad.position" placeholder="pozisioyon">
+      <input @keyup.enter="addad()" type="text" v-model="ad.position" placeholder="pozisioyon">
     </div>
     <div class="input" :class="!ad.state.isoCode ? 'req' : ''">
-      <label for="state">Il</label>
-      <select name="state" id="state" class="select" v-model="ad.state" @change="selectState()">
+      <!-- <label for="state">Il</label> -->
+      <!-- <select name="state" id="state" class="select" v-model="ad.state" @change="selectState()">
         <option v-for="state in  states " :key="state.isoCode" :value=state> {{ state.name }} </option>
-      </select>
+      </select> -->
+      <input @keyup.enter="addad()" type="text" v-model="ad.state" placeholder="Il">
     </div>
     <div class="input" :class="!ad.city ? 'req' : ''">
-
-      <label for="city">Ilçe</label>
-      <select name="city" id="city" class="select" v-model="ad.city">
+      <!-- <label for="city">Ilçe</label> -->
+      <!-- <select name="city" id="city" class="select" v-model="ad.city">
         <option v-for=" city  in  cities " :key="city.id">{{ city.name }}</option>
-      </select>
+      </select> -->
+      <input @keyup.enter="addad()" type="text" v-model="ad.city" placeholder="Ilce">
 
     </div>
     <div class="input " :class="!ad.time ? 'req' : ''">
-      <label for="">Zaman</label>
       <select v-model="ad.time">
-        <option selected>Tam zamanlı</option>
+        <option value="" disabled selected>Zaman</option>
+        <option>Tam zamanlı</option>
         <option>Yari zamanlı</option>
-        <option>Uzaktan</option>
         <option>Staj</option>
       </select>
     </div>
     <div class=" input">
-      <input type="text" v-model="ad.salary" placeholder="Maaş">
+      <input @keyup.enter="addad()" type="text" v-model="ad.salary" placeholder="Maaş">
     </div>
     <div class="input " :class="!ad.time ? 'req' : ''">
-      <input type="text" v-model="ad.telefon" placeholder="telefon">
+      <input @keyup.enter="addad()" type="text" v-model="ad.telefon" placeholder="telefon">
     </div>
     <div class="input">
-      <input type="text" v-model="ad.img" placeholder="gorsel link">
+      <input @keyup.enter="addad()" type="text" v-model="ad.img" placeholder="gorsel link">
     </div>
     <div class="input">
       <textarea type="text" v-model="ad.description" rows="4" placeholder="aciklama"></textarea>
@@ -57,7 +57,7 @@
 
 <script>
 import axios from 'axios';
-import { State, City } from 'country-state-city';
+// import { State, City } from 'country-state-city';
 
 export default {
   data() {
@@ -75,8 +75,6 @@ export default {
         img: "",
         description: ""
       },
-      states: State.getStatesOfCountry('TR'),
-      cities: "",
       showModal: false
     }
   },

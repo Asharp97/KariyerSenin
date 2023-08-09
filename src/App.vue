@@ -1,5 +1,5 @@
 <template>
-  <navBar @openModal="this.isModalOpen = true" />
+  <navBar class="navbar" @openModal="this.isModalOpen = true" />
   <router-view @showModal="this.isModalOpen = true"></router-view>
   <footery />
   <Teleport to="#modal">
@@ -58,6 +58,11 @@ export default {
 @import "./assets/media.scss";
 @import "./assets/ads.scss";
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+.navbar {
+  position: sticky;
+  top: 0;
+}
 
 .primary-input {
   border: none;
@@ -210,5 +215,11 @@ a {
 
 .prim {
   color: $primary;
+}
+
+.row {
+  display: flex;
+  gap: 6px;
+  flex-direction: row !important;
 }
 </style>

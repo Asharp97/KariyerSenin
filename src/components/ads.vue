@@ -2,13 +2,13 @@
   <div class="container">
     <h2>Son eklenen ilanlar</h2>
     <div class="ads">
-      <div v-for="ad in 6" :key="ad">
-        <router-link :to="`/ad/${ads[ad].id}`">
+      <div v-for="ad in 6" :key="ad" class="adLoop">
+        <router-link class="adWrapper" :to="`/ad/${ads[ad].id}`">
           <div class="ad">
             <a href="" class="logo">
               <img v-if=ads[ad].img :src="ads[ad].img" alt="">
-              <img v-else
-                src="https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg">
+              <img class="defaultImg" v-else
+                src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Eo_circle_blue_letter-k.svg">
             </a>
             <div class="adtext">
               <h4>{{ ads[ad].position }}</h4>
@@ -56,6 +56,7 @@ export default {
 
 <style scoped lang="scss">
 @import '../assets/variables.scss';
+@import '../assets/ads.scss';
 
 .seeMore {
   color: white;
@@ -79,5 +80,7 @@ export default {
 h2 {
   text-align: center;
   margin-bottom: 30px;
+  font-size: 38px;
+
 }
 </style>

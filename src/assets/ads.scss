@@ -1,8 +1,9 @@
+@import "./variables";
 .ads {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 32px;
   margin-bottom: 25px;
 
   .ad {
@@ -15,6 +16,13 @@
     border-radius: $radius;
     padding: 20px;
     transition: 300ms;
+
+    .defaultImg {
+      filter: saturate(0.7);
+    }
+    .actualImg {
+      // border: solid 1px $primary;
+    }
 
     &:hover {
       box-shadow: $shadow;
@@ -36,12 +44,12 @@
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
-      width: 300px;
+      width: 320px;
 
       .details {
         color: $gray;
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
         gap: 12px;
         // align-items: center;
         padding-block: 12px;
@@ -64,7 +72,7 @@
         .extra {
           padding-inline: 10px;
           padding-block: 5px;
-          border-radius: $radius;
+          border-radius: 10px;
         }
       }
     }

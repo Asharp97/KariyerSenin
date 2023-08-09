@@ -55,11 +55,15 @@ import {
   faCircleXmark,
   faFilter,
   faArrowsRotate,
+  faBars,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookF,
   faInstagram,
+  faLinkedin,
   faTwitter,
+  faWhatsapp,
 } from "@fortawesome/free-brands-svg-icons";
 import {} from "@fortawesome/free-regular-svg-icons";
 
@@ -82,7 +86,11 @@ library.add(
   faUser,
   faCircleXmark,
   faFilter,
+  faWhatsapp,
   faArrowsRotate,
+  faLinkedin,
+  faBars,
+  faXmark
 );
 
 const app = createApp(App);

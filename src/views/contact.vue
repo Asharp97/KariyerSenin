@@ -54,7 +54,7 @@ h1 {
 
 .contact {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   text-align: center;
 
   .cont-box {
@@ -69,6 +69,12 @@ h1 {
     justify-content: center;
     gap: 12px;
     transition: 300ms;
+
+    a {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
     &:hover {
       background-color: $primary-hover ;

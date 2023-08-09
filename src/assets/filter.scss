@@ -1,13 +1,16 @@
 .filter {
   display: flex;
-  flex-direction: column;
-  border: $border;
   border-radius: $radius;
   height: fit-content;
+  padding-block: 20px;
+  justify-content: space-between;
+  background: rgb(215 215 215 / 11%);
+  margin-bottom: 26px;
+  flex-wrap: wrap;
   gap: 12px;
-  padding: 20px;
   
   .couple {
+    flex-wrap: wrap;
     display: flex;
     gap: 12px;
     justify-content: space-between;
@@ -15,10 +18,28 @@
       font-size: 14px !important;
       padding-block: 5px;
     }
+    .search {
+      position: relative;
+
+      .searchbar {
+        transition: 300ms;
+        &:focus {
+          width: 184px !important;
+          &::placeholder {
+            opacity: 1;
+          }
+        }
+        
+      }
+      .icon {
+        position: absolute;
+      }
+    }
   }
   input,
-  button {
-    width: 80px;
+  // button,
+  select {
+    width: 180px !important;
   }
 }
 
