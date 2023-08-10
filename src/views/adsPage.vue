@@ -10,33 +10,42 @@
         <div style="margin-left: auto;"> {{ ads.length }} Sonuç Bulundu </div>
       </div>
       <div class="filter">
-        <div class="couple">
-          <div class="search">
-            <input @keyup.enter="filter()" id="searchContent" type="text" class="primary-input w-full searchbar"
-              v-model="search" placeholder="İlan ara...">
-            <icon icon="fas fa-search " class="icon" />
+        <div class="wing">
+          <div class="couple">
+            <div class="search">
+              <input @keyup.enter="filter()" id="searchContent" type="text" class="primary-input w-full searchbar"
+                v-model="search" placeholder="İlan ara...">
+              <icon icon="fas fa-search " class="icon" />
+            </div>
+            <input @keyup.enter="filter()" list="states" v-model="this.state" placeholder="İl" class="primary-input"
+              @change="selectState()" />
           </div>
-          <input @keyup.enter="filter()" list="states" v-model="this.state" placeholder="İl" class="primary-input"
-            @change="selectState()" />
-          <input @keyup.enter="filter()" list="cities" v-model="this.city" placeholder="İlçe" class="primary-input" />
-          <!-- <datalist id="states">
+
+          <div class="couple">
+
+            <input @keyup.enter="filter()" list="cities" v-model="this.city" placeholder="İlçe" class="primary-input" />
+            <!-- <datalist id="states">
             <option v-for="state in states">{{ state.name }}</option>
           </datalist> -->
-          <!-- <datalist id="cities">
+            <!-- <datalist id="cities">
             <option v-for="city in cities">{{ city }}</option>
           </datalist> -->
-          <select @keyup.enter="filter()" v-model="this.time" placeholder="Seçiniz" class="primary-input w-full ">
-            <option value="" disabled selected style="color:gray">Zamanı Seçiniz</option>
-            <option>Tam Zamanlı</option>
-            <option>Yarı Zamanlı</option>
-            <option>Staj</option>
-          </select>
+            <select @keyup.enter="filter()" v-model="this.time" placeholder="Seçiniz" class="primary-input w-full ">
+              <option value="" disabled selected style="color:gray">Zamanı Seçiniz</option>
+              <option>Tam Zamanlı</option>
+              <option>Yarı Zamanlı</option>
+              <option>Staj</option>
+
+            </select>
+          </div>
         </div>
-        <div class="couple">
-          <button class="primary-btn secondry redbg" @click="clearFilter()">
-            <icon icon="fa-solid fa-circle-xmark" />
-          </button>
-          <button class="primary-btn secondry" @click="filter()">İşimi bul</button>
+        <div class="wing">
+          <div class="couple">
+            <button class="primary-btn secondry redbg" @click="clearFilter()">
+              <icon icon="fa-solid fa-circle-xmark" />
+            </button>
+            <button class="primary-btn secondry" @click="filter()">İşimi bul</button>
+          </div>
         </div>
       </div>
       <div class="adsContainer">

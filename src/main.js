@@ -57,6 +57,8 @@ import {
   faArrowsRotate,
   faBars,
   faXmark,
+  faBuilding,
+  faBullseye,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookF,
@@ -90,7 +92,10 @@ library.add(
   faArrowsRotate,
   faLinkedin,
   faBars,
-  faXmark
+  faXmark,
+  faBuilding,
+  faSuitcase,
+  faBullseye
 );
 
 const app = createApp(App);

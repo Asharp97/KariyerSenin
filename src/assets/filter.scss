@@ -8,12 +8,17 @@
   margin-bottom: 26px;
   flex-wrap: wrap;
   gap: 12px;
-  
+  .wing{
+    flex-wrap: wrap;
+    display: flex;
+    gap: 12px;
+    
+  }
   .couple {
     flex-wrap: wrap;
     display: flex;
     gap: 12px;
-    justify-content: space-between;
+    justify-content: space-evenly;
     .secondry {
       font-size: 14px !important;
       padding-block: 5px;
@@ -39,7 +44,7 @@
   input,
   // button,
   select {
-    width: 180px !important;
+    width: 150px !important;
   }
 }
 

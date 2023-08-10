@@ -22,20 +22,25 @@
           <div class="primary-btn" @click="signOut()">Çikiş</div>
         </div>
         <div class="burgerMenu" @click="this.sideMenu = !this.sideMenu">
-          <icon v-show="!this.sideMenu" icon="fa-solid fa-bars" />
-          <icon v-show="this.sideMenu" icon="fa-solid fa-xmark" />
+          <icon :class="!this.sideMenu ? 'on' : 'off'" icon="fa-solid fa-bars" class="icon" />
+          <icon style="font-size: 20px;" :class="this.sideMenu ? 'on' : 'off'" icon="fa-solid fa-xmark" class="icon" />
         </div>
       </div>
     </div>
 
     <div class="sideWrapper" :class="this.sideMenu ? '' : 'closeSideWrapper'" @click.self="this.sideMenu = false">
       <div :class="this.sideMenu ? 'openSideMenu' : 'closeSideMenu'" class="sideMenu">
-        <div class="nav">
-          <router-link onclick="this.sideMenu=false" to="/">Ana Sayfa</router-link>
-          <router-link onclick="this.sideMenu=false" to="/ads"> İlanlar</router-link>
-          <router-link onclick="this.sideMenu=false" to="/prices"> Fiyatlandırma</router-link>
-          <router-link onclick="this.sideMenu=false" to="/about"> Hakkımızda</router-link>
-          <router-link onclick="this.sideMenu=false" to="/contact"> İletişim</router-link>
+        <div class="nav" @click="this.sideMenu = false">
+          <router-link to="/">
+            <div class="navLink">
+
+              Ana Sayfa
+            </div>
+          </router-link>
+          <router-link to="/ads"> İlanlar</router-link>
+          <router-link to="/prices"> Fiyatlandırma</router-link>
+          <router-link to="/about"> Hakkımızda</router-link>
+          <router-link to="/contact"> İletişim</router-link>
         </div>
       </div>
     </div>
@@ -102,6 +107,8 @@ export default {
       display: flex;
       align-items: center;
 
+
+
       a {
         font-size: 20px;
         border-bottom: 1px transparent solid;
@@ -122,6 +129,21 @@ export default {
 
       .burgerMenu {
         display: none;
+
+        .icon {
+          transition: 300ms;
+          position: absolute;
+        }
+
+        .on {
+          opacity: 1;
+          transform: rotate(180deg);
+        }
+
+        .off {
+          opacity: 0;
+          transform: rotate(0deg);
+        }
       }
 
       .phone {
@@ -150,6 +172,10 @@ export default {
 
   .sideWrapper {
     display: none;
+
+    .navLink {
+      width: 131px;
+    }
   }
 }
 </style>
