@@ -17,21 +17,24 @@
                 v-model="search" placeholder="İlan ara...">
               <icon icon="fas fa-search " class="icon" />
             </div>
-            <input @keyup.enter="filter()" list="states" v-model="this.state" placeholder="İl" class="primary-input"
-              @change="selectState()" />
+            <!-- <input list="states" @keyup.enter="filter()" class="primary-input" @change="getCities()" /> -->
+            <select v-model="this.selectedState" class="primary-input" @change="getCities()">
+              <option disabled selected hidden value="">Il</option>
+              <option v-for="state in stateList" :key="state.id" :value="state">{{ state.name }}</option>
+            </select>
           </div>
 
           <div class="couple">
-
-            <input @keyup.enter="filter()" list="cities" v-model="this.city" placeholder="İlçe" class="primary-input" />
-            <!-- <datalist id="states">
-            <option v-for="state in states">{{ state.name }}</option>
-          </datalist> -->
-            <!-- <datalist id="cities">
-            <option v-for="city in cities">{{ city }}</option>
-          </datalist> -->
+            <!-- <input @keyup.enter="filter()" list="cities" v-model="this.city" placeholder="İlçe" class="primary-input" /> -->
+            <Icon icon='svg-spinners:180-ring' />
+            <select v-model="this.selectedCity" class="primary-input">
+              <option disabled selected hidden value="">İlçe</option>
+              <option v-if="this.selectedState" v-for="city in cityList" :key="city.id">{{ city.name }}</option>
+              <option v-else disabled>önce il seçmelisin
+              </option>
+            </select>
             <select @keyup.enter="filter()" v-model="this.time" placeholder="Seçiniz" class="primary-input w-full ">
-              <option value="" disabled selected style="color:gray">Zamanı Seçiniz</option>
+              <option value="" disabled selected hidden style="color:gray">Zamanı Seçiniz</option>
               <option>Tam Zamanlı</option>
               <option>Yarı Zamanlı</option>
               <option>Staj</option>
@@ -102,11 +105,9 @@ import search from "../components/search.vue";
 import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 
-
-// import { State, City } from 'country-state-city';
-
-
 import { mapGetters } from 'vuex'
+import { Icon } from '@iconify/vue'
+
 export default {
   components: {
     search,
@@ -127,44 +128,49 @@ export default {
       city: '',
       time: '',
       filterOpen: true,
-
-      //cities states
+      cscBase: 'https://api.countrystatecity.in/v1/countries/',
+      key: {
+        headers: { 'X-CSCAPI-KEY': 'Zmt0UVBvWElEVnQzYUp4OXBjRk1HRkY0SFd5RTl2WFJWaGJkbElPeg==' }
+      },
+      stateList: [],
+      selectedState: { id: 2170, name: 'İstanbul', iso2: '34' },
+      cityList: [],
+      selectedCity: '',
     };
   },
   methods: {
     getAds() {
-      this.loading = true;
+      this.loading = true
       axios.get(`ads?page=` + this.page)
         .then(response => {
           this.pageCount = response.data.page_count
           this.ads = response.data
         })
         .catch(error => { console.log(error); })
-      this.loading = false;
+      this.loading = false
     },
     filter() {
-      this.loading = true;
+      this.loading = true
+
       axios.get(
         `ad/search/{search}?` +
-        `${this.state ? `&state=${this.state}` : ""}` +
-        `${this.city ? `&city=${this.city}` : ""}` +
-        `${this.salary_min ? `&salary_min=${this.salary_min}` : ""}` +
-        `${this.salary_max ? `&salary_max=${this.salary_max}` : ""}` +
+        `${this.selectedState ? `&state=${this.selectedState.name}` : ""}` +
+        `${this.selectedCity ? `&city=${this.selectedCity}` : ""}` +
         `${this.time ? `&time=${this.time}` : ""}` +
         `${this.search ? `&search=${this.search}` : ""}`
       )
         .then(response => { this.ads = response.data })
         .catch(error => { console.log(error); })
-      this.loading = false;
+      this.loading = false
     },
     clearFilter() {
-      this.salary_min = '';
-      this.salary_max = '';
-      this.state = '';
-      this.city = '';
-      this.time = '';
-      this.search = '';
-      this.getAds();
+      this.salary_min = ''
+      this.salary_max = ''
+      this.selectedState = ''
+      this.selectedCity = ''
+      this.time = ''
+      this.search = ''
+      this.getAds()
     },
     greeting() {
       if (new Date().getHours() < 12)
@@ -173,11 +179,26 @@ export default {
         this.greeting = "İyi günler"
       if (new Date().getHours() >= 18)
         this.greeting = "İyi akşamlar"
+    },
+    getStates() {
+      axios.get(`${this.cscBase}TR/states`, this.key)
+        .then(response => { this.stateList = response.data })
+        .catch(error => { console.log(error) })
+    },
+    getCities() {
+      this.loading = true
+      axios.get(`${this.cscBase}TR/states/${this.selectedState.iso2}/cities`, this.key)
+        .then(response => { this.cityList = response.data })
+        .catch(error => { console.log(error) })
+      this.loading = false
     }
+
   },
   created() {
-    this.greeting();
-    this.getAds();
+    this.greeting()
+    this.getAds()
+    this.getStates()
+    this.getCities()
   },
   computed: {
     ...mapGetters(['user', 'admin']),
@@ -206,6 +227,10 @@ export default {
   flex-direction: column;
 
   .ads {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
     .ad {
       position: relative;
       display: flex;

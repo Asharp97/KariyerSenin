@@ -23,6 +23,7 @@ export default {
   data() {
     return {
       ads: [],
+
     };
   },
   methods: {
@@ -37,6 +38,7 @@ export default {
           console.log(error);
         });
     },
+
   },
   created() {
     this.getAds();

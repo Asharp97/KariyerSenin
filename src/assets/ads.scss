@@ -2,8 +2,7 @@
 .ads {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 32px;
+  justify-content: space-evenly;
   margin-bottom: 25px;
 
   .ad {
@@ -16,6 +15,7 @@
     border-radius: $radius;
     padding: 20px;
     transition: 300ms;
+    margin-bottom: 32px;
 
     .defaultImg {
       filter: saturate(0.7);

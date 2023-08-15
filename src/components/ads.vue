@@ -58,6 +58,7 @@ export default {
 @import '../assets/variables.scss';
 @import '../assets/ads.scss';
 
+
 .seeMore {
   color: white;
   display: flex;

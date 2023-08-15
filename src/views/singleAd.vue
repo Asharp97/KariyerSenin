@@ -30,7 +30,7 @@
             </div>
             <!-- <div class="detail">
               <icon icon="fa-solid fa-clock" />
-              <p>{{ }}</p>
+              <p>{{ ad.created_at }}</p>
             </div> -->
             <div class="detail">
               <icon icon="fas fa-map-marker-alt" />
@@ -190,10 +190,11 @@ export default {
   .socialMedia {
     gap: 12px;
     display: flex;
+
     .icon {
       // border: 1px solid $gray;
       font-size: 40px;
-      
+
     }
   }
 }

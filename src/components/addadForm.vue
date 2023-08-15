@@ -11,14 +11,20 @@
       <!-- <select name="state" id="state" class="select" v-model="ad.state" @change="selectState()">
         <option v-for="state in  states " :key="state.isoCode" :value=state> {{ state.name }} </option>
       </select> -->
-      <input @keyup.enter="addad()" type="text" v-model="ad.state" placeholder="Il">
+      <!-- <input @keyup.enter="addad()" type="text" v-model="ad.state" placeholder="Il"> -->
+      <select v-model="this.selectedState" @change="getCities()">
+        <option disabled selected hidden value="">Il</option>
+        <option v-for="state in stateList" :key="state.id" :value="state">{{ state.name }}</option>
+      </select>
     </div>
     <div class="input" :class="!ad.city ? 'req' : ''">
-      <!-- <label for="city">Ilçe</label> -->
-      <!-- <select name="city" id="city" class="select" v-model="ad.city">
-        <option v-for=" city  in  cities " :key="city.id">{{ city.name }}</option>
-      </select> -->
-      <input @keyup.enter="addad()" type="text" v-model="ad.city" placeholder="Ilce">
+      <select v-model="this.selectedCity">
+        <option disabled selected hidden value="">İlçe</option>
+        <option v-if="this.selectedState" v-for="city in cityList" :key="city.id">{{ city.name }}</option>
+        <option v-else disabled>önce il seçmelisin
+        </option>
+      </select>
+      <!-- <input @keyup.enter="addad()" type="text" v-model="ad.city" placeholder="Ilce"> -->
 
     </div>
     <div class="input " :class="!ad.time ? 'req' : ''">
@@ -56,7 +62,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from 'axios'
 // import { State, City } from 'country-state-city';
 
 export default {
@@ -75,7 +81,15 @@ export default {
         img: "",
         description: ""
       },
-      showModal: false
+      showModal: false,
+      cscBase: 'https://api.countrystatecity.in/v1/countries/',
+      key: {
+        headers: { 'X-CSCAPI-KEY': 'Zmt0UVBvWElEVnQzYUp4OXBjRk1HRkY0SFd5RTl2WFJWaGJkbElPeg==' }
+      },
+      stateList: [],
+      selectedState: { id: 2170, name: 'İstanbul', iso2: '34' },
+      cityList: [],
+      selectedCity: '',
     }
   },
   emits: ['listchanged'],
@@ -98,17 +112,22 @@ export default {
           console.log(error);
         })
     },
-    async selectState() {
-      try {
-        if (this.ad.state) {
-          this.cities = City.getCitiesOfState('TR', this.ad.state.isoCode);
-          this.ad.state = this.ad.state.name;
-        }
-      } catch (error) {
-        console.log(error);
-      }
+    getStates() {
+      axios.get(`${this.cscBase}TR/states`, this.key)
+        .then(response => { this.stateList = response.data })
+        .catch(error => { console.log(error) })
     },
-  }
+    getCities() {
+      console.log(this.selectedState)
+      axios.get(`${this.cscBase}TR/states/${this.selectedState.iso2}/cities`, this.key)
+        .then(response => { this.cityList = response.data })
+        .catch(error => { console.log(error) })
+    }
+  },
+  created() {
+    this.getStates()
+    this.getCities()
+  },
 }
 </script>
 
