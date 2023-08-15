@@ -28,10 +28,10 @@
               <icon icon="fa-solid fa-money-bill" />
               <p>{{ ad.salary }}{{ ad.salary ? '' : 'Belirtilmedi' }}</p>
             </div>
-            <!-- <div class="detail">
+            <div class="detail">
               <icon icon="fa-solid fa-clock" />
-              <p>{{ ad.created_at }}</p>
-            </div> -->
+              <p>{{ moment(ad.created_at).startOf('minute').fromNow() }}</p>
+            </div>
             <div class="detail">
               <icon icon="fas fa-map-marker-alt" />
               <p>{{ ad.state }}-{{ ad.city }}</p>
@@ -75,13 +75,18 @@
 </template>
 <script>
 import axios from 'axios'
+import moment from "moment"
+import 'moment/locale/tr'
+moment.locale('tr')
 export default {
   data() {
     return {
       ad: {},
+      moment: moment,
     }
   },
   created() {
+    moment.locale('tr')
     this.id = this.$route.params.id;
     axios.get(`ad/${this.id}.json`)
       .then(response => {
@@ -124,6 +129,7 @@ export default {
       .title {
         display: flex;
         gap: 12px;
+        justify-content: space-between;
       }
 
       .details {
