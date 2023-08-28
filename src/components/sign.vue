@@ -124,6 +124,7 @@ export default {
               .then(res => {
                 if (res.status = 201) {
                   this.$store.dispatch('user', response.data.user)
+                  this.$store.dispatch('token', response.data.token);
                   this.$router.push('/ads')
                   this.$emit('closeModal')
                 }
@@ -161,6 +162,7 @@ export default {
               this.$store.dispatch('admin', response.data.user)
               this.$router.push('/admin')
             }
+            this.$store.dispatch('token', response.data.token);
             this.$emit('closeModal')
           }
         }).catch(error => this.userError = true)
@@ -175,7 +177,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['user', 'admin']),
+    ...mapGetters(['user', 'admin', 'token']),
   },
 
 

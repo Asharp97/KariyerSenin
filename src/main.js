@@ -59,6 +59,10 @@ import {
   faXmark,
   faBuilding,
   faBullseye,
+  faChevronRight,
+  faChevronLeft,
+  faAnglesRight,
+  faAnglesLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookF,
@@ -95,7 +99,12 @@ library.add(
   faXmark,
   faBuilding,
   faSuitcase,
-  faBullseye
+  faBullseye,
+  faChevronRight,
+  faChevronLeft,
+  faAnglesRight,
+  faAnglesLeft,
+
 );
 
 const app = createApp(App);

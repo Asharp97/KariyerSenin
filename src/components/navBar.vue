@@ -2,7 +2,7 @@
   <div class="header">
     <div class="header-content container">
       <router-link to="/" class="logo">
-        <img src="../assets/logo.png" />
+        <img src="../assets/logo.png" alt="kariyerSenin Logo" />
       </router-link>
 
       <div class="nav">
@@ -71,11 +71,12 @@ export default {
         this.$store.dispatch('user', null)
       if (this.admin)
         this.$store.dispatch('admin', null)
+      this.$store.dispatch('token', null)
       console.log('sign out?')
     }
   },
   computed: {
-    ...mapGetters(['user', 'admin'])
+    ...mapGetters(['user', 'admin', 'token'])
   },
 
 

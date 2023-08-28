@@ -1,6 +1,7 @@
 <template>
   <navBar class="navbar" @openModal="this.isModalOpen = true" />
-  <router-view @showModal="this.isModalOpen = true"></router-view>
+  <!-- @showModal="this.isModalOpen = true" -->
+  <router-view></router-view>
   <footery />
   <Teleport to="#modal">
     <transition name="modal">
@@ -35,19 +36,27 @@ export default {
       logout: false
     }
   },
+  methods: {
+    getUser() {
+      axios
+        .get('user')
+        .then(response => {
+          console.log(response.data)
+          //        console.log("User:", response);
+          if (response.data.user.type == 'user')
+            this.$store.dispatch('user', response.data);
+          if (response.data.user.type == 'admin')
+            this.$store.dispatch('admin', response.data);
+        })
+        .catch(error => { console.log("user yaba " + error) })
+    }
+  },
   created() {
-    axios.get('user')
-      .then(response => {
-        console.log(response)
-        if (response.data.user.type == 'user')
-          this.$store.dispatch('user', response.data);
-        if (response.data.user.type == 'admin')
-          this.$store.dispatch('admin', response.data);
-      })
-      .catch(error => { console.log(error) })
+    // if ('token')
+    this.getUser()
   },
   computed: {
-    ...mapGetters(['user', 'admin'])
+    ...mapGetters(['user', 'admin', 'token'])
   },
 };
 </script>
@@ -209,6 +218,19 @@ a {
 
   &:active {
     opacity: 0.8;
+  }
+}
+
+.disabled {
+  background-color: $gray;
+  cursor: not-allowed;
+
+  &:hover {
+    background-color: $gray;
+  }
+
+  &:active {
+    background-color: $gray;
   }
 }
 

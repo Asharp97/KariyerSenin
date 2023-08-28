@@ -119,20 +119,20 @@ h2 {
     }
 
     .istanbul {
-      background-image: url(https://images.pexels.com/photos/2042109/pexels-photo-2042109.jpeg);
+      background-image: url(https://content.kariyersenin.com/istanbul.jpg);
     }
 
     .ankara {
-      background-image: url(https://images.pexels.com/photos/14642058/pexels-photo-14642058.jpeg);
+      background-image: url(https://content.kariyersenin.com/ankara.jpg);
     }
 
     .izmir {
-      background-image: url(https://images.pexels.com/photos/14267576/pexels-photo-14267576.jpeg);
+      background-image: url(https://content.kariyersenin.com/izmir.jpg);
     }
   }
 
   .antalya {
-    background-image: url(https://images.pexels.com/photos/13220446/pexels-photo-13220446.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+    background-image: url(https://content.kariyersenin.com/antalya.jpg);
   }
 
 }

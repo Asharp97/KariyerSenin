@@ -7,7 +7,7 @@
     <div class="container">
       <div class="searchWrapper my">
         <div v-if="user">{{ this.greeting }} {{ user.name }}</div>
-        <div style="margin-left: auto;"> {{ ads.length }} Sonuç Bulundu </div>
+        <div style="margin-left: auto;"> {{ adLength }} Sonuç Bulundu </div>
       </div>
       <div class="filter">
         <div class="wing">
@@ -51,47 +51,67 @@
           </div>
         </div>
       </div>
-      <div class="adsContainer">
+      <Suspense>
+        <template #default>
+          <div class="adsContainer">
+            <div class="ads">
+              <div v-for="ad in ads " :key="ad.id">
 
-        <div class="ads">
-          <div v-for="ad in ads " :key="ad.id">
+                <router-link :to="`/ad/${ad.id}`">
 
-            <router-link :to="`/ad/${ad.id}`">
+                  <div class="ad">
+                    <a href="" class="logo">
+                      <img class="actualImg" v-if="ad.img" :src="ad.img" alt="Company Logo">
+                      <img class="defaultImg" v-else alt='default KariyerSenin Logo'
+                        src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Eo_circle_blue_letter-k.svg">
+                    </a>
+                    <div class="adtext">
+                      <p class="ad-company">{{ ad.company }}</p>
+                      <h4>{{ ad.position }}</h4>
+                      <div class="row">
+                        <icon icon="fas fa-map-marker-alt" />
+                        <p>{{ ad.state }}-{{ ad.city }}</p>
+                      </div>
 
-              <div class="ad">
-                <a href="" class="logo">
-                  <img class="actualImg" v-if="ad.img" :src="ad.img" alt="">
-                  <img class="defaultImg" v-else
-                    src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Eo_circle_blue_letter-k.svg">
-                </a>
-                <div class="adtext">
-                  <p class="ad-company">{{ ad.company }}</p>
-                  <h4>{{ ad.position }}</h4>
-                  <div class="row">
-                    <icon icon="fas fa-map-marker-alt" />
-                    <p>{{ ad.state }}-{{ ad.city }}</p>
-                  </div>
+                      <div class="extras">
 
-                  <div class="extras">
-
-                    <div class="time extra">
-                      {{ ad.time }}
+                        <div class="time extra">
+                          {{ ad.time }}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+
+                </router-link>
+
               </div>
-
-            </router-link>
-
+            </div>
           </div>
-        </div>
-        <!-- <div class="pagination">
-            <v-pagination v-model="this.page" :pages="this.pageCount" :range-size="1" active-color="#DCEDFF"
-              @update:modelValue="getAds" />
-          </div> -->
+        </template>
+        <template #fallback>
+          <icon icon="svg-spinners:180-ring" />
+          <h1>Loading</h1>
+        </template>
+      </Suspense>
+
+      <div class="pagination">
+        <button :class="this.page == 1 ? 'disabled' : ''" @click="this.page = 1" class="primary-btn">
+          <icon icon="fa-solid fa-angles-left " class="icon" />
+        </button>
+        <button :class="this.page == 1 ? 'disabled' : ''" class="primary-btn" @click="prevPage">
+          <icon icon="fa-solid fa-chevron-left " class="icon" />
+        </button>
+        <input @keyup.enter="paginateProof" type="number" class="primary-input" v-model="this.page">
+        <button :class="this.page == Math.ceil(this.adLength / this.adPerPage) ? 'disabled' : ''" class="primary-btn"
+          @click="nextPage">
+          <icon icon="fa-solid fa-chevron-right " class="icon" />
+        </button>
+        <button :class="this.page == Math.ceil(this.adLength / this.adPerPage) ? 'disabled' : ''"
+          @click="this.page = Math.ceil(this.adLength / this.adPerPage)" class="primary-btn">
+          <icon icon="fa-solid fa-angles-right " class="icon" />
+        </button>
       </div>
 
-      <!-- v-show="this.loading" -->
     </div>
   </div>
 </template>
@@ -102,32 +122,26 @@ import search from "../components/search.vue";
 
 // import { Icon } from '@iconify/vue'
 
-import VPagination from "@hennge/vue3-pagination";
-import "@hennge/vue3-pagination/dist/vue3-pagination.css";
-
 import { mapGetters } from 'vuex'
-import { Icon } from '@iconify/vue'
+// import { Icon } from '@iconify/vue'
 
 export default {
   components: {
     search,
-    VPagination
   },
   data() {
     return {
       loading: false,
       ads: [],
+      adLength: '',
       //paginate
       page: 1,
-      pageCount: null,
+      adPerPage: 3,
       //filters
       search: '',
-      salary_min: '',
-      salary_max: '',
       state: '',
       city: '',
       time: '',
-      filterOpen: true,
       cscBase: 'https://api.countrystatecity.in/v1/countries/',
       key: {
         headers: { 'X-CSCAPI-KEY': 'Zmt0UVBvWElEVnQzYUp4OXBjRk1HRkY0SFd5RTl2WFJWaGJkbElPeg==' }
@@ -140,18 +154,14 @@ export default {
   },
   methods: {
     getAds() {
-      this.loading = true
       axios.get(`ads?page=` + this.page)
+        // ?page=` + this.page
         .then(response => {
-          this.pageCount = response.data.page_count
-          this.ads = response.data
+          this.ads = response.data.data
         })
-        .catch(error => { console.log(error); })
-      this.loading = false
+        .catch(error => { console.log(error) })
     },
     filter() {
-      this.loading = true
-
       axios.get(
         `ad/search/{search}?` +
         `${this.selectedState ? `&state=${this.selectedState.name}` : ""}` +
@@ -161,11 +171,8 @@ export default {
       )
         .then(response => { this.ads = response.data })
         .catch(error => { console.log(error); })
-      this.loading = false
     },
     clearFilter() {
-      this.salary_min = ''
-      this.salary_max = ''
       this.selectedState = ''
       this.selectedCity = ''
       this.time = ''
@@ -186,11 +193,32 @@ export default {
         .catch(error => { console.log(error) })
     },
     getCities() {
-      this.loading = true
       axios.get(`${this.cscBase}TR/states/${this.selectedState.iso2}/cities`, this.key)
         .then(response => { this.cityList = response.data })
         .catch(error => { console.log(error) })
-      this.loading = false
+    },
+    nextPage() {
+      if (this.page < Math.ceil(this.adLength / this.adPerPage))
+        this.page++
+      this.getAds()
+    },
+    prevPage() {
+      if (this.page > 1)
+        this.page--
+      this.getAds()
+    },
+    allAds() {
+      axios
+        .get('allAds')
+        .then(res => { this.adLength = res.data })
+        .catch(err => { console.log(err) })
+    },
+    paginateProof() {
+      if (this.page < 1)
+        this.page = 1
+      if (this.page > Math.ceil(this.adLength / this.adPerPage))
+        this.page = Math.ceil(this.adLength / this.adPerPage)
+      this.getAds()
     }
 
   },
@@ -199,6 +227,7 @@ export default {
     this.getAds()
     this.getStates()
     this.getCities()
+    this.allAds()
   },
   computed: {
     ...mapGetters(['user', 'admin']),
@@ -273,10 +302,31 @@ export default {
     }
   }
 
-  .pagination {
-    display: flex;
-    justify-content: center;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  .icon {
+    padding-block: 1px;
   }
+
+  button {
+    padding: 12px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+  }
+
+  input {
+    width: 50px;
+    height: 36px;
+    text-align: center;
+  }
+
 }
 
 .search {
