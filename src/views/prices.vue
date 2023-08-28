@@ -139,10 +139,9 @@ export default {
       else {
         this.$emit('showModal')
       }
-
     }
-
   },
+  emits: ['showModal'],
   computed: {
     ...mapGetters(['user', 'admin'])
   },
@@ -198,6 +197,7 @@ p {
 
       li {
         line-height: 26px;
+
         &::before {
           content: "\2022";
           color: #021474;

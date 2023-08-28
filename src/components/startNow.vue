@@ -30,7 +30,7 @@ p{
   font-size: 23px;
 }
 .bg-image {
-  background-image: url(https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg);
+  background-image: url(https://content.kariyersenin.com/meetingTable.jpg);
   background-color: #000000a0;
   background-blend-mode: multiply;
   background-repeat: no-repeat;

@@ -4,17 +4,17 @@
 
       <div class="lists">
         <div class="list">
-          <h5>İş arayanlar için</h5>
+          <h4>İş arayanlar için</h4>
           <a href="">Aktif iş ilanları</a>
           <a href="">İş ilanı olan şehirler</a>
         </div>
         <div class="list">
-          <h5>İş verenler için</h5>
+          <h4>İş verenler için</h4>
           <a href="">İlanımı nasıl yayınlarım</a>
           <a href="">Fiyatlandırma</a>
         </div>
         <div class="list">
-          <h5>Hakkımızda</h5>
+          <h4>Hakkımızda</h4>
           <a href="">SSS</a>
           <a href="">Hizmetler</a>
           <a href="">Üyelik Sözleşmesi</a>
@@ -22,7 +22,7 @@
         </div>
       </div>
 
-      <img src="../assets/logo.png" alt="">
+      <img src="../assets/logo.png" alt="KariyerSenin Logo">
 
       <p>© 2023 kariyersenin.com- Tüm hakları saklıdır. </p>
 
@@ -62,7 +62,7 @@ export default {
       width: 100%;
 
       .list {
-        h5 {
+        h4 {
           font-size: 20px;
         }
 

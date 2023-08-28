@@ -2,7 +2,7 @@
   <div class="header">
     <div class="header-content container">
       <router-link to="/" class="logo">
-        <img src="../assets/logo.png" />
+        <img src="../assets/logo.png" alt="kariyerSenin Logo"/>
       </router-link>
 
       <div class="nav">

@@ -18,7 +18,7 @@
       </div> -->
     </div>
     <div class="imgDiv">
-      <img src="../assets/handshake.png" class="handshake">
+      <img src="../assets/handshake.png" class="handshake" alt="2 men shaking hands">
     </div>
   </div>
 </template>

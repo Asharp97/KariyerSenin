@@ -60,8 +60,8 @@
 
               <div class="ad">
                 <a href="" class="logo">
-                  <img class="actualImg" v-if="ad.img" :src="ad.img" alt="">
-                  <img class="defaultImg" v-else
+                  <img class="actualImg" v-if="ad.img" :src="ad.img" alt="Company Logo">
+                  <img class="defaultImg" v-else alt='default KariyerSenin Logo'
                     src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Eo_circle_blue_letter-k.svg">
                 </a>
                 <div class="adtext">

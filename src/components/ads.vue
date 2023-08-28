@@ -6,24 +6,25 @@
         <router-link class="adWrapper" :to="`/ad/${ads[ad].id}`">
           <div class="ad">
             <a href="" class="logo">
-              <img v-if=ads[ad].img :src="ads[ad].img" alt="">
+              <img v-if=ads[ad].img :src="ads[ad].img" alt="Company Logo">
               <img class="defaultImg" v-else
-                src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Eo_circle_blue_letter-k.svg">
+                src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Eo_circle_blue_letter-k.svg"
+                alt='default KariyerSenin Logo'>
             </a>
             <div class="adtext">
-              <h4>{{ ads[ad].position }}</h4>
+              <h3>{{ ads[ad].position }}</h3>
               <div class="details">
                 <div class="detail">
                   <icon icon="fa-solid fa-suitcase" />
-                  <p>{{ ads[ad].company }}</p>
+                  <h4>{{ ads[ad].company }}</h4>
                 </div>
                 <!-- <div class="detail">
               <icon icon="fa-solid fa-clock" />
-              <p>{{ }}</p>
+              <h4>{{ }}</h4>
             </div> -->
                 <div class="detail">
                   <icon icon="fas fa-map-marker-alt" />
-                  <p>{{ ads[ad].state }}-{{ ads[ad].city }}</p>
+                  <h4>{{ ads[ad].state }}-{{ ads[ad].city }}</h4>
                 </div>
               </div>
               <div class="extras">

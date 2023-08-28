@@ -72,7 +72,7 @@
           </p>
         </div>
         <div class="imgDiv">
-          <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg" alt="" />
+          <img src="https://content.kariyersenin.com/meetingTable.jpg" alt="meeting table" />
         </div>
       </div>
     </div>
@@ -93,8 +93,8 @@
         </div>
         <div class="imgDiv">
           <img
-            src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt="" />
+            src="https://content.kariyersenin.com/handShaking.jpg"
+            alt="2 people shaking hands in a meeting area" />
         </div>
       </div>
     </div>

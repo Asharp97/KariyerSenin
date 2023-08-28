@@ -3,33 +3,28 @@
     <div class="input" :class="!ad.company ? 'req' : ''">
       <input @keyup.enter="addad()" type="text" v-model="ad.company" placeholder="sirket isimi">
     </div>
-    <div class="input req">
-      <input @keyup.enter="addad()" type="text" v-model="ad.position" placeholder="pozisioyon">
+    <div class="input" :class="!ad.position ? 'req' : ''">
+      <input @keyup.enter=" addad()" type="text" v-model="ad.position" placeholder="pozisioyon">
     </div>
-    <div class="input" :class="!ad.state.isoCode ? 'req' : ''">
-      <!-- <label for="state">Il</label> -->
-      <!-- <select name="state" id="state" class="select" v-model="ad.state" @change="selectState()">
-        <option v-for="state in  states " :key="state.isoCode" :value=state> {{ state.name }} </option>
-      </select> -->
-      <!-- <input @keyup.enter="addad()" type="text" v-model="ad.state" placeholder="Il"> -->
-      <select v-model="this.selectedState" @change="getCities()">
+    <div class="input" :class="!ad.state ? 'req' : ''">
+
+      <select v-model="ad.state" @change="getCities()">
         <option disabled selected hidden value="">Il</option>
-        <option v-for="state in stateList" :key="state.id" :value="state">{{ state.name }}</option>
+        <option v-for="  state   in   stateList  " :key="state.id" :value="state">{{ state.name }}</option>
       </select>
     </div>
     <div class="input" :class="!ad.city ? 'req' : ''">
-      <select v-model="this.selectedCity">
+      <select v-model="ad.city">
         <option disabled selected hidden value="">İlçe</option>
-        <option v-if="this.selectedState" v-for="city in cityList" :key="city.id">{{ city.name }}</option>
-        <option v-else disabled>önce il seçmelisin
-        </option>
+        <option v-if="ad.state" v-for="  city   in   cityList  " :key="city.id">{{ city.name }}</option>
+        <option v-else disabled>önce il seçmelisin </option>
       </select>
       <!-- <input @keyup.enter="addad()" type="text" v-model="ad.city" placeholder="Ilce"> -->
 
     </div>
     <div class="input " :class="!ad.time ? 'req' : ''">
       <select v-model="ad.time">
-        <option value="" disabled selected>Zaman</option>
+        <option value="" disabled selected hidden>Zaman</option>
         <option>Tam zamanlı</option>
         <option>Yari zamanlı</option>
         <option>Staj</option>
@@ -38,14 +33,15 @@
     <div class=" input">
       <input @keyup.enter="addad()" type="text" v-model="ad.salary" placeholder="Maaş">
     </div>
-    <div class="input " :class="!ad.time ? 'req' : ''">
-      <input @keyup.enter="addad()" type="text" v-model="ad.telefon" placeholder="telefon">
+    <div class="input" :class="!ad.telefon ? 'req' : ''">
+      <input @keyup.enter="addad()" type="text" v-model="ad.telefon" placeholder="telefon" maxlength="10">
     </div>
     <div class="input">
       <input @keyup.enter="addad()" type="text" v-model="ad.img" placeholder="gorsel link">
     </div>
-    <div class="input">
-      <textarea type="text" v-model="ad.description" rows="4" placeholder="aciklama"></textarea>
+    <div class="input side">
+      <textarea type="text" v-model="ad.description" rows="7" placeholder="aciklama"></textarea>
+      <!-- <QuillEditor theme="snow" v-model:content="ad.description.ops" placeholder="aciklama" /> -->
     </div>
   </form>
   <button @click="addad()">paylas</button>
@@ -63,17 +59,13 @@
 
 <script>
 import axios from 'axios'
-// import { State, City } from 'country-state-city';
-
 export default {
   data() {
     return {
       ad: {
         company: "",
         position: "",
-        state: {
-          name: ''
-        },
+        state: { id: 2170, name: 'İstanbul', iso2: '34' },
         city: "",
         time: "",
         salary: "",
@@ -86,10 +78,15 @@ export default {
       key: {
         headers: { 'X-CSCAPI-KEY': 'Zmt0UVBvWElEVnQzYUp4OXBjRk1HRkY0SFd5RTl2WFJWaGJkbElPeg==' }
       },
-      stateList: [],
-      selectedState: { id: 2170, name: 'İstanbul', iso2: '34' },
-      cityList: [],
-      selectedCity: '',
+      // state: ,
+      stateList: [
+        // {
+        //   id: '', text: ''
+        // }
+      ],
+      cityList: [
+    
+      ],
     }
   },
   emits: ['listchanged'],
@@ -98,13 +95,15 @@ export default {
       if (this.company = '') {
         return;
       }
+      this.ad.state = this.ad.state.name
       axios
-        .post('ad/store', { ad: this.ad })
+        .post('ad/store', {
+          ad: this.ad
+        })
         .then(response => {
           if (response.status == 201) {
             this.$emit('listchanged')
             document.getElementById("frm").reset();
-            console.log("added")
             this.showModal = true
           }
         })
@@ -113,13 +112,16 @@ export default {
         })
     },
     getStates() {
-      axios.get(`${this.cscBase}TR/states`, this.key)
-        .then(response => { this.stateList = response.data })
+      axios
+        .get(`${this.cscBase}TR/states`, this.key)
+        .then(response => {
+          this.stateList = response.data
+        })
         .catch(error => { console.log(error) })
     },
     getCities() {
-      console.log(this.selectedState)
-      axios.get(`${this.cscBase}TR/states/${this.selectedState.iso2}/cities`, this.key)
+      axios
+        .get(`${this.cscBase}TR/states/${this.ad.state.iso2}/cities`, this.key)
         .then(response => { this.cityList = response.data })
         .catch(error => { console.log(error) })
     }
@@ -142,6 +144,10 @@ export default {
   }
 }
 
+.ql-blank {
+  padding: 33px 103px !important;
+}
+
 .inputs {
   gap: 12px;
   display: flex;
@@ -153,9 +159,13 @@ export default {
     width: 200px;
     justify-content: space-between;
 
-    input {
+    * {
       width: 100%;
     }
+  }
+
+  .side {
+    flex-direction: column !important;
   }
 }
 
