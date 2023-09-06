@@ -58,20 +58,6 @@
               <div v-for="ad in ads " :key="ad.id">
 
                 <router-link :to="`/ad/${ad.id}`">
-
-              <div class="ad">
-                <a href="" class="logo">
-                  <img class="actualImg" v-if="ad.img" :src="ad.img" alt="Company Logo">
-                  <img class="defaultImg" v-else alt='default KariyerSenin Logo'
-                    src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Eo_circle_blue_letter-k.svg">
-                </a>
-                <div class="adtext">
-                  <p class="ad-company">{{ ad.company }}</p>
-                  <h4>{{ ad.position }}</h4>
-                  <div class="row">
-                    <icon icon="fas fa-map-marker-alt" />
-                    <p>{{ ad.state }}-{{ ad.city }}</p>
-                  </div>
                   <div class="ad">
                     <a href="" class="logo">
                       <img class="actualImg" v-if="ad.img" :src="ad.img" alt="Company Logo">
@@ -94,7 +80,6 @@
                       </div>
                     </div>
                   </div>
-
                 </router-link>
 
               </div>
