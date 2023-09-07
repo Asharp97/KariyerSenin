@@ -4,6 +4,9 @@ import App from "./App.vue";
 import { createRouter, createWebHistory } from "vue-router";
 import store from "./vuex";
 
+//import pinia
+import { createPinia } from 'pinia'
+
 //route imports
 import home from "./views/home.vue";
 import contact from "./views/contact.vue";
@@ -109,6 +112,7 @@ library.add(
 
 const app = createApp(App);
 
+app.use(createPinia())
 app.use(store);
 app.use(router);
 app.component("icon", FontAwesomeIcon);

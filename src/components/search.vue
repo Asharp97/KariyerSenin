@@ -4,10 +4,10 @@
       <h2>Beklediğin iş bir tık uzağında </h2>
       <p>Senin kariyerin senin seçimlerin</p>
 
-      <!-- <div class="search">
+      <div class="search">
         <div class="icon-search">
           <icon class="icon" icon="fas fa-search" />
-          <input type="text" class="input position" placeholder="Pozisyon adı" v-model="search">
+          <input type="text" class="input position" placeholder="Pozisyon adı" v-model="position">
         </div>
         <div class="separator"> </div>
         <div class="icon-search">
@@ -15,7 +15,7 @@
           <input type="text" class="input city" placeholder="Şehir " v-model="city">
         </div>
         <button class="primary-btn" @click="searchFn()">İş Bul</button>
-      </div> -->
+      </div>
     </div>
     <div class="imgDiv">
       <img src="../assets/handshake.png" class="handshake" alt="2 men shaking hands">
@@ -24,22 +24,27 @@
 </template>
 
 <script>
+import { useStore } from '../store'
 export default {
   name: 'search',
   data() {
     return {
+      store: '',
       ads: '',
-      search: '',
+      position: '',
       city: '',
     }
   },
-  props: ['search'],
-  emits: ['searchemit'],
   methods: {
     searchFn() {
-      this.$emit('searchemit')
+      this.store.city = this.city
+      this.store.position = this.position
       this.$router.push('/ads')
     }
+  },
+  setup() {
+    const store = useStore()
+    return { store }
   }
 }
 

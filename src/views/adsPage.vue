@@ -118,7 +118,7 @@
 import axios from 'axios'
 import search from "../components/search.vue";
 
-// import { Icon } from '@iconify/vue'
+import { useStore } from '../store'
 
 import { mapGetters } from 'vuex'
 // import { Icon } from '@iconify/vue'
@@ -205,9 +205,9 @@ export default {
         this.page--
       this.getAds()
     },
-    allAds() {
+    adCount() {
       axios
-        .get('allAds')
+        .get('adCount')
         .then(res => { this.adLength = res.data })
         .catch(err => { console.log(err) })
     },
@@ -217,19 +217,36 @@ export default {
       if (this.page > Math.ceil(this.adLength / this.adPerPage))
         this.page = Math.ceil(this.adLength / this.adPerPage)
       this.getAds()
+    },
+    preFilter() {
+      if (this.store.city || this.store.position) {
+        axios.get(
+          `ad/search/{search}?` +
+          `${this.this.store.city ? `&city=${this.store.city}` : ""}` +
+          `${this.store.position ? `&search=${this.store.position}` : ""}`
+        )
+          .then(response => { this.ads = response.data })
+          .catch(error => { console.log(error); })
+      }
     }
+  }
 
-  },
-  created() {
-    this.greeting()
-    this.getAds()
-    this.getStates()
-    this.getCities()
-    this.allAds()
-  },
-  computed: {
+},
+created() {
+  this.greeting()
+  this.getAds()
+  this.getStates()
+  this.getCities()
+  this.adCount()
+  this.preFilter()
+},
+computed: {
     ...mapGetters(['user', 'admin']),
   },
+setup() {
+  const store = useStore()
+  return { store }
+},
 }
 
 
