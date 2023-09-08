@@ -5,7 +5,8 @@ export const useStore = defineStore("pinia", {
     user: null,
     admin: null,
     token: "",
-    city: "",
+    state: "",
     position: "",
   }),
+  persist: true,
 });

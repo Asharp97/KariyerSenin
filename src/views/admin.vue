@@ -1,5 +1,5 @@
 <template>
-  <div class="admin container" v-if="admin">
+  <div class="admin container" v-if="store.admin">
     <div class="form">
       <addadFrom v-on:listchanged="getAds()" />
     </div>
@@ -13,7 +13,7 @@
 import axios from "axios";
 import addadFrom from "../components/addadForm.vue";
 import listView from "../components/listView.vue";
-import { mapGetters } from "vuex";
+import { useStore } from '../store'
 
 export default {
   components: {
@@ -31,8 +31,7 @@ export default {
       axios
         .get("ads")
         .then((response) => {
-          this.ads = response.data;
-          console.log("list refreshed");
+          this.ads = response.data.data;
         })
         .catch((error) => {
           console.log(error);
@@ -43,8 +42,9 @@ export default {
   created() {
     this.getAds();
   },
-  computed: {
-    ...mapGetters(["user", "admin"]),
+  setup() {
+    const store = useStore()
+    return { store }
   },
 };
 </script>

@@ -18,10 +18,9 @@
     "iconify": "^1.4.0",
     "moment": "^2.29.4",
     "pinia": "^2.1.6",
+    "pinia-plugin-persistedstate": "^3.2.0",
     "vue": "^3.2.36",
-    "vue-router": "^4.1.6",
-    "vuex": "^4.1.0",
-    "vuex-persistedstate": "^4.1.0"
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@iconify/vue": "^4.1.1",

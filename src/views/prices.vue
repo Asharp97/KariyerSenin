@@ -21,7 +21,8 @@
 
 <script>
 import axios from 'axios'
-import { mapGetters } from 'vuex'
+import { useStore } from '../store'
+import setAuthHeader from '../setToken'
 
 export default {
   data() {
@@ -139,15 +140,29 @@ export default {
       else {
         this.$emit('showModal')
       }
+    },
+    getUser() {
+      axios
+        .get('user')
+        .then(response => {
+          if (response.data.type == 'user')
+            this.store.user = response.data
+          if (response.data.type == 'admin')
+            this.store.admin = response.data
+        })
+        .catch(error => { console.log("user yaba " + error) })
     }
   },
   emits: ['showModal'],
-  computed: {
-    ...mapGetters(['user', 'admin'])
+  created() {
+    if (this.store.token) {
+      setAuthHeader(this.store.token)
+      this.getUser()
+    }
   },
-  async created() {
-    const response = await axios.get('user');
-    this.$store.dispatch('user', response.data);
+  setup() {
+    const store = useStore()
+    return { store }
   },
 }
 

@@ -15,7 +15,6 @@ import ads from '../components/ads.vue';
 import startNow from '../components/startNow.vue';
 import activeDistricts from '../components/activeDistricts.vue';
 
-import { mapGetters } from 'vuex'
 
 
 export default {
@@ -36,7 +35,7 @@ export default {
     getAds() {
       axios.get('ads').then(
         response => {
-          this.ads = response.data
+          this.ads = response.data.data
         })
         .catch(error => { console.log(error); })
     }
@@ -44,9 +43,7 @@ export default {
   created() {
     this.getAds();
   },
-  computed: {
-    ...mapGetters(['user', 'admin'])
-  },
+
 
 }
 

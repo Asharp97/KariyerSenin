@@ -162,7 +162,7 @@ export default {
           align-items: center;
           display: flex;
           justify-content: center;
-          border-radius: 4px;
+          border-radius: $radius;
           border: $border;
           font-size: 30px;
           padding-inline: 15px;

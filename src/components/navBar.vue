@@ -14,11 +14,10 @@
       </div>
 
       <div class="right">
-        <div class="sign in" v-if="!user && !admin">
+        <div class="sign in" v-if="!store.user && !store.admin">
           <button class="primary-btn" @click="this.$emit('openModal')">Giriş</button>
         </div>
-        <div class="sign out" v-if="user || admin">
-          <!-- <icon class="icon prim" icon="fa-solid fa-user" contextmenu="userMenu"></icon> -->
+        <div class="sign out" v-if="store.user || store.admin">
           <div class="primary-btn" @click="signOut()">Çikiş</div>
         </div>
         <div class="burgerMenu" @click="this.sideMenu = !this.sideMenu">
@@ -50,8 +49,7 @@
 
 <script>
 import sign from './sign.vue'
-import { mapGetters } from 'vuex'
-import axios from 'axios'
+import { useStore } from '../store'
 
 export default {
   name: "navBar",
@@ -67,19 +65,17 @@ export default {
   },
   methods: {
     signOut() {
-      if (this.user)
-        this.$store.dispatch('user', null)
-      if (this.admin)
-        this.$store.dispatch('admin', null)
-      this.$store.dispatch('token', null)
-      console.log('sign out?')
+      if (this.store.user)
+        this.store.user = null
+      if (this.store.admin)
+        this.store.admin = null
+      this.store.token = null
     }
   },
-  computed: {
-    ...mapGetters(['user', 'admin', 'token'])
+  setup() {
+    const store = useStore()
+    return { store }
   },
-
-
 };
 </script>
 

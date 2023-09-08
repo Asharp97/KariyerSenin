@@ -67,8 +67,9 @@
   </div>
 </template>
 <script>
+import { useStore } from '../store'
+import setAuthHeader from '../setToken'
 import axios from 'axios'
-import { mapGetters } from 'vuex'
 
 export default {
   name: 'sign',
@@ -123,14 +124,15 @@ export default {
             axios.post("login", this.newuser)
               .then(res => {
                 if (res.status = 201) {
-                  this.$store.dispatch('user', response.data.user)
-                  this.$store.dispatch('token', response.data.token);
+                  this.store.user = response.data.user
+                  this.store.token = response.data.token
+                  setAuthHeader(response.data.token)
                   this.$router.push('/ads')
                   this.$emit('closeModal')
                 }
               }).catch(e => console.log("login ERROR!" + e))
           }
-        }).catch(error => this.userError = true)
+        }).catch(error => console.log(error))
 
     },
     signIn() {
@@ -155,17 +157,22 @@ export default {
         .then(response => {
           if (response.status == 201) {
             if (response.data.user.type == 'user') {
-              this.$store.dispatch('user', response.data.user)
+              this.store.user = response.data
               this.$router.push('/ads')
             }
             else if (response.data.user.type == 'admin') {
-              this.$store.dispatch('admin', response.data.user)
+              this.store.admin = response.data
               this.$router.push('/admin')
             }
-            this.$store.dispatch('token', response.data.token);
+            this.store.token = response.data.token
+            setAuthHeader(response.data.token)
             this.$emit('closeModal')
           }
-        }).catch(error => this.userError = true)
+        }).catch(error => console.log(error))
+    },
+    setup() {
+      const store = useStore()
+      return { store }
     },
     toggleShow(x) {
       if (x == 0)
@@ -176,11 +183,10 @@ export default {
         this.hidePassword2 = !this.hidePassword2;
     },
   },
-  computed: {
-    ...mapGetters(['user', 'admin', 'token']),
+  setup() {
+    const store = useStore()
+    return { store }
   },
-
-
 }
 
 

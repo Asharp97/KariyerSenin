@@ -21,7 +21,8 @@ import footery from "./components/footer.vue";
 import sign from "./components/sign.vue";
 import axios from "axios";
 
-import { mapGetters } from 'vuex'
+import { useStore } from './store'
+import setAuthHeader from './setToken'
 
 export default {
   name: "App",
@@ -41,22 +42,23 @@ export default {
       axios
         .get('user')
         .then(response => {
-          console.log(response.data)
-          //        console.log("User:", response);
-          if (response.data.user.type == 'user')
-            this.$store.dispatch('user', response.data);
-          if (response.data.user.type == 'admin')
-            this.$store.dispatch('admin', response.data);
+          if (response.data.type == 'user')
+            this.store.user = response.data
+          if (response.data.type == 'admin')
+            this.store.admin = response.data
         })
         .catch(error => { console.log("user yaba " + error) })
     }
   },
   created() {
-    // if ('token')
-    this.getUser()
+    if (this.store.token) {
+      setAuthHeader(this.store.token)
+      this.getUser()
+    }
   },
-  computed: {
-    ...mapGetters(['user', 'admin', 'token'])
+  setup() {
+    const store = useStore()
+    return { store }
   },
 };
 </script>

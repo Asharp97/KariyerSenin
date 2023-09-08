@@ -7,12 +7,12 @@
       <div class="search">
         <div class="icon-search">
           <icon class="icon" icon="fas fa-search" />
-          <input type="text" class="input position" placeholder="Pozisyon adı" v-model="position">
+          <input @keyup.enter="searchFn" type="text" class="input position" placeholder="Pozisyon adı" v-model="position">
         </div>
         <div class="separator"> </div>
         <div class="icon-search">
-          <icon class="icon" icon="fas fa-map-marker-alt" />
-          <input type="text" class="input city" placeholder="Şehir " v-model="city">
+          <icon class="icon map" icon="fas fa-map-marker-alt " />
+          <input @keyup.enter="searchFn" type="text" class="input city" placeholder="Şehir ya da plaka kodu" v-model="state">
         </div>
         <button class="primary-btn" @click="searchFn()">İş Bul</button>
       </div>
@@ -32,12 +32,12 @@ export default {
       store: '',
       ads: '',
       position: '',
-      city: '',
+      state: null,
     }
   },
   methods: {
     searchFn() {
-      this.store.city = this.city
+      this.store.state = this.state
       this.store.position = this.position
       this.$router.push('/ads')
     }
@@ -61,7 +61,6 @@ export default {
   justify-content: space-between;
 
   .textDiv {
-
     display: flex;
     flex-direction: column;
     justify-content: center;

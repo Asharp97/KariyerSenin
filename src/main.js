@@ -2,10 +2,10 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import { createRouter, createWebHistory } from "vue-router";
-import store from "./vuex";
 
 //import pinia
-import { createPinia } from 'pinia'
+import { createPinia } from "pinia";
+import piniaPluginPersistedState from "pinia-plugin-persistedstate";
 
 //route imports
 import home from "./views/home.vue";
@@ -66,6 +66,7 @@ import {
   faChevronLeft,
   faAnglesRight,
   faAnglesLeft,
+  faHeartCrack,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookF,
@@ -107,13 +108,17 @@ library.add(
   faChevronLeft,
   faAnglesRight,
   faAnglesLeft,
+  faHeartCrack,
 
 );
 
 const app = createApp(App);
 
-app.use(createPinia())
-app.use(store);
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedState);
+
+app.use(pinia);
+
 app.use(router);
 app.component("icon", FontAwesomeIcon);
 

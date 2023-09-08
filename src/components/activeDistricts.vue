@@ -1,26 +1,26 @@
 <template>
   <h2>Aktif iş ilanı bulunan şehirler</h2>
   <div class="container cities">
-    <div class="city-content">
+    <div class="city-content" @click="goIstanbul()">
       <div class="city istanbul">
-        <div class="number">{{ this.getIstanbul() }}</div>
+        <div class="number">{{ getIstanbul() }}</div>
       </div>
       <h3>İstanbul</h3>
     </div>
-    <div class="city-content">
+    <div class="city-content" @click="goAnkara()">
       <div class="city ankara">
         <div class="number">
-          <!-- {{ this.getAnkara() }} -->
-          40
+          {{ getAnkara() }}
+          <!-- 40 -->
         </div>
       </div>
       <h3>Ankara</h3>
     </div>
-    <div class="city-content">
+    <div class="city-content" @click="goIzmir()">
       <div class="city izmir">
         <div class="number">
-          <!-- {{ this.getIzmir() }} -->
-          25
+          {{ getIzmir() }}
+          <!-- 25 -->
         </div>
       </div>
       <h3>İzmir</h3>
@@ -28,8 +28,8 @@
     <div class="city-content">
       <div class="city antalya">
         <div class="number">
-          <!-- {{ this.getAntalya() }} -->
-          20
+          {{ getAntalya() }}
+          <!-- 20 -->
         </div>
       </div>
       <h3>Antalya</h3>
@@ -38,6 +38,7 @@
 </template>
 <script>
 import axios from 'axios';
+import { useStore } from '../store'
 
 export default {
   name: "activedistricts",
@@ -51,29 +52,59 @@ export default {
   },
   methods: {
     getIstanbul() {
-      axios.get(`ad/search/{search}?state=istanbul`)
-        .then(response => { this.istanbul= response.data.length })
+      axios.get(`adCount?state=istanbul`)
+        .then(response => {
+          this.istanbul = response.data
+        })
         .catch(error => { console.log(error); })
       return this.istanbul
     },
     getAnkara() {
-      axios.get(`ad/search/{search}?state=ankara`)
-        .then(response => { this.ankara= response.data.length })
+      axios.get(`adCount?state=ankara`)
+        .then(response => {
+          this.ankara = response.data
+        })
         .catch(error => { console.log(error); })
       return this.ankara
+
     },
     getIzmir() {
-      axios.get(`ad/search/{search}?state=izmir`)
-        .then(response => { this.izmir= response.data.length })
+      axios.get(`adCount?state=izmir`)
+        .then(response => {
+          this.izmir = response.data
+        })
         .catch(error => { console.log(error); })
       return this.izmir
     },
     getAntalya() {
-      axios.get(`ad/search/{search}?state=antalya`)
-        .then(response => { this.antalya= response.data.length })
+      axios.get(`adCount?state=antalya`)
+        .then(response => {
+          this.antalya = response.data
+        })
         .catch(error => { console.log(error); })
       return this.antalya
     },
+
+    goIstanbul() {
+      this.store.state = 'İstanbul'
+      this.$router.push('/ads')
+    },
+    goIzmir() {
+      this.store.state = 'İzmir'
+      this.$router.push('/ads')
+    },
+    goAnkara() {
+      this.store.state = 'Ankara'
+      this.$router.push('/ads')
+    },
+    goAntalya() {
+      this.store.state = 'Antalya'
+      this.$router.push('/ads')
+    },
+  },
+  setup() {
+    const store = useStore()
+    return { store }
   },
 }
 
@@ -90,6 +121,7 @@ h2 {
 
   .city-content {
     text-align: center;
+    cursor: pointer;
 
 
     .city {
