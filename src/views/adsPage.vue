@@ -6,44 +6,47 @@
           {{ store.user.name.charAt(0).toUpperCase() + store.user.name.slice(1) }}</div>
         <div style="margin-left: auto;"> {{ adTotal }} Sonuç Bulundu </div>
       </div>
+
       <div class="filter">
         <div class="wing">
           <div class="couple">
+            <label for="">İlan ara:</label>
             <div class="search">
-              <input @keyup.enter="filter()" id="searchContent" type="text" class="primary-input w-full searchbar"
-                v-model="search" placeholder="İlan ara...">
+              <input @keyup.enter="filter" id="searchContent" type="text" class="primary-input w-full searchbar"
+                v-model="search">
               <icon icon="fas fa-search " class="icon" />
             </div>
-            <select v-model="this.selectedState" class="primary-input" @change="getCities()">
-              <option v-if="this.store.state" selected :value="this.store.state">{{ this.store.state }}</option>
-              <option v-else disabled hidden value="">Il</option>
+          </div>
+          <div class="couple">
+            <label for="">İl:</label>
+            <select v-model="this.selectedState" class="primary-input" @change="getCities">
               <option v-for="state in stateList" :key="state.id" :value="state">{{ state.name }}</option>
             </select>
           </div>
           <div class="couple">
+            <label for="">İlçe:</label>
             <select v-model="this.selectedCity" class="primary-input">
-              <option disabled selected hidden value="">İlçe</option>
               <option v-if="this.selectedState" v-for="city in cityList" :key="city.id">{{ city.name }}</option>
-              <option v-else disabled>önce il seçmelisin</option>
+              <option v-else disabled selected>önce il seçmelisin</option>
             </select>
-            <select @keyup.enter="filter()" v-model="this.time" placeholder="Seçiniz" class="primary-input w-full ">
-              <option value="" disabled selected hidden style="color:gray">Zamanı Seçiniz</option>
+          </div>
+          <div class="couple">
+            <label for="">Çalışma Şekli: </label>
+            <select @keyup.enter="filter" v-model="this.time" placeholder="Seçiniz" class="primary-input w-full ">
               <option>Tam Zamanlı</option>
               <option>Yarı Zamanlı</option>
               <option>Staj</option>
-
             </select>
           </div>
         </div>
         <div class="wing">
-          <div class="couple">
-            <button class="primary-btn secondry redbg" @click="clearFilter()">
-              <icon icon="fa-solid fa-circle-xmark" />
-            </button>
-            <button class="primary-btn secondry" @click="filter()">İşimi bul</button>
-          </div>
+          <button class="primary-btn secondry redbg" @click="clearfilter">
+            <icon icon="fa-solid fa-circle-xmark" />
+          </button>
+          <button class="primary-btn secondry" @click="filter">İşimi bul</button>
         </div>
       </div>
+
       <!-- PAGINATION HERE //////////////////////////////////////////////////// -->
       <div class="pagination">
         <button :class="this.page == 1 ? 'disabled' : ''" @click="firstPage" class="primary-btn">
@@ -62,14 +65,15 @@
           <icon icon="fa-solid fa-angles-right " class="icon" />
         </button>
       </div>
+
       <div class="adsContainer">
         <div class="ads">
 
-          <!-- <div>
+          <div v-show="noAds">
             <h2>Üzgünüz, aradığınız kriterlere uygun bir sonuç bulamadık
               <icon icon="fa-solid fa-heart-crack" class="red" />
             </h2>
-          </div> -->
+          </div>
 
           <!-- <Suspense>
             <template #default> -->
@@ -125,16 +129,13 @@
           <icon icon="fa-solid fa-angles-right " class="icon" />
         </button>
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-
 import { useStore } from '../store'
-// import { Icon } from '@iconify/vue'
 
 export default {
   data() {
@@ -160,42 +161,41 @@ export default {
       selectedCity: '',
       adTotal: '',
       lastPagin: '',
+      noAds: false,
 
     };
   },
   methods: {
-    getAds() {
-      axios.get(`ads?page=` + this.page)
-        .then(response => {
-          this.ads = response.data.data
-          this.lastPagin = response.data.last_page
-          this.adTotal = response.data.total
-        })
-        .catch(error => { console.log(error) })
-    },
     filter() {
+      if (this.store.position)
+        this.search = this.store.position
+      if (this.selectedState)
+        this.store.state = ''
       axios.get(
         'ad?' +
+        `${this.store.state ? `&state=${this.store.state}` : ""}` +
         `${this.selectedState ? `&state=${this.selectedState.name}` : ""}` +
         `${this.selectedCity ? `&city=${this.selectedCity}` : ""}` +
         `${this.time ? `&time=${this.time}` : ""}` +
-        `${this.search ? `&search=${this.search}` : ""}` + `&page=${this.page}`
+        `${this.search ? `&search=${this.search}` : ""}` +
+        `&page=${this.page}`
       )
         .then(response => {
           this.ads = response.data.data
           this.lastPagin = response.data.last_page
           this.adTotal = response.data.total
+          this.notFound()
         })
         .catch(error => { console.log(error); })
     },
-    clearFilter() {
+    clearfilter() {
       this.selectedState = ''
       this.selectedCity = ''
       this.time = ''
       this.search = ''
       this.store.state = ''
       this.store.position = ''
-      this.getAds()
+      this.page = 1
     },
     greeting() {
       if (new Date().getHours() < 12)
@@ -211,7 +211,6 @@ export default {
         .catch(error => { console.log(error) })
     },
     getCities() {
-
       axios.get(`${this.cscBase}TR/states/${this.selectedState.iso2}/cities`, this.key)
         .then(response => { this.cityList = response.data })
         .catch(error => { console.log(error) })
@@ -219,52 +218,41 @@ export default {
     nextPage() {
       if (this.page < this.lastPagin)
         this.page++
-
-      this.filter()
     },
     prevPage() {
       if (this.page > 1)
         this.page--
-      this.filter()
     },
     firstPage() {
       this.page = 1
-      this.filter()
     },
     lastPage() {
       this.page = this.lastPagin
-      this.filter()
     },
     paginateProof() {
       if (this.page < 1)
         this.page = 1
       if (this.page > this.lastPagin)
         this.page = this.lastPagin
-      this.filter()
     },
     plakaConvert() {
       if (!isNaN(this.store.state)) {
         if (this.store.state.length == 1)
           this.store.state = "0".concat(this.store.state)
-
         axios
           .get(`${this.cscBase}TR/states/${this.store.state}`, this.key)
           .then(response => {
             this.store.state = response.data.name
             this.selectedState = response.data
-
             this.search = this.store.position
-            this.filter()
-            // this.getCities()
           })
           .catch(error => console.log(error));
 
       }
       else {
-        this.selectedState = this.store.state
-        this.search = this.store.position
-        this.filter()
-        // this.getCities()
+        this.filter
+        // this.selectedState = this.store.state
+        // this.search = this.store.position
       }
 
     },
@@ -273,7 +261,7 @@ export default {
         .get(
           `ad?` +
           `${this.store.state ? `&state=${this.store.state}` : ""}` +
-          `${this.store.position ? `&position=${this.store.position}` : ""}` +
+          `${this.store.position ? `&search=${this.store.position}` : ""}` +
           `&page=${this.page}`
         )
         .then(response => {
@@ -285,15 +273,45 @@ export default {
           this.selectedState = this.store.state
         })
         .catch(error => { console.log(error); })
+    },
+    notFound() {
+      if (this.ads.length == 0)
+        this.noAds = true
+      else
+        this.noAds = false
+    },
+  },
+  watch: {
+    search() {
+      this.page = 1
+      this.filter
+    },
+    selectedState() {
+      this.page = 1
+      this.filter
+    },
+    selectedCity() {
+      this.page = 1
+      this.filter
+    },
+    time() {
+      this.page = 1
+      this.filter
+    },
+    page() {
+      this.filter
     }
   },
   created() {
     this.greeting()
     this.getStates()
-    if (this.store.state || this.store.position)
+    if (this.store.state)
       this.plakaConvert()
     else
-      this.getAds()
+      if (this.store.position)
+        this.filterByHome()
+      else
+        this.filter
     if (this.selectedState)
       this.getCities()
   },

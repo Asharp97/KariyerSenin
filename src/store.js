@@ -8,5 +8,5 @@ export const useStore = defineStore("pinia", {
     state: "",
     position: "",
   }),
-  persist: true,
+  // persist: true,
 });

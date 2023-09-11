@@ -207,7 +207,7 @@ a {
   background-color: $primary;
   color: white;
   border: none;
-  font-size: 24px;
+  font-size: 18px;
   transition: 300ms;
   cursor: pointer;
   border-radius: $radius;
